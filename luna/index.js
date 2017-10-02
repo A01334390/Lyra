@@ -16,11 +16,15 @@ var files = require('./lib/files');
 var program = require('commander');
 var cliSpinners = require('cli-spinners');
 var ora = require('ora');
+var md5 = require('md5');
 
 //We will start the daemon here
-helloWorld(function () {
-    console.log();
-});
+helloWorld((err, success) => {
+    if (err) {
+        return console.log('App wont open. Check log');
+    }
+})
+
 //Here it ends
 
 ///This is the main screen, shows the name of everyone involved in the project
@@ -60,20 +64,18 @@ if (files.directoryExists('.git')) {
 
 function getDo(callback) {
     var questions = [{
-            type: "list",
-            name: "initial",
-            message: "What should we do next?",
-            choices: [
-                new inquirer.Separator(),
-                "Check if all Blockchain Nodes are Up",
-                "Check if ledger is synchronized",
-                "Initiate Gremlin Test",
-                new inquirer.Separator(),
-                "Exit"
-            ]
-        }
-
-    ];
+        type: "list",
+        name: "initial",
+        message: "What should we do next?",
+        choices: [
+            new inquirer.Separator(),
+            "Check if all Blockchain Nodes are Up",
+            "Check if ledger is synchronized",
+            "Initiate Gremlin Test",
+            new inquirer.Separator(),
+            "Exit"
+        ]
+    }];
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
@@ -302,7 +304,6 @@ function ledgerSync(whereto) {
                         }, 5500);
                     }, 4500);
                 }, 3500);
-
             }, 2500);
         }, 1500);
     }, 8500);
@@ -544,10 +545,53 @@ function postGremlinMenu() {
 }
 
 function reviewIndivTransactions() {
-    
+    console.log(
+        chalk.cyan(
+            figlet.textSync('List of Transactions', {
+                font: 'lean',
+                horizontalLayout: 'default',
+            })
+        )
+    );
+
+    console.log('\n');
+
+    for(var i = 0;i<100;i++){
+        console.log(chalk.red('Transaction :',(i+1),'from:',md5(i),'to:',md5(i*100),'for:',Math.random()*1000));
+    }
+
+    console.log('\n');
+
+    postGremlinMenu((error,success)=>{
+        if(error){
+            return console.log('Fatal error, closing...');
+        }
+    });
 }
 
 function reviewUserAccount() {
+    console.log(
+        chalk.blue(
+            figlet.textSync('User accounts involved', {
+                font: 'chunky',
+                horizontalLayout: 'default',
+            })
+        )
+    );
+
+    console.log('\n');
+    
+        for(var i = 0;i<100;i++){
+            console.log(chalk.white('User :',(i+1),'Wallet address:',md5(i),'Ether:',Math.random()*1000));
+        }
+    
+        console.log('\n');
+    
+        postGremlinMenu((error,success)=>{
+            if(error){
+                return console.log('Fatal error, closing...');
+            }
+        });
 
 }
 
