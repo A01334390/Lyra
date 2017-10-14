@@ -6,7 +6,7 @@ Semestre i's challenge Blockchain distribution
 <ul>
   <li>Node.js</li>
   <li>Hyperledger Fabric</li>
-  <li></li>
+  <li>CentOS 7</li>
 </ul>
 
 <p> This program is supposed to be a work in progress to reach <i>at least</i> 1E9 transactions per day </p>
