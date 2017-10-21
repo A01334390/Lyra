@@ -1,0 +1,29 @@
+/**
+ * Write your model definitions here
+ */
+
+namespace org.aabo
+
+//Default User definition, not necessary to refactor
+//Not even for testing or deployment purposes
+participant Client identified by id {
+  o String id
+}
+
+asset Wallet identified by id {
+  o String id
+  o Double balance
+  --> Client owner
+}
+
+transaction Transfer {
+  o Double amount
+  o Wallet from
+  o Wallet to
+}
+
+transaction SeedMoney {
+  o Double amount
+  o Wallet wallet
+}
+
