@@ -234,7 +234,7 @@ const showCurrentAssets = () => {
 / ======== Show Current Participants Error =========
 / This method shows the participants that exist in the Blockchain
 / Receives and returns no particular assets
-/ Bugs:: Tested  >> Further Tests:: Shows no participants
+/ Bugs:: Tested  >> Further Tests:: Shows all participants
 / ======== ======== ======== ========
 */
 
