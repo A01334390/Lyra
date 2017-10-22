@@ -3,6 +3,9 @@
 # Exit on first error, print all commands.
 set -v
 
+#Run NPM Install
+sudo npm install
+
 #Make directory dist
 mkdir dist
 
