@@ -53,7 +53,6 @@ function helloWorld() {
     console.log(
         chalk.cyan(
             figlet.textSync('Lyra', {
-                font: 'isometric3',
                 horizontalLayout: 'full',
                 verticalLayout: 'default'
             })
