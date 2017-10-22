@@ -6,9 +6,8 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "composer --version || { echo 'Please first run npm install -g composer-cli'; exit 1;} ",
-    "systemPrepare": "curl -O https://hyperledger.github.io/composer/prereqs-ubuntu.sh && chmod u+x prereqs-ubuntu.sh && ./prereqs-ubuntu.sh",
-    "composerPrepare": "npm install -g composer-cli && npm install -g generator-hyperledger-composer && npm install -g composer-rest-server && npm install -g yo && npm install -g composer-playground",
-    "hyperledgerStart": "docker kill $(docker ps -q) && docker rm $(docker ps -aq) && docker rmi $(docker images dev-* -q) && mkdir ~/fabric-tools && cd ~/fabric-tools && curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip && unzip fabric-dev-servers.zip && cd ~/fabric-tools && ./downloadFabric.sh && ./startFabric.sh && ./createComposerProfile.sh",
+    "first-step": "scripts/lyrainstaller-1.sh",
+    "second-step": "scripts/lyrainstaller-2.sh",
     "test": "echo 'Lyra-cli can be installed now'",
     "startHLF": "scripts/start-hyperledger.sh",
     "stopHLF": "scripts/stop-hyperledger.sh",
