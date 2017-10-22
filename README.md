@@ -61,6 +61,7 @@ Semestre i's challenge Blockchain distribution
   <li>
     $ sed -i -e 's/\r$//' lyrainstaller-2.sh
   </li>
+  </ul>
     
 <h1> How to deploy the Smart Contract to Docker </h1>
 <p> To deploy the Smart Contract (chaincode) you can run </p>
