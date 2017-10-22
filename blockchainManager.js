@@ -82,12 +82,56 @@ const checkConnection = () => {
         }).
     then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
+            getAllParticipantRegistries();
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
         });
 
+}
+
+/*
+/ ======== Get All Participant Registries =========
+/ This method retrieves all registered Participants on the network
+/ Receives and returns no particular parameters
+/ Bugs:: Tested  >> Further Tests:: No particular behaviour for errors
+/ ======== ======== ======== ========
+*/
+
+const getAllParticipantRegistries = () => {
+    // create the connection
+    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
+        .then((result) => {
+            businessNetworkDefinition = result;
+            console.log('\n');
+            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
+            return businessNetworkConnection.getAllParticipantRegistries();
+        }).then((result) => {
+            console.log('List of Participant registries=');
+
+            let table = new Table({
+                head: ['Registry Type', 'ID', 'Name']
+            });
+            for (let i = 0; i < result.length; i++) {
+                let tableLine = [];
+
+                tableLine.push(result[i].registryType);
+                tableLine.push(result[i].id);
+                tableLine.push(result[i].name);
+                table.push(tableLine);
+            }
+
+            console.log(chalk.white(table.toString()));
+            return businessNetworkConnection.disconnect();
+        }).
+    then(() => {
+            console.log(chalk.blue(' ------ All done! ------'));
+            console.log('\n');
+
+        }) // and catch any exceptions that are triggered
+        .catch(function (error) {
+            throw error;
+        });
 }
 
 /*
@@ -97,66 +141,102 @@ const checkConnection = () => {
 / @param walletSeed is a Number that expects the seed for the wallet ID
 / @param bottom is a Number that expects the lower bound for the wallet's random balance 
 / @param top is a Number that expects the top bound for the wallet's random balance 
-/ Bugs:: Not tested  >> Further Tests:: No particular behaviour for errors
+/ Bugs:: Tested  >> Further Tests:: Will go to the success case even if its not successful 
 / ======== ======== ======== ========
 */
 
 const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
+    let client;
+    let ownerRelation;
+    let wallet;
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
         .then((result) => {
             businessNetworkDefinition = result;
             console.log('\n');
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return BusinessNetworkConnection.getAssetRegistry('org.aabo.Client');
+            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
         }).then((result) => {
-            console.log(result);
-            let factory = this.businessNetworkConnection.getFactory();
-            var owner = factory.newResource('org.aabo.Wallet', 'Wallet', 'PID:1234567890');
-            owner.id = md5(clientSeed);
-
-            result.add(owner);
-
-            return businessNetworkConnection.disconnect();
-        }).
-    then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-        }) // and catch any exceptions that are triggered
-        .catch(function (error) {
-            throw error;
+            this.walletRegistry = result
+        }).then(() => {
+            let factory = businessNetworkDefinition.getFactory();
+            /** Create a new Participant within the network */
+            client = factory.newResource('org.aabo', 'Client', 'PID:' + clientSeed);
+            client.id = md5(clientSeed);
+            /** Create a new relationship for the owner */
+            ownerRelation = factory.newRelationship('org.aabo', 'Client', 'PID:' + clientSeed);
+            /** Create a new wallet for the owner */
+            wallet = factory.newResource('org.aabo', 'Wallet', 'LID:' + (walletSeed + top));
+            wallet.id = md5(walletSeed);
+            wallet.balance = (Math.random() * top) + bottom;
+            wallet.owner = client;
+            /** Save the new state of this relationship to the Blockchain */
+            console.log(wallet);
+            return this.walletRegistry.add(wallet);
+        }).then(() => {
+            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+        }).then((clientRegistry) => {
+            return clientRegistry.add(owner);
+        }).catch(function (error) {
+            console.log(error);
+            throw (error);
         });
 }
 
+/*
+/ ======== Show Current Assets =========
+/ This method shows the current assets that exist within the Blockchain
+/ Receives no particular parameter and returns nothing interesting
+/ Bugs:: Tested  >> Further Tests:: Shows wallets, but wont print tables
+/ ======== ======== ======== ========
+*/
+
 const showCurrentAssets = () => {
+    let walletRegistry;
+    let clientRegistry;
+
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
         .then((result) => {
             businessNetworkDefinition = result;
             console.log('\n');
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
-        }).then((result) => {
+        }).then((registry) => {
+            walletRegistry = registry;
+            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+        }).then((registry) => {
+            clientRegistry = registry;
+            return walletRegistry.resolveAll();
+        }).then((aResources) => {
             let table = new Table({
-                head: ['ID', 'Balance', 'Owner']
+                head: ['ID', 'Balance', 'Owner ID']
             });
-            let arrayLength = result.length;
+            let arrayLength = aResources.length;
             for (let i = 0; i < arrayLength; i++) {
-                let tableLine = []
-                tableLine.push(result[i].id);
-                tableLine.push(result[i].balance);
-                tableLine.push(result[i].owner.id);
+                let tableLine = [];
+                tableLine.push(aResources[i].id);
+                tableLine.push(aResources[i].balance);
+                tableLine.push(aResources[i].owner.id);
                 table.push(tableLine);
             }
-            console.log(table.toString());
-            return businessNetworkConnection.disconnect();
-        }).
-    then(() => {
+            // Put to stdout - as this is really a command line app
+            System.out.println(table);
+        }).then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
+            return businessNetworkConnection.disconnect();
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
         });
 }
+
+/*
+/ ======== Show Current Participants Error =========
+/ This method shows the participants that exist in the Blockchain
+/ Receives and returns no particular assets
+/ Bugs:: Tested  >> Further Tests:: Shows no participants
+/ ======== ======== ======== ========
+*/
 
 const showCurrentParticipants = () => {
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
@@ -167,6 +247,7 @@ const showCurrentParticipants = () => {
                     return registry.getAll();
                 })
                 .then((pResources) => {
+                    console.log(pResources);
                     let table = new Table({
                         head: ['ID']
                     });
@@ -176,7 +257,7 @@ const showCurrentParticipants = () => {
                         tableLine.push(pResources[i].id);
                         table.push(tableLine);
                     }
-                    console.log(table.toString());
+                    console.log(chalk.white(table.toString()));
                     return businessNetworkConnection.disconnect();
                 })
         })
@@ -193,5 +274,6 @@ module.exports = {
     checkConnection,
     initializatorDaemon,
     showCurrentAssets,
-    showCurrentParticipants
+    showCurrentParticipants,
+    getAllParticipantRegistries
 }
