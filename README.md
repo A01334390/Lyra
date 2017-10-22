@@ -18,11 +18,11 @@ Semestre i's challenge Blockchain distribution
 <p> If you've already got node.js and npm installed, you can reach to the project's folder and issue the following commands</p>
 <ul>
   <li> $ npm run-script first-step</li>
-  <li> <b>Then logout and login again, reboot if possible<b></li>
+  <li> <b>Then logout and login again, reboot if possible</b></li>
     <li> $ npm run-script second-step</li>
 </ul>
 
-<h3> The 'Clean Slate' Path <h3>
+<h3> The 'Clean Slate' Path </h3>
 <p> If your system has nothing but basic ubuntu installed, do the following <p>
   <ol>
     <li>
@@ -52,8 +52,15 @@ Semestre i's challenge Blockchain distribution
     <li>
       <b> DONE </b>
     </li>
-    
   </ol>
+  <p> If the Scripts launch a <i> bad interpreter: No such file or directory </i> message, issue the following statements: </p>
+  <ul>
+  <li>
+    $ sed -i -e 's/\r$//' lyrainstaller-1.sh
+  </li>
+  <li>
+    $ sed -i -e 's/\r$//' lyrainstaller-2.sh
+  </li>
     
 <h1> How to deploy the Smart Contract to Docker </h1>
 <p> To deploy the Smart Contract (chaincode) you can run </p>
