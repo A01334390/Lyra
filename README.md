@@ -28,13 +28,10 @@ Semestre i's challenge Blockchain distribution
     <li>$ sudo apt-get install npm</li>
 </ul>
 <h3> Step 3 </h3>
-<p> Go into the Lyra-cli folder and issue the install command </p>
+<p> Go into the Lyra-cli folder  </p>
 <ul>
   <li>
     $ cd ~/lyra-cli
-  </li>
-  <li>
-    $ sudo npm install
   </li>
 </ul>   
 <h3> Step 4 </h3>
@@ -54,6 +51,14 @@ Semestre i's challenge Blockchain distribution
   <li> $ npm run-script composerPrepare : <b> This command installs all Hyperledger Composer Tools </b></li>
   <li> $ npm run-script hyperledgerStart : <b> This command removes all Docker containers, downloads Hyperledger, starts it and creates a Composer certificate</b></li>
 </ul>
+
+<h3> Step 6 </h3> 
+<p> Run the npm install command </p>
+<ul>
+    <li>
+    $ sudo npm install
+  </li>
+  </ul>
   
 <h1> How to deploy the Smart Contract to Docker </h1>
 <p> To deploy the Smart Contract (chaincode) you can run </p>
