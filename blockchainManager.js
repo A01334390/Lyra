@@ -160,12 +160,12 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
         }).then(() => {
             let factory = businessNetworkDefinition.getFactory();
             /** Create a new Participant within the network */
-            client = factory.newResource('org.aabo', 'Client', 'PID:' + clientSeed);
+            client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
             client.id = md5(clientSeed);
             /** Create a new relationship for the owner */
-            ownerRelation = factory.newRelationship('org.aabo', 'Client', 'PID:' + clientSeed);
+            ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
             /** Create a new wallet for the owner */
-            wallet = factory.newResource('org.aabo', 'Wallet', 'LID:' + (walletSeed + top));
+            wallet = factory.newResource('org.aabo', 'Wallet',  md5(walletSeed));
             wallet.id = md5(walletSeed);
             wallet.balance = (Math.random() * top) + bottom;
             wallet.owner = ownerRelation;
@@ -215,11 +215,11 @@ const showCurrentAssets = () => {
                 let tableLine = [];
                 tableLine.push(aResources[i].id);
                 tableLine.push(aResources[i].balance);
-                tableLine.push(aResources[i].owner.id);
+                tableLine.push(aResources[i].owner);
                 table.push(tableLine);
             }
             // Put to stdout - as this is really a command line app
-            console.log(table);
+            console.log(table.toString());
         }).then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
@@ -276,10 +276,53 @@ const showCurrentParticipants = () => {
         });
 }
 
+/*
+/ ======== Make Transaction Method =========
+/ This method makes a transaction over the network
+/ @param fromPid is the md5 related to a Client on the Blockchain who's receiving money
+/ @param toPid is the md5 related to a Client on the Blockchain who's receiving money
+/ @param funds is a number that means the amount of money that is being sent
+/ Bugs:: Not Tested  >> Further Tests:: Needs to be tested first
+/ ======== ======== ======== ========
+*/
+
+const makeTransaction = (fromPid, toPid, funds) => {
+    let from;
+    let to;
+
+    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
+        .then((result) => {
+            businessNetworkDefinition = result;
+            console.log('\n');
+            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
+            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
+        }).then((registry) => {
+            return registry.get('2723d092b63885e0d7c260cc007e8b9d');
+        }).then((registry)=>{
+            return registry.get('38b3eff8baf56627478ec76a704e9b52');
+        }).then((result) => {
+            let factory = businessNetworkDefinition.getFactory();
+            let transaction = factory.newTransaction('org.aabo', 'Transfer');
+            transaction.amount = funds;
+            transaction.from = factory.newRelationship('org.aabo', 'Wallet', '2723d092b63885e0d7c260cc007e8b9d');
+            transaction.to = factory.newRelationship('org.aabo', 'Wallet', '38b3eff8baf56627478ec76a704e9b52');
+            return businessNetworkConnection.submitTransaction(transaction);
+         }).then(() => {
+                console.log(chalk.blue(' ------ All done! ------'));
+                console.log('\n');
+                return businessNetworkConnection.disconnect();
+             // and catch any exceptions that are triggered
+        }).catch(function (error) {
+            businessNetworkConnection.disconnect();
+            throw error;
+        });
+}
+
 module.exports = {
     checkConnection,
     initializatorDaemon,
     showCurrentAssets,
     showCurrentParticipants,
-    getAllParticipantRegistries
+    getAllParticipantRegistries,
+    makeTransaction
 }

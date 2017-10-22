@@ -89,6 +89,7 @@ function showMainMenu() {
             "Create a batch of Clients and Wallets",
             "Show current Assets on the Blockchain",
             "Show current Participants on the Blockchain",
+            "Make a transaction",
             "Initiate Gremlin Test",
             new inquirer.Separator(),
             "Exit"
@@ -106,18 +107,10 @@ function showMainMenu() {
                             process.exit(1);
                         }
                     });
-                }, 3000);
+                }, 8000);
                 break;
             case 'Create a batch of Clients and Wallets':
                 batchCreation();
-                setTimeout(() => {
-                    showMainMenu((err, success) => {
-                        if (err) {
-                            console.log(chalk.red('An error occured, closing..'));
-                            process.exit(1);
-                        }
-                    });
-                }, 3000);
                 break;
 
             case 'Initiate Gremlin Test':
@@ -133,7 +126,7 @@ function showMainMenu() {
                             process.exit(1);
                         }
                     });
-                }, 3000);
+                }, 8000);
                 break;
 
             case 'Show current Participants on the Blockchain':
@@ -145,7 +138,11 @@ function showMainMenu() {
                             process.exit(1);
                         }
                     });
-                }, 3000);
+                }, 6000);
+            break;
+
+            case 'Make a transaction':
+                hyper.makeTransaction('55a54008ad1ba589aa210d2629c1df41','89e74e640b8c46257a29de0616794d5d',100);
             break;
 
             case 'Exit':
@@ -194,4 +191,8 @@ const batchCreation = () => {
             console.log(err);
         }
     });
+}
+
+const gremlinTestDaemon = () =>{
+    console.log("I'm not built yet!")
 }
