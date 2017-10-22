@@ -1,0 +1,2 @@
+2017-10-21T21:00:21.180Z ERROR   HLFConnectionManager    :_setupWallet()           ENOTSUP {}$
+2017-10-21T21:00:21.181Z ERROR   HLFConnectionManager    :connect()                {"message":"error trying to setup a keystore path. ENOTSUP","stack":"Error: error trying to setup a keystore path. ENOTSUP\n    at Client.newDefaultKeyValueStore.then.catch (/Users/a01334390/Downloads/lyra-cli/node_modules/composer-connector-hlfv1/lib/hlfconnectionmanager.js:309:36)\n    at <anonymous>"}$

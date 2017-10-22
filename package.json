@@ -1,30 +1,46 @@
 {
-  "name": "lyra",
+  "name": "lyra-cli",
   "version": "0.0.1",
-  "description": "Super Fast Transaction Network",
-  "scripts": {
-    "test": "mocha --recursive"
-  },
+  "description": "Hyperledger Composer Super Fast Network",
   "author": "Aabo Technologies© 2017",
-  "email": "a01334390@itesm.mx",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "browserfs": "latest",
-    "chai": "latest",
-    "composer-admin": "latest",
-    "composer-client": "^0.14.1",
-    "composer-connector-embedded": "latest",
-    "eslint": "latest",
-    "istanbul": "latest",
-    "mkdirp": "latest",
-    "mocha": "latest"
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "composer --version || { echo 'Please first run npm install -g composer-cli'; exit 1;} ",
+    "systemPrepare": "curl -O https://hyperledger.github.io/composer/prereqs-ubuntu.sh && chmod u+x prereqs-ubuntu.sh && ./prereqs-ubuntu.sh",
+    "composerPrepare": "npm install -g composer-cli && npm install -g generator-hyperledger-composer && npm install -g composer-rest-server && npm install -g yo && npm install -g composer-playground",
+    "hyperledgerStart": "docker kill $(docker ps -q) && docker rm $(docker ps -aq) && docker rmi $(docker images dev-* -q) && mkdir ~/fabric-tools && cd ~/fabric-tools && curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip && unzip fabric-dev-servers.zip && cd ~/fabric-tools && ./downloadFabric.sh && ./startFabric.sh && ./createComposerProfile.sh",
+    "test": "echo 'run the automated tests here'",
+    "startHLF": "scripts/start-hyperledger.sh",
+    "stopHLF": "scripts/stop-hyperledger.sh",
+    "teardownHLF": "scripts/teardown.sh",
+    "deployNetwork": "mkdir dist && composer archive create -a dist/lyra-cli.bna --sourceType dir --sourceName . && composer network deploy -a dist/lyra-cli.bna -p hlfv1 -i PeerAdmin -s randomString -A admin -S",
+    "pingNetwork": "composer network ping -n lyra-cli -p hlfv1 -i admin -s adminpw",
+    "install": "scripts/download-hyperledger.sh && scripts/start-hyperledger.sh && npm run deployNetwork",
+    "start": "node index.js"
   },
+  "keywords": [
+    "Blockchain",
+    "Solutions",
+    "Framework",
+    "getting-started",
+    "Hyperledger Composer"
+  ],
+  "license": "Apache-2.0",
   "dependencies": {
     "chalk": "^2.2.0",
     "clear": "0.0.1",
     "cli-spinners": "^1.1.0",
+    "cli-table": "latest",
+    "composer-client": "latest",
+    "config": "^1.21.0",
+    "digitalproperty-network": "latest",
     "figlet": "^1.2.0",
     "inquirer": "^3.3.0",
-    "ora": "^1.3.0"
+    "md5": "^2.2.1",
+    "ora": "^1.3.0",
+    "prettyoutput": "^1.1.1",
+    "shelljs": "^0.7.5",
+    "winston": "^2.2.0",
+    "yargs": "^6.5.0"
   }
 }

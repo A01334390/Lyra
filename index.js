@@ -1,3 +1,13 @@
+/*
+/ ======== Index =========
+/ This is the main file for the Lyra Project
+/ As of now, it works with the latest version of Hyperledger
+/ Made by Aabo Technologies © 2017 - Servers Division
+/ Created > September 18th, 2017 @ 2:26 p.m. by A01334390
+/ Last revised > October 21st, 2017 @ 7:20 p.m. by A01334390
+/ ======== ======== ======== ========
+*/
+
 //CLI Elements and Libraries
 var chalk = require('chalk');
 var clear = require('clear');
@@ -7,6 +17,10 @@ var cliSpinners = require('cli-spinners');
 var ora = require('ora');
 
 //Hyperledger Fabric Code And Connectors
+var hyper = require('./blockchainManager');
+
+
+
 //                                 ___           ___     
 //                     ___        /  /\         /  /\    
 //                    /__/|      /  /::\       /  /::\   
@@ -19,15 +33,22 @@ var ora = require('ora');
 //      \__\/           \__\/    \  \:\        \  \:\    
 //                                \__\/         \__\/    
 
-// We start the daemon here
-helloWorld((err,success)=>{
-    if(err){
+//Initializes the main menu
+helloWorld((err, success) => {
+    if (err) {
         return console.log('An error just happened, shutting down...');
     }
 });
 
-// This Displays information about the app. 
-function helloWorld(){
+/*
+/ ======== Hello World =========
+/ This method shows the main menu
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: Any time a new option is added
+/ ======== ======== ======== ========
+*/
+
+function helloWorld() {
     clear();
     console.log(
         chalk.cyan(
@@ -46,27 +67,27 @@ function helloWorld(){
     console.log(chalk.magenta.bold('Made by:'));
     console.log(chalk.green.bold('--Andres Bustamante Diaz'));
     console.log(chalk.white.bold('--Enrique Navarro Torres-Arpi'));
-    console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
     console.log(chalk.magenta.bold('--Fernando Martin Garcia Del Angel'));
+    console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
 
     console.log("\n");
     //Call to the main menu
-    showMainMenu((err,success)=>{
-        if(err){
+    showMainMenu((err, success) => {
+        if (err) {
             return console.log('Main menu had a problem,shutting down...');
         }
     });
 }
 //Main menu with the needed methods
-function showMainMenu(){
+function showMainMenu() {
     var questions = [{
         type: "list",
         name: "initial",
         message: "What should we do next?",
         choices: [
             new inquirer.Separator(),
-            "Check if all Blockchain Nodes are Up",
-            "Check if ledger is synchronized",
+            "Start the connection with Hyperledger",
+            "Create a batch of Clients and Wallets",
             "Initiate Gremlin Test",
             new inquirer.Separator(),
             "Exit"
@@ -75,20 +96,75 @@ function showMainMenu(){
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
-            case 'Check if all Blockchain Nodes are Up':
-                blockchainNodes();
+            case 'Start the connection with Hyperledger':
+                hyper.startConnection();
+                setTimeout(() => {
+                    showMainMenu((err, success) => {
+                        if (err) {
+                            console.log(chalk.red('An error occured, closing..'));
+                            process.exit(1);
+                        }
+                    });
+                }, 2000);
                 break;
-
-            case 'Check if ledger is synchronized':
-                ledgerSync('home');
+            case 'Create a batch of Clients and Wallets':
+                batchCreation();
                 break;
 
             case 'Initiate Gremlin Test':
                 gremlinTestDaemon();
                 break;
             case 'Exit':
-                process.exit(1);
+                process.exit(0);
                 break;
+        }
+    });
+}
+
+const batchCreation = () => {
+    var questions = [{
+            type: 'input',
+            name: 'clientNumber',
+            message: 'How many users are we going to create?',
+            default: 1000,
+        },
+        {
+            type: 'input',
+            name: 'top',
+            message: 'Which will be the top amount of balance the client will have?',
+            default: 100000
+        },
+        {
+            type: 'input',
+            name: 'bottom',
+            message: 'Which will be the bottom amount of balance the client will have?',
+            default: 0
+        }
+    ];
+
+    inquirer.prompt(questions).then(function (answers) {
+        //We first initiate the ora module
+        const spinner = new ora({
+            text: 'Initializing Clients and Wallets..',
+            spinner: 'moon'
+        });
+
+        try {
+            spinner.start();
+            for (i = 0; i < answers.clientNumber; i++) {
+                hyper.initializatorDaemon(i, (clientNumber + i), answers.bottom, answers.top);
+            }
+            spinner.succeed('Clients and Wallets Created!');
+        } catch (err) {
+            spinner.fail('Found a problem while creating...');
+        }
+
+    });
+
+    showMainMenu((err, success) => {
+        if (err) {
+            console.log(chalk.red('An error occured, closing..'));
+            process.exit(1);
         }
     });
 }

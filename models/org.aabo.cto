@@ -5,6 +5,10 @@
 namespace org.aabo
 
 //Default User definition, not necessary to refactor
+participant User identified by email {
+  o String email
+}
+
 //Not even for testing or deployment purposes
 participant Client identified by id {
   o String id

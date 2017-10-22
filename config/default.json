@@ -1,0 +1,9 @@
+{
+
+  "lyra-cli" : {
+     "participantId" : "admin",
+     "participantPwd" :"adminpw",
+     "businessNetworkIdentifier" : "lyra-cli",
+     "connectionProfile" : "hlfv1"
+  }
+}

@@ -1,0 +1,2 @@
+2017-10-21T22:22:57.265Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: chaincode error (status: 500, message: Error installing chaincode code lyra-cli:0.14.1(chaincode /var/hyperledger/production/chaincodes/lyra-cli.0.14.1 exists))
+    at /usr/local/lib/node_modules/composer-cli/node_modules/fabric-client/node_modules/grpc/src/node/src/client.js:434:17 {}$
