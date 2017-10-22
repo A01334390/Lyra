@@ -6,7 +6,7 @@
 / Made by Aabo Technologies © 2017 - Servers Division
 / Last revised > October 21st, 2017 @ 7:20 p.m. by A01334390
 / ======== ======== ======== ========
-*/ 
+*/
 
 // ______  __      ______  ______  __  __  ______  __  __  ______  __  __   __    
 // /\  == \/\ \    /\  __ \/\  ___\/\ \/ / /\  ___\/\ \_\ \/\  __ \/\ \/\ "-.\ \   
@@ -18,7 +18,7 @@
 // \ \ \-./\ \ \  __ \ \ \-.  \ \  __ \ \ \__ \ \  __\\ \  __<   
 //  \ \_\ \ \_\ \_\ \_\ \_\\"\_\ \_\ \_\ \_____\ \_____\ \_\ \_\ 
 //   \/_/  \/_/\/_/\/_/\/_/ \/_/\/_/\/_/\/_____/\/_____/\/_/ /_/ 
-                                                              
+
 // ------- Basic Libraries for this package -------
 const Table = require('cli-table');
 const prettyoutput = require('prettyoutput');
@@ -47,13 +47,14 @@ let businessNetworkDefinition;
 let assetRegistry;
 
 /*
-/ ======== Start Connection Method =========
+/ ========Check Connection Method =========
 / This method starts the connection with the chaincode and queries the registered models
 / It receives no parameters and returns no particular object
+/ Useful to check if you're actually connected to the system
 / Bugs:: No >> Further Tests:: No particular behaviour for errors
 / ======== ======== ======== ========
-*/ 
-const startConnection = () => {
+*/
+const checkConnection = () => {
     // create the connection
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
         .then((result) => {
@@ -98,32 +99,99 @@ const startConnection = () => {
 / @param top is a Number that expects the top bound for the wallet's random balance 
 / Bugs:: Not tested  >> Further Tests:: No particular behaviour for errors
 / ======== ======== ======== ========
-*/ 
+*/
 
-const initializatorDaemon = (clientSeed,walletSeed,bottom,top) => {
-    this.bizNetworkConnection.getAssetRegistry('org.aabo.Wallet')
-    .then((result) => {
-        this.walletRegistry = result;
-    });
+const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
+    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
+        .then((result) => {
+            businessNetworkDefinition = result;
+            console.log('\n');
+            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
+            return BusinessNetworkConnection.getAssetRegistry('org.aabo.Client');
+        }).then((result) => {
+            console.log(result);
+            let factory = this.businessNetworkConnection.getFactory();
+            var owner = factory.newResource('org.aabo.Wallet', 'Wallet', 'PID:1234567890');
+            owner.id = md5(clientSeed);
 
-    let factory = businessNetworkDefinition.getFactory();
-    client = factory.newResource('org.aabo', 'Client', 'PID:1234567890');
-    client.id = md5(clientSeed);
+            result.add(owner);
 
-    let wallet = factory.newResource('org.aabo','Wallet','LID:6789');
-    wallet.id = md5(walletSeed);
-    wallet.balance = (Math.random()*top)+bottom ; 
-    wallet.owner = client;
+            return businessNetworkConnection.disconnect();
+        }).
+    then(() => {
+            console.log(chalk.blue(' ------ All done! ------'));
+            console.log('\n');
+        }) // and catch any exceptions that are triggered
+        .catch(function (error) {
+            throw error;
+        });
+}
 
-    this.walletRegistry.addAll(wallet);
+const showCurrentAssets = () => {
+    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
+        .then((result) => {
+            businessNetworkDefinition = result;
+            console.log('\n');
+            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
+            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
+        }).then((result) => {
+            let table = new Table({
+                head: ['ID', 'Balance', 'Owner']
+            });
+            let arrayLength = result.length;
+            for (let i = 0; i < arrayLength; i++) {
+                let tableLine = []
+                tableLine.push(result[i].id);
+                tableLine.push(result[i].balance);
+                tableLine.push(result[i].owner.id);
+                table.push(tableLine);
+            }
+            console.log(table.toString());
+            return businessNetworkConnection.disconnect();
+        }).
+    then(() => {
+            console.log(chalk.blue(' ------ All done! ------'));
+            console.log('\n');
+        }) // and catch any exceptions that are triggered
+        .catch(function (error) {
+            throw error;
+        });
+}
 
-    this.bizNetworkConnection.getParticipantRegistry('aabo.org.Client')
-    .then((clientRegistry) => {
-        return clientRegistry.add(client);
-    })
+const showCurrentParticipants = () => {
+    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
+        .then((result) => {
+            businessNetworkDefinition = result;
+            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client')
+                .then((registry) => {
+                    return registry.getAll();
+                })
+                .then((pResources) => {
+                    let table = new Table({
+                        head: ['ID']
+                    });
+                    let arrayLength = pResources.length;
+                    for (let i = 0; i < arrayLength; i++) {
+                        let tableLine = [];
+                        tableLine.push(pResources[i].id);
+                        table.push(tableLine);
+                    }
+                    console.log(table.toString());
+                    return businessNetworkConnection.disconnect();
+                })
+        })
+        .then(() => {
+            console.log(chalk.blue(' ------ All done! ------'));
+            console.log('\n');
+        }) // and catch any exceptions that are triggered
+        .catch(function (error) {
+            throw error;
+        });
 }
 
 module.exports = {
-    startConnection,
-    initializatorDaemon
+    checkConnection,
+    initializatorDaemon,
+    showCurrentAssets,
+    showCurrentParticipants
 }

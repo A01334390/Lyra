@@ -85,8 +85,10 @@ function showMainMenu() {
         message: "What should we do next?",
         choices: [
             new inquirer.Separator(),
-            "Start the connection with Hyperledger",
+            "Check the connection with Hyperledger",
             "Create a batch of Clients and Wallets",
+            "Show current Assets on the Blockchain",
+            "Show current Participants on the Blockchain",
             "Initiate Gremlin Test",
             new inquirer.Separator(),
             "Exit"
@@ -95,8 +97,8 @@ function showMainMenu() {
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
-            case 'Start the connection with Hyperledger':
-                hyper.startConnection();
+            case 'Check the connection with Hyperledger':
+                hyper.checkConnection();
                 setTimeout(() => {
                     showMainMenu((err, success) => {
                         if (err) {
@@ -104,15 +106,48 @@ function showMainMenu() {
                             process.exit(1);
                         }
                     });
-                }, 2000);
+                }, 3000);
                 break;
             case 'Create a batch of Clients and Wallets':
                 batchCreation();
+                setTimeout(() => {
+                    showMainMenu((err, success) => {
+                        if (err) {
+                            console.log(chalk.red('An error occured, closing..'));
+                            process.exit(1);
+                        }
+                    });
+                }, 3000);
                 break;
 
             case 'Initiate Gremlin Test':
                 gremlinTestDaemon();
                 break;
+
+            case 'Show current Assets on the Blockchain':
+                hyper.showCurrentAssets();
+                setTimeout(() => {
+                    showMainMenu((err, success) => {
+                        if (err) {
+                            console.log(chalk.red('An error occured, closing..'));
+                            process.exit(1);
+                        }
+                    });
+                }, 3000);
+                break;
+
+            case 'Show current Participants on the Blockchain':
+                hyper.showCurrentParticipants();
+                setTimeout(() => {
+                    showMainMenu((err, success) => {
+                        if (err) {
+                            console.log(chalk.red('An error occured, closing..'));
+                            process.exit(1);
+                        }
+                    });
+                }, 3000);
+            break;
+
             case 'Exit':
                 process.exit(0);
                 break;
@@ -125,7 +160,7 @@ const batchCreation = () => {
             type: 'input',
             name: 'clientNumber',
             message: 'How many users are we going to create?',
-            default: 1000,
+            default: 1,
         },
         {
             type: 'input',
@@ -151,19 +186,12 @@ const batchCreation = () => {
         try {
             spinner.start();
             for (i = 0; i < answers.clientNumber; i++) {
-                hyper.initializatorDaemon(i, (clientNumber + i), answers.bottom, answers.top);
+                hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
             }
             spinner.succeed('Clients and Wallets Created!');
         } catch (err) {
             spinner.fail('Found a problem while creating...');
-        }
-
-    });
-
-    showMainMenu((err, success) => {
-        if (err) {
-            console.log(chalk.red('An error occured, closing..'));
-            process.exit(1);
+            console.log(err);
         }
     });
 }
