@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# org.aabo
-=======
+
 # Lyra
 Semestre i's challenge Blockchain distribution
 
@@ -13,4 +11,4 @@ Semestre i's challenge Blockchain distribution
 </ul>
 
 <p> This program is supposed to be a work in progress to reach <i>at least</i> 1E9 transactions per day </p>
->>>>>>> master
+
