@@ -16,13 +16,18 @@ Semestre i's challenge Blockchain distribution
 <h2> Quick Installation process </h2>
 <p> To install this system on any Ubuntu OS with all needed dependencies, do the following steps: </p>
 <h3> Step 1 </h3>
+<p> Install CURL </p>
+<ul>
+  <li> $ sudo apt-get install curl </li>
+</ul>
+<h3> Step 2 </h3>
 <p> Install Node.js and NPM </p>
 <ul>
     <li>$ sudo apt-get update</li>
     <li>$ sudo apt-get install nodejs</li>
     <li>$ sudo apt-get install npm</li>
 </ul>
-<h3> Step 2 </h3>
+<h3> Step 3 </h3>
 <p> Go into the Lyra-cli folder and issue the install command </p>
 <ul>
   <li>
@@ -32,7 +37,7 @@ Semestre i's challenge Blockchain distribution
     $ sudo npm install
   </li>
 </ul>   
-<h3> Step 3 </h3>
+<h3> Step 4 </h3>
 <p> Check if Node.js and npm was installed correctly </p>
 <ul>
   <li>
@@ -42,7 +47,7 @@ Semestre i's challenge Blockchain distribution
 
 <p> If you see printed on your screen <b>Lyra-cli can be installed now</b>, you can proceed to install Lyra and Hyperledger </p>
 
-<h3> Step 4 </h3>
+<h3> Step 5 </h3>
 <p> Run the following commands. (Note: These might take up to 1h to execute, have at least 5GB of memory free </p>
 <ul>
   <li> $ npm run-script systemPrepare : <b> This command installs all needed technologies to run Hyperledger </b></li>
