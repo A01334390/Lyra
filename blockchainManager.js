@@ -141,7 +141,7 @@ const getAllParticipantRegistries = () => {
 / @param walletSeed is a Number that expects the seed for the wallet ID
 / @param bottom is a Number that expects the lower bound for the wallet's random balance 
 / @param top is a Number that expects the top bound for the wallet's random balance 
-/ Bugs:: Tested  >> Further Tests:: Will go to the success case even if its not successful 
+/ Bugs:: Tested  >> Further Tests:: Will succesfully deploy multiple wallets 
 / ======== ======== ======== ========
 */
 
@@ -168,14 +168,14 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             wallet = factory.newResource('org.aabo', 'Wallet', 'LID:' + (walletSeed + top));
             wallet.id = md5(walletSeed);
             wallet.balance = (Math.random() * top) + bottom;
-            wallet.owner = client;
+            wallet.owner = ownerRelation;
             /** Save the new state of this relationship to the Blockchain */
             console.log(wallet);
             return this.walletRegistry.add(wallet);
         }).then(() => {
             return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
         }).then((clientRegistry) => {
-            return clientRegistry.add(owner);
+            return clientRegistry.add(client);
         }).catch(function (error) {
             console.log(error);
             throw (error);
@@ -219,7 +219,7 @@ const showCurrentAssets = () => {
                 table.push(tableLine);
             }
             // Put to stdout - as this is really a command line app
-            System.out.println(table);
+            console.log(table);
         }).then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
@@ -239,31 +239,37 @@ const showCurrentAssets = () => {
 */
 
 const showCurrentParticipants = () => {
+    let walletRegistry;
+    let clientRegistry;
+
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
         .then((result) => {
             businessNetworkDefinition = result;
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client')
-                .then((registry) => {
-                    return registry.getAll();
-                })
-                .then((pResources) => {
-                    console.log(pResources);
-                    let table = new Table({
-                        head: ['ID']
-                    });
-                    let arrayLength = pResources.length;
-                    for (let i = 0; i < arrayLength; i++) {
-                        let tableLine = [];
-                        tableLine.push(pResources[i].id);
-                        table.push(tableLine);
-                    }
-                    console.log(chalk.white(table.toString()));
-                    return businessNetworkConnection.disconnect();
-                })
-        })
-        .then(() => {
+            console.log('\n');
+            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
+            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
+        }).then((registry) => {
+            walletRegistry = registry;
+            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+        }).then((registry) => {
+            clientRegistry = registry;
+            return clientRegistry.resolveAll();
+        }).then((aResources) => {
+            let table = new Table({
+                head: ['ID']
+            });
+            let arrayLength = aResources.length;
+            for (let i = 0; i < arrayLength; i++) {
+                let tableLine = [];
+                tableLine.push(aResources[i].id);
+                table.push(tableLine);
+            }
+            // Put to stdout - as this is really a command line app
+            console.log(table.toString());
+        }).then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
+            return businessNetworkConnection.disconnect();
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;

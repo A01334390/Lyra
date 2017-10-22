@@ -185,9 +185,9 @@ const batchCreation = () => {
 
         try {
             spinner.start();
-            for (i = 0; i < answers.clientNumber; i++) {
-                hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
-            }
+                for(let i = 0; i < answers.clientNumber ; i++){
+                    hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
+                }            
             spinner.succeed('Clients and Wallets Created!');
         } catch (err) {
             spinner.fail('Found a problem while creating...');
