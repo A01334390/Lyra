@@ -47,9 +47,25 @@ Semestre i's challenge Blockchain distribution
 <h3> Step 5 </h3>
 <p> Run the following commands. (Note: These might take up to 1h to execute, have at least 5GB of memory free </p>
 <ul>
-  <li> $ npm run-script systemPrepare : <b> This command installs all needed technologies to run Hyperledger </b></li>
-  <li> $ npm run-script composerPrepare : <b> This command installs all Hyperledger Composer Tools </b></li>
-  <li> $ npm run-script hyperledgerStart : <b> This command removes all Docker containers, downloads Hyperledger, starts it and creates a Composer certificate</b></li>
+  <li>$ curl -O https://hyperledger.github.io/composer/prereqs-ubuntu.sh </li> 
+  <li>$ chmod u+x prereqs-ubuntu.sh </li> 
+  <li>$ ./prereqs-ubuntu.sh </li> 
+  <li>$ npm install -g composer-cli </li> 
+  <li>$ npm install -g generator-hyperledger-composer </li> 
+  <li>$ npm install -g composer-rest-server </li> 
+  <li>$ npm install -g yo </li> 
+  <li>$ npm install -g composer-playground </li> 
+  <li>$ docker kill $(docker ps -q) </li> 
+  <li>$ docker rm $(docker ps -aq) </li> 
+  <li>$ docker rmi $(docker images dev-* -q) </li> 
+  <li>$ cd ~/fabric-tools </li> 
+  <li>$ curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.zip </li> 
+  <li>$ unzip fabric-dev-servers.zip </li> 
+  <li>$ cd ~/fabric-tools </li> 
+  <li>$ ./downloadFabric.sh </li> 
+  <li>$ ./startFabric.sh </li> 
+  <li>$ ./createComposerProfile.sh </li> 
+  
 </ul>
 
 <h3> Step 6 </h3> 
