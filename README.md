@@ -31,7 +31,7 @@ Semestre i's challenge Blockchain distribution
 <p> Go into the Lyra-cli folder  </p>
 <ul>
   <li>
-    $ cd ~/lyra-cli
+    $ cd ~/Lyra-Master/lyra-cli
   </li>
 </ul>   
 <h3> Step 4 </h3>
