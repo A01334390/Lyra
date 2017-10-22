@@ -74,7 +74,7 @@ Semestre i's challenge Blockchain distribution
   </ul>
   
 <h1> How to interact with the Application </h1>
-<p> To interact with the lyra app you can issue any of these commands </p>
+<p> To interact with the lyra app you can issue any of these commands within the project's folder</p>
 <ul>
   <li> $ npm start </li>
   <li> $ node index </li>

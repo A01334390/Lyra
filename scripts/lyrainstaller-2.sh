@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on first error, print all commands.
-set -ev
+set -v
 
 # Go to the home directory
 cd ~
