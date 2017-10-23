@@ -4,7 +4,7 @@
 / As of now, it works with the latest version of Hyperledger
 / Made by Aabo Technologies © 2017 - Servers Division
 / Created > September 18th, 2017 @ 2:26 p.m. by A01334390
-/ Last revised > October 21st, 2017 @ 7:20 p.m. by A01334390
+/ Last revised > October 23rd, 2017 @ 12:00 p.m. by A01334390
 / ======== ======== ======== ========
 */
 
@@ -154,6 +154,14 @@ function showMainMenu() {
     });
 }
 
+/*
+/ ======== Batch Creation =========
+/ This method creates multiple wallets and participants at the same time
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: It needs to be optimized
+/ ======== ======== ======== ========
+*/
+
 const batchCreation = () => {
     var questions = [{
             type: 'input',
@@ -203,6 +211,13 @@ const batchCreation = () => {
     
 }
 
+/*
+/ ======== Make Transaction =========
+/ This method makes a Transfer transaction between two peers
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: It needs to be optimized heavily
+/ ======== ======== ======== ========
+*/
 const makeTransaction = () => {
     var questions = [
         {

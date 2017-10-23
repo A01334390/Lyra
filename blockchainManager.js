@@ -4,7 +4,7 @@
 / This file does all the Blockchain related actions for Lyra
 / As of now, it works with the latest version of Hyperledger
 / Made by Aabo Technologies © 2017 - Servers Division
-/ Last revised > October 21st, 2017 @ 7:20 p.m. by A01334390
+/ Last revised > October 23rd, 2017 @ 12:00 p.m. by A01334390
 / ======== ======== ======== ========
 */
 
@@ -282,7 +282,7 @@ const showCurrentParticipants = () => {
 / @param fromPid is the md5 related to a Client on the Blockchain who's receiving money
 / @param toPid is the md5 related to a Client on the Blockchain who's receiving money
 / @param funds is a number that means the amount of money that is being sent
-/ Bugs:: Tested  >> Further Tests:: Validation Exception Error, expects a Model or a concept 
+/ Bugs:: Tested  >> Further Tests:: Make it faster, make it stronger
 / ======== ======== ======== ========
 */
 
