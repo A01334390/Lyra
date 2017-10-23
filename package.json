@@ -13,6 +13,7 @@
     "stopHLF": "scripts/stop-hyperledger.sh",
     "teardownHLF": "scripts/teardown.sh",
     "deployNetwork": "scripts/initHyper.sh",
+    "restart": "scripts/restartAll.sh",
     "pingNetwork": "composer network ping -n lyra-cli -p hlfv1 -i admin -s adminpw",
     "install": "scripts/download-hyperledger.sh && scripts/start-hyperledger.sh && npm run deployNetwork",
     "start": "node index.js"

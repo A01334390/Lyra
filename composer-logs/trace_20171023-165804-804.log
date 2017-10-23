@@ -1344,3 +1344,1032 @@
 2017-10-22T21:59:19.635Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: Error executing chaincode: Failed to execute transaction (Timeout expired while executing transaction)
     at /Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/node_modules/grpc/src/node/src/client.js:434:17 {}$
 2017-10-22T21:59:19.636Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: Error executing chaincode: Failed to execute transaction (Timeout expired while executing transaction)","stack":"Error: Error trying to query business network. Error: Error executing chaincode: Failed to execute transaction (Timeout expired while executing transaction)\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>"}$
+2017-10-23T01:32:34.984Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.986Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.986Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.986Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.986Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.986Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.995Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.995Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.995Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.995Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.996Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.996Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.996Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.999Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.999Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.999Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:34.999Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.000Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.000Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.000Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.000Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.003Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.003Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.004Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.004Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.004Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.004Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.004Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.006Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.006Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.006Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.006Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.006Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.007Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.007Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.008Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.009Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.009Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.009Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.009Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.009Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.009Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.186Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.186Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.187Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.188Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.188Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.188Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.189Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.198Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.198Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.199Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.199Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.199Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.199Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.199Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.199Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.202Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.203Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.203Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.203Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.203Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.203Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.203Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.209Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.215Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.215Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.216Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.216Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.216Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.216Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.216Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.222Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.271Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.272Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.278Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.279Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.279Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.279Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.279Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.279Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.279Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.283Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.283Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.283Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.283Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.283Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.284Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.284Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.289Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.293Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.296Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.322Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.322Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.322Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.322Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.323Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.323Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.323Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.327Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.327Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.327Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.328Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.328Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.328Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.328Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.331Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.331Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.331Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.331Z ERROR   HLFConnectionManager    :fabric-client()          [Peer.js]: sendProposal - timed out after:300000 {}$
+2017-10-23T01:32:35.336Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.337Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.341Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.341Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.341Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.341Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.343Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.346Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.346Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.346Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.347Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.347Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.349Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.349Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.349Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.349Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.351Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.351Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.352Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.352Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.352Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.356Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.356Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.356Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.356Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.356Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.358Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.358Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.359Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.359Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.430Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.430Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.435Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.436Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.436Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.439Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.439Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.440Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.440Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.440Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.443Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.443Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.443Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.443Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.444Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.450Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.451Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.451Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.451Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.458Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.458Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.459Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.459Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.459Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.463Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.463Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.463Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.463Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.463Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.465Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.465Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.466Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.466Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.468Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.468Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.468Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.468Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.468Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.471Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.471Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.472Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.472Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.472Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.476Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.476Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.476Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.477Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.480Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.480Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.480Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.480Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.481Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.485Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.486Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.486Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.486Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.486Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.490Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.490Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.491Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.491Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.495Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.496Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.496Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.496Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.496Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.501Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.501Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.502Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.502Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.502Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.508Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.508Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.508Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.508Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.512Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.512Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.512Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.513Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.513Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.517Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.517Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.517Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.517Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.518Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.521Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.548Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.549Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.550Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.551Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.558Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.559Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.559Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.559Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.563Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.563Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.564Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.564Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.564Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.568Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.568Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.569Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.569Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.569Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.573Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.573Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.573Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.573Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.577Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.577Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.577Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.577Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.577Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.581Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.581Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.582Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.582Z ERROR   HLFConnectionManager    :fabric-client()          [client-utils.js]: sendPeersProposal - Promise is rejected: Error: REQUEST_TIMEOUT
+    at Timeout._onTimeout (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/fabric-client/lib/Peer.js:100:19)
+    at ontimeout (timers.js:469:11)
+    at tryOnTimeout (timers.js:304:5)
+    at Timer.listOnTimeout (timers.js:264:5) {}$
+2017-10-23T01:32:35.668Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.668Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.668Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.669Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.669Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.673Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.675Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.675Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.675Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.681Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.681Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.681Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.681Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.681Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.708Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.708Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.709Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.709Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.709Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.709Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.710Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.711Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.711Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.711Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.711Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.717Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.717Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.717Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.717Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.718Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.719Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.720Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.721Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.724Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.724Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.724Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.724Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :queryChainCode()         {"message":"Error trying to query business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying to query business network. Error: REQUEST_TIMEOUT\n    at channel.queryByChaincode.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:749:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.725Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.726Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.726Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.726Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.726Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.726Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.727Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.728Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.729Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.730Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.731Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.732Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.732Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.732Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.732Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.732Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.732Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.733Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.734Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.735Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.736Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.737Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.737Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.737Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.737Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.737Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$
+2017-10-23T01:32:35.738Z ERROR   HLFConnection           :invokeChainCode()        {"message":"Error trying invoke business network. Error: REQUEST_TIMEOUT","stack":"Error: Error trying invoke business network. Error: REQUEST_TIMEOUT\n    at _initializeChannel.then.then.then.then.catch (/Users/a01334390/Documents/Git Projects/Lyra/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:837:34)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"}$

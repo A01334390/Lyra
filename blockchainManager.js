@@ -165,7 +165,7 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             /** Create a new relationship for the owner */
             ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
             /** Create a new wallet for the owner */
-            wallet = factory.newResource('org.aabo', 'Wallet',  md5(walletSeed));
+            wallet = factory.newResource('org.aabo', 'Wallet', md5(walletSeed));
             wallet.id = md5(walletSeed);
             wallet.balance = (Math.random() * top) + bottom;
             wallet.owner = ownerRelation;
@@ -282,11 +282,12 @@ const showCurrentParticipants = () => {
 / @param fromPid is the md5 related to a Client on the Blockchain who's receiving money
 / @param toPid is the md5 related to a Client on the Blockchain who's receiving money
 / @param funds is a number that means the amount of money that is being sent
-/ Bugs:: Not Tested  >> Further Tests:: Needs to be tested first
+/ Bugs:: Tested  >> Further Tests:: Validation Exception Error, expects a Model or a concept 
 / ======== ======== ======== ========
 */
 
 const makeTransaction = (fromPid, toPid, funds) => {
+    let walletRegistry;
     let from;
     let to;
 
@@ -295,23 +296,30 @@ const makeTransaction = (fromPid, toPid, funds) => {
             businessNetworkDefinition = result;
             console.log('\n');
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
-        }).then((registry) => {
-            return registry.get('2723d092b63885e0d7c260cc007e8b9d');
-        }).then((registry)=>{
-            return registry.get('38b3eff8baf56627478ec76a704e9b52');
+            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
+            .then(function(vr){
+                walletRegistry = vr;
+                return walletRegistry.get('98dce83da57b0395e163467c9dae521b');
+            })
+            .then(function(v){
+                from = v;
+                return walletRegistry.get('e2ef524fbf3d9fe611d5a8e90fefdc9c');
+            })
+            .then(function(v){
+                to = v;
+            })
+            .then(function(){
+                var factory = businessNetworkDefinition.getFactory();
+                var fundsTransfer = factory.newTransaction('org.aabo','Transfer');
+                fundsTransfer.from = factory.newRelationship('org.aabo','Wallet',from.getIdentifier());
+                fundsTransfer.to = factory.newRelationship('org.aabo','Wallet',to.getIdentifier());
+                fundsTransfer.amount = funds;
+                return businessNetworkConnection.submitTransaction(fundsTransfer);
+            });
         }).then((result) => {
-            let factory = businessNetworkDefinition.getFactory();
-            let transaction = factory.newTransaction('org.aabo', 'Transfer');
-            transaction.amount = funds;
-            transaction.from = factory.newRelationship('org.aabo', 'Wallet', '2723d092b63885e0d7c260cc007e8b9d');
-            transaction.to = factory.newRelationship('org.aabo', 'Wallet', '38b3eff8baf56627478ec76a704e9b52');
-            return businessNetworkConnection.submitTransaction(transaction);
-         }).then(() => {
-                console.log(chalk.blue(' ------ All done! ------'));
-                console.log('\n');
-                return businessNetworkConnection.disconnect();
-             // and catch any exceptions that are triggered
+            console.log(chalk.blue(' ------ All done! ------'));
+            console.log('\n');
+            return businessNetworkConnection.disconnect();
         }).catch(function (error) {
             businessNetworkConnection.disconnect();
             throw error;
