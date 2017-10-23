@@ -26,6 +26,9 @@ var config = require('config').get('lyra-cli');
 var chalk = require('chalk');
 var md5 = require('md5')
 
+// ------- Basic Libraries for this package -------
+const mongo = require('./mongoManager');
+
 // ------- Hyperledger libraries for this package -------
 
 // Require the client API

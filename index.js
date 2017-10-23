@@ -59,7 +59,7 @@ function helloWorld() {
             })
         )
     );
-    console.log(chalk.cyan.bold('0.0.1'));
+    console.log(chalk.cyan.bold('0.2.1'));
     console.log(chalk.cyan.bold('Aabo Technologies'));
 
     console.log("\n");
