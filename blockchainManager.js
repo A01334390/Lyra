@@ -165,6 +165,7 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             /** Create a new Participant within the network */
             client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
             client.id = md5(clientSeed);
+            console.log(client);
             /** Create a new relationship for the owner */
             ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
             /** Create a new wallet for the owner */
