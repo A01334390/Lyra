@@ -144,7 +144,7 @@ function showMainMenu() {
             break;
 
             case 'Make a transaction':
-                hyper.makeTransaction('55a54008ad1ba589aa210d2629c1df41','89e74e640b8c46257a29de0616794d5d',100);
+                makeTransaction();
             break;
 
             case 'Exit':
@@ -201,6 +201,35 @@ const batchCreation = () => {
     
     });
     
+}
+
+const makeTransaction = () => {
+    var questions = [
+        {
+            type: 'input',
+            name: "from",
+            message: 'Which Address from?'
+        },
+        {
+            type: 'input',
+            name: 'to',
+            message: 'Which Address to?'
+        },
+        {
+            type: 'input',
+            name: 'funds',
+            message: 'How much?'
+        }
+    ];
+    inquirer.prompt(questions).then(function (answers) {
+        hyper.makeTransaction(answers.from,answers.to,answers.funds);
+        showMainMenu((err, success) => {
+            if (err) {
+                console.log(chalk.red('An error occured, closing..'));
+                process.exit(1);
+            }
+        });
+    });
 }
 
 const gremlinTestDaemon = () =>{

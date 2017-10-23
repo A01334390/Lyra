@@ -286,7 +286,7 @@ const showCurrentParticipants = () => {
 / ======== ======== ======== ========
 */
 
-const makeTransaction = (fromPid, toPid, funds) => {
+const makeTransaction = (fromID, toID, funds) => {
     let walletRegistry;
     let from;
     let to;
@@ -299,26 +299,16 @@ const makeTransaction = (fromPid, toPid, funds) => {
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
                 .then(function (vr) {
                     walletRegistry = vr;
-                    return walletRegistry.get('43ec517d68b6edd3015b3edc9a11367b');
+                    return walletRegistry.get(fromID);
                 })
                 .then(function (v) {
                     from = v;
-                    return walletRegistry.get('68d30a9594728bc39aa24be94b319d21');
+                    return walletRegistry.get(toID);
                 })
                 .then(function (v) {
                     to = v;
                 })
                 .then(function () {
-                    console.log('//////////////////////////////////////');
-                    console.log('DEBUG ONLY');
-                    console.log("from id:",from.getIdentifier());
-                    console.log("from balance:",from.balance);
-                    console.log("from owner id:",from.owner.getIdentifier());
-                    console.log('//////////////////////////////////////');
-                    console.log("To id:",to.getIdentifier());
-                    console.log("To balance:",to.balance);
-                    console.log("To owner id:",to.owner.getIdentifier());
-                    console.log('//////////////////////////////////////');
                     let serializer = businessNetworkDefinition.getSerializer();
                     let resource = serializer.fromJSON({
                         "$class": "org.aabo.Transfer",
@@ -327,13 +317,13 @@ const makeTransaction = (fromPid, toPid, funds) => {
                             "$class": "org.aabo.Wallet",
                             "id": from.getIdentifier(),
                             "balance": from.balance,
-                            "owner": "resource:org.aabo.Client#"+from.owner.getIdentifier()
+                            "owner": "resource:org.aabo.Client#" + from.owner.getIdentifier()
                         },
                         "to": {
                             "$class": "org.aabo.Wallet",
                             "id": to.getIdentifier(),
                             "balance": to.balance,
-                            "owner": "resource:org.aabo.Client#"+to.owner.getIdentifier()
+                            "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                         }
                     });
                     return businessNetworkConnection.submitTransaction(resource);
