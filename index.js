@@ -35,21 +35,21 @@ var hyper = require('./blockchainManager');
 //                                \__\/         \__\/    
 
 //Initializes the main menu
-Elisa((err, success) => {
+helloWorld((err, success) => {
     if (err) {
         return console.log('An error just happened, shutting down...');
     }
 });
 
 /*
-/ ======== Elisa =========
+/ ======== helloWorld =========
 / This method shows the main menu
 / It doesn't receive any parameters and doesn't return any particular ones
 / Bugs:: No >> Further Tests:: Any time a new option is added
 / ======== ======== ======== ========
 */
 
-function Elisa() {
+function helloWorld() {
     clear();
     console.log(
         chalk.cyan(

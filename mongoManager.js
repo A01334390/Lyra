@@ -1,20 +1,23 @@
-
 // ███╗   ███╗ ██████╗ ███╗   ██╗ ██████╗  ██████╗ 
 // ████╗ ████║██╔═══██╗████╗  ██║██╔════╝ ██╔═══██╗
 // ██╔████╔██║██║   ██║██╔██╗ ██║██║  ███╗██║   ██║
 // ██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║██║   ██║
 // ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║╚██████╔╝╚██████╔╝
 // ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝ 
-                                                
+
 // ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
 // ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝██╔══██╗
 // ██╔████╔██║███████║██╔██╗ ██║███████║██║  ███╗█████╗  ██████╔╝
 // ██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██╔══██╗
 // ██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║  ██║
 // ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚═ ═════╝╚═╝  ╚═╝
-                                                              
+
 /** Dependencies needed */
 const mongoose = require('mongoose');
+const {
+    MongoClient,
+    ObjectID
+} = require('mongodb');
 var config = require('config').get('mongo-connection');
 
 /** Get data from the configuration files */
@@ -22,16 +25,19 @@ let connectionURI = config.get('mongoURI');
 let databaseName = config.get('mongoDatabase');
 
 /** Get the data models */
-var {Participant} = require('./mongoModels/participant');
-var {Transaction} = require('./mongoModels/transaction');
-var {Wallet} = require('./mongoModels/wallet');
+var {
+    Participant
+} = require('./mongoModels/participant');
+var {
+    Transaction
+} = require('./mongoModels/transaction');
+var {
+    Wallet
+} = require('./mongoModels/wallet');
 
 /** Start the connection */
-mongoose.connect(connectionURI+databaseName,(err,db)=>{
-    if(err){
-        return console.log('Unable to connect to MongoDB server');
-    }
-}); 
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/Lyra');
 
 /*
 / ======== Save Transaction =========
@@ -43,11 +49,18 @@ mongoose.connect(connectionURI+databaseName,(err,db)=>{
 
 
 const saveTransaction = (jsonDoc) => {
-    db.collection('Transactions').insertOne(jsonDoc,(err,result)=>{
-        if(err){
-            console.log('Unable to insert Transaction',err);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
         }
     });
+    console.log('Connected to MongoDB server');
+    db.collection('Transactions').insertOne(jsonDoc, (err, result) => {
+        if (err) {
+            console.log('Unable to insert Transaction', err);
+        }
+    });
+    db.close();
 }
 
 /*
@@ -60,10 +73,16 @@ const saveTransaction = (jsonDoc) => {
 
 
 const saveParticipant = (jsonDoc) => {
-    db.collection('Participants').insertOne(jsonDoc,(err,result)=>{
-        if(err){
-            console.log('Unable to insert Transaction',err);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
         }
+        db.collection('Participants').insertOne(jsonDoc, (err, result) => {
+            if (err) {
+                console.log('Unable to insert Transaction', err);
+            }
+        });
+        db.close();
     });
 }
 
@@ -77,11 +96,19 @@ const saveParticipant = (jsonDoc) => {
 
 
 const saveAsset = (jsonDoc) => {
-    db.collection('Assets').insertOne(jsonDoc,(err,result)=>{
-        if(err){
-            console.log('Unable to insert Transaction',err);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
         }
+        console.log('Connected to MongoDB server');
+        db.collection('Assets').insertOne(jsonDoc, (err, result) => {
+            if (err) {
+                console.log('Unable to insert Transaction', err);
+            }
+        });
+        db.close();
     });
+
 }
 
 /*
@@ -93,9 +120,16 @@ const saveAsset = (jsonDoc) => {
 */
 
 const getAllTransactions = () => {
-    db.collection('Transactions').find({}).toArray().then((docs)=>{
-        return JSON.stringify(docs,undefined,2);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
+        }
     });
+    console.log('Connected to MongoDB server');
+    db.collection('Transactions').find({}).toArray().then((docs) => {
+        return JSON.stringify(docs, undefined, 2);
+    });
+    db.close();
 }
 
 /*
@@ -107,9 +141,17 @@ const getAllTransactions = () => {
 */
 
 const getAllParticipants = () => {
-    db.collection('Participants').find({}).toArray().then((docs)=>{
-        return JSON.stringify(docs,undefined,2);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
+        }
+        console.log('Connected to MongoDB server');
+        db.collection('Participants').find({}).toArray().then((docs) => {
+            return JSON.stringify(docs, undefined, 2);
+        });
+        db.close();
     });
+
 }
 
 /*
@@ -121,8 +163,15 @@ const getAllParticipants = () => {
 */
 
 const getAllAssets = () => {
-    db.collection('Assets').find({}).toArray().then((docs)=>{
-        return JSON.stringify(docs,undefined,2);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
+        }
+        console.log('Connected to MongoDB server');
+        db.collection('Assets').find({}).toArray().then((docs) => {
+            return JSON.stringify(docs, undefined, 2);
+        });
+        db.close();
     });
 }
 
@@ -135,8 +184,17 @@ const getAllAssets = () => {
 */
 
 const getOneTransaction = (identifier) => {
-    db.collection('Transactions').findOne({id:identifier}).toArray().then((docs)=>{
-        return JSON.stringify(docs,undefined,2);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
+        }
+        console.log('Connected to MongoDB server');
+        db.collection('Transactions').findOne({
+            id: identifier
+        }).toArray().then((docs) => {
+            return JSON.stringify(docs, undefined, 2);
+        });
+        db.close();
     });
 }
 
@@ -149,8 +207,17 @@ const getOneTransaction = (identifier) => {
 */
 
 const getOneAsset = (identifier) => {
-    db.collection('Assets').findOne({id:identifier}).toArray().then((docs)=>{
-        return JSON.stringify(docs,undefined,2);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
+        }
+        console.log('Connected to MongoDB server');
+        db.collection('Assets').findOne({
+            id: identifier
+        }).toArray().then((docs) => {
+            return JSON.stringify(docs, undefined, 2);
+        });
+        db.close();
     });
 }
 
@@ -163,9 +230,29 @@ const getOneAsset = (identifier) => {
 */
 
 const getOneParticipant = (identifier) => {
-    db.collection('Participant').findOne({id:identifier}).toArray().then((docs)=>{
-        return JSON.stringify(docs,undefined,2);
+    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+        if (err) {
+            return console.log('Unable to connect to MongoDB server');
+        }
+        console.log('Connected to MongoDB server');
+        db.collection('Participant').findOne({
+            id: identifier
+        }).toArray().then((docs) => {
+            return JSON.stringify(docs, undefined, 2);
+        });
+        db.close();
     });
 }
 
 
+module.exports = {
+    saveAsset,
+    saveParticipant,
+    saveTransaction,
+    getAllAssets,
+    getAllParticipants,
+    getAllTransactions,
+    getOneParticipant,
+    getOneTransaction,
+    getOneAsset
+}

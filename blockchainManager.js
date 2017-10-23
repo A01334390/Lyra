@@ -165,7 +165,7 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             /** Create a new Participant within the network */
             client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
             client.id = md5(clientSeed);
-            console.log(client);
+            //mongo.saveParticipant(client);
             /** Create a new relationship for the owner */
             ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
             /** Create a new wallet for the owner */
@@ -174,7 +174,7 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             wallet.balance = (Math.random() * top) + bottom;
             wallet.owner = ownerRelation;
             /** Save the new state of this relationship to the Blockchain */
-            console.log(wallet);
+            //mongo.saveAsset(owner);
             return this.walletRegistry.add(wallet);
         }).then(() => {
             return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
@@ -330,6 +330,7 @@ const makeTransaction = (fromID, toID, funds) => {
                             "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                         }
                     });
+                    //mongo.saveTransaction(resource);
                     return businessNetworkConnection.submitTransaction(resource);
                 });
         }).then((result) => {
