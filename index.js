@@ -112,6 +112,7 @@ function showMainMenu() {
                 break;
             case 'Create a batch of Clients and Wallets':
                 batchCreation();
+                
                 break;
 
             case 'Initiate Gremlin Test':
@@ -186,12 +187,20 @@ const batchCreation = () => {
                 for(let i = 0; i < answers.clientNumber ; i++){
                     hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
                 }            
-            spinner.succeed('Clients and Wallets Created!');
         } catch (err) {
             spinner.fail('Found a problem while creating...');
             console.log(err);
         }
+        spinner.succeed('Clients and Wallets Created!');
+        showMainMenu((err, success) => {
+            if (err) {
+                console.log(chalk.red('An error occured, closing..'));
+                process.exit(1);
+            }
+        },8000);
+    
     });
+    
 }
 
 const gremlinTestDaemon = () =>{
