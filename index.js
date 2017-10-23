@@ -247,6 +247,18 @@ const makeTransaction = () => {
     });
 }
 
+/*
+/ ======== Daniela =========
+/ This method handles up to 1E9 transactions at a time
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: It needs to be optimized heavily
+/ ======== ======== ======== ========
+*/
+
+const Daniela = () => {
+    console.log("I'm not built yet!");
+}
+
 const gremlinTestDaemon = () =>{
-    console.log("I'm not built yet!")
+    console.log("I'm not built yet!");
 }

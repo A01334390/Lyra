@@ -47,7 +47,7 @@ const saveTransaction = (jsonDoc) => {
         if(err){
             console.log('Unable to insert Transaction',err);
         }
-    })
+    });
 }
 
 /*
@@ -60,7 +60,11 @@ const saveTransaction = (jsonDoc) => {
 
 
 const saveParticipant = (jsonDoc) => {
-
+    db.collection('Participants').insertOne(jsonDoc,(err,result)=>{
+        if(err){
+            console.log('Unable to insert Transaction',err);
+        }
+    });
 }
 
 /*
@@ -73,7 +77,11 @@ const saveParticipant = (jsonDoc) => {
 
 
 const saveAsset = (jsonDoc) => {
-
+    db.collection('Assets').insertOne(jsonDoc,(err,result)=>{
+        if(err){
+            console.log('Unable to insert Transaction',err);
+        }
+    });
 }
 
 /*
@@ -85,7 +93,9 @@ const saveAsset = (jsonDoc) => {
 */
 
 const getAllTransactions = () => {
-
+    db.collection('Transactions').find({}).toArray().then((docs)=>{
+        return JSON.stringify(docs,undefined,2);
+    });
 }
 
 /*
@@ -97,7 +107,9 @@ const getAllTransactions = () => {
 */
 
 const getAllParticipants = () => {
-
+    db.collection('Participants').find({}).toArray().then((docs)=>{
+        return JSON.stringify(docs,undefined,2);
+    });
 }
 
 /*
@@ -109,7 +121,9 @@ const getAllParticipants = () => {
 */
 
 const getAllAssets = () => {
-
+    db.collection('Assets').find({}).toArray().then((docs)=>{
+        return JSON.stringify(docs,undefined,2);
+    });
 }
 
 /*
@@ -121,7 +135,9 @@ const getAllAssets = () => {
 */
 
 const getOneTransaction = (identifier) => {
-
+    db.collection('Transactions').findOne({id:identifier}).toArray().then((docs)=>{
+        return JSON.stringify(docs,undefined,2);
+    });
 }
 
 /*
@@ -133,7 +149,9 @@ const getOneTransaction = (identifier) => {
 */
 
 const getOneAsset = (identifier) => {
-
+    db.collection('Assets').findOne({id:identifier}).toArray().then((docs)=>{
+        return JSON.stringify(docs,undefined,2);
+    });
 }
 
 /*
@@ -145,7 +163,9 @@ const getOneAsset = (identifier) => {
 */
 
 const getOneParticipant = (identifier) => {
-
+    db.collection('Participant').findOne({id:identifier}).toArray().then((docs)=>{
+        return JSON.stringify(docs,undefined,2);
+    });
 }
 
 
