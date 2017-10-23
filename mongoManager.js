@@ -11,7 +11,7 @@
 // ██╔████╔██║███████║██╔██╗ ██║███████║██║  ███╗█████╗  ██████╔╝
 // ██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██╔══██╗
 // ██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║  ██║
-// ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+// ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚═ ═════╝╚═╝  ╚═╝
                                                               
 /** Dependencies needed */
 const mongoose = require('mongoose');
@@ -43,7 +43,11 @@ mongoose.connect(connectionURI+databaseName,(err,db)=>{
 
 
 const saveTransaction = (jsonDoc) => {
-
+    db.collection('Transactions').insertOne(jsonDoc,(err,result)=>{
+        if(err){
+            console.log('Unable to insert Transaction',err);
+        }
+    })
 }
 
 /*
