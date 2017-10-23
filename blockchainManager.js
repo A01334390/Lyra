@@ -297,25 +297,47 @@ const makeTransaction = (fromPid, toPid, funds) => {
             console.log('\n');
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
-            .then(function(vr){
-                walletRegistry = vr;
-                return walletRegistry.get('98dce83da57b0395e163467c9dae521b');
-            })
-            .then(function(v){
-                from = v;
-                return walletRegistry.get('e2ef524fbf3d9fe611d5a8e90fefdc9c');
-            })
-            .then(function(v){
-                to = v;
-            })
-            .then(function(){
-                var factory = businessNetworkDefinition.getFactory();
-                var fundsTransfer = factory.newTransaction('org.aabo','Transfer');
-                fundsTransfer.from = factory.newRelationship('org.aabo','Wallet',from.getIdentifier());
-                fundsTransfer.to = factory.newRelationship('org.aabo','Wallet',to.getIdentifier());
-                fundsTransfer.amount = funds;
-                return businessNetworkConnection.submitTransaction(fundsTransfer);
-            });
+                .then(function (vr) {
+                    walletRegistry = vr;
+                    return walletRegistry.get('43ec517d68b6edd3015b3edc9a11367b');
+                })
+                .then(function (v) {
+                    from = v;
+                    return walletRegistry.get('68d30a9594728bc39aa24be94b319d21');
+                })
+                .then(function (v) {
+                    to = v;
+                })
+                .then(function () {
+                    console.log('//////////////////////////////////////');
+                    console.log('DEBUG ONLY');
+                    console.log("from id:",from.getIdentifier());
+                    console.log("from balance:",from.balance);
+                    console.log("from owner id:",from.owner.getIdentifier());
+                    console.log('//////////////////////////////////////');
+                    console.log("To id:",to.getIdentifier());
+                    console.log("To balance:",to.balance);
+                    console.log("To owner id:",to.owner.getIdentifier());
+                    console.log('//////////////////////////////////////');
+                    let serializer = businessNetworkDefinition.getSerializer();
+                    let resource = serializer.fromJSON({
+                        "$class": "org.aabo.Transfer",
+                        "amount": 100,
+                        "from": {
+                            "$class": "org.aabo.Wallet",
+                            "id": from.getIdentifier(),
+                            "balance": from.balance,
+                            "owner": "resource:org.aabo.Client#"+from.owner.getIdentifier()
+                        },
+                        "to": {
+                            "$class": "org.aabo.Wallet",
+                            "id": to.getIdentifier(),
+                            "balance": to.balance,
+                            "owner": "resource:org.aabo.Client#"+to.owner.getIdentifier()
+                        }
+                    });
+                    return businessNetworkConnection.submitTransaction(resource);
+                });
         }).then((result) => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
