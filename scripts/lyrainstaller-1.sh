@@ -11,6 +11,7 @@ echo This is gonna explode
 
 #Step 1
 sudo apt-get install curl 
+sudo apt-get install unzip
 
 #Step 2
 curl -O https://hyperledger.github.io/composer/prereqs-ubuntu.sh
