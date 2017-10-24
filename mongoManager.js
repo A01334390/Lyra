@@ -179,23 +179,6 @@ const getAllAssets = () => {
 }
 
 /*
-/ ======== Get One Transaction =========
-/ Retrieves a particular transaction from MongoDB
-/ $TODO: Needs to be formatted
-/ Bugs:: Not tested >> Further Tests:: Invoke it somewhere
-/ Pecularity : The editor launches an error on from.id
-/ ======== ======== ======== ===========
-*/
-
-const getOneTransaction = (identifier) => {
-    Transaction.findOne({
-        from.id : identifier
-    }).then((transaction)=>{
-        console.log(transaction);
-    });
-}
-
-/*
 / ======== Get One Asset ============
 / Retrieves all persisted assets
 / @params identifier is an md5 hash that identifies an asset
@@ -238,6 +221,5 @@ module.exports = {
     getAllParticipants,
     getAllTransactions,
     getOneParticipant,
-    getOneTransaction,
     getOneAsset
 }
