@@ -1,18 +1,7 @@
 var mongoose = require('mongoose');
 
 var Participant = mongoose.model('Participant',{
-    $namespace: {
-        type: String,
-        default: "org.aabo"
-    },
-    $type: {
-        type: String,
-        default: "Client"
-    },
-    $identifier: {
-        type: String
-    },
-    $id: {
+    id: {
         type: String
     }
 });

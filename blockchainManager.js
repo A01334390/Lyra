@@ -165,7 +165,8 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             /** Create a new Participant within the network */
             client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
             client.id = md5(clientSeed);
-            //mongo.saveParticipant(client);
+            /** Save to MongoDB */
+            mongo.saveParticipant(client);
             /** Create a new relationship for the owner */
             ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
             /** Create a new wallet for the owner */
@@ -173,8 +174,9 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             wallet.id = md5(walletSeed);
             wallet.balance = (Math.random() * top) + bottom;
             wallet.owner = ownerRelation;
+            /** Save to MongoDB */
+            mongo.saveAsset(wallet,md5(clientSeed));
             /** Save the new state of this relationship to the Blockchain */
-            //mongo.saveAsset(owner);
             return this.walletRegistry.add(wallet);
         }).then(() => {
             return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
@@ -316,7 +318,7 @@ const makeTransaction = (fromID, toID, funds) => {
                     let serializer = businessNetworkDefinition.getSerializer();
                     let resource = serializer.fromJSON({
                         "$class": "org.aabo.Transfer",
-                        "amount": 100,
+                        "amount": funds,
                         "from": {
                             "$class": "org.aabo.Wallet",
                             "id": from.getIdentifier(),
@@ -330,7 +332,7 @@ const makeTransaction = (fromID, toID, funds) => {
                             "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                         }
                     });
-                    //mongo.saveTransaction(resource);
+                    mongo.saveTransaction(resource);
                     return businessNetworkConnection.submitTransaction(resource);
                 });
         }).then((result) => {

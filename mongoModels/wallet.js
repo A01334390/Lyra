@@ -1,18 +1,7 @@
 var mongoose = require('mongoose');
 
 var Wallet = mongoose.model('Wallet',{
-    $namespace: {
-        type: String,
-        default: "org.aabo"
-    },
-    $type: {
-        type: String,
-        default: "Wallet"
-    },
-    $identifier: {
-        type: String
-    },
-    $id: {
+    id: {
         type: String
     },
     balance: {

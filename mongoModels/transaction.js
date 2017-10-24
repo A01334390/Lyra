@@ -1,19 +1,11 @@
 var mongoose = require('mongoose');
 
 var Transaction = mongoose.model('Transaction',{
-    $class : {
-        type: String,
-        default: 'org.aabo.Transfer'
-    },
     amount: {
         type: Number,
         default: 0
     },
     from: {
-        $class: {
-            type: String,
-            default: "org.aabo.Wallet"
-        },
         id: {
             type: String
         },
@@ -25,10 +17,6 @@ var Transaction = mongoose.model('Transaction',{
         }
     },
     to: {
-        $class: {
-            type: String,
-            default: "org.aabo.Wallet"
-        },
         id: {
             type: String
         },
@@ -42,3 +30,18 @@ var Transaction = mongoose.model('Transaction',{
 });
 
 module.exports = {Transaction};
+
+// "$class": "org.aabo.Transfer",
+// "amount": 100,
+// "from": {
+//     "$class": "org.aabo.Wallet",
+//     "id": from.getIdentifier(),
+//     "balance": from.balance,
+//     "owner": "resource:org.aabo.Client#" + from.owner.getIdentifier()
+// },
+// "to": {
+//     "$class": "org.aabo.Wallet",
+//     "id": to.getIdentifier(),
+//     "balance": to.balance,
+//     "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
+// }

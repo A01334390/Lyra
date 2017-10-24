@@ -43,46 +43,56 @@ mongoose.connect('mongodb://localhost:27017/Lyra');
 / ======== Save Transaction =========
 / Persists a Transaction into a MongoDB DB System
 / @Param jsonDoc is a JSON Document that has all relevant information
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ Bugs:: Tested >> Further Tests:: Works correctly
 / ======== ======== ======== ========
 */
 
 
 const saveTransaction = (jsonDoc) => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
+
+    var tx = new Transaction({
+        amount: jsonDoc.amount,
+        from: {
+            id: jsonDoc.from.id,
+            balance: jsonDoc.from.balance,
+            owner: jsonDoc.from.owner
+        },
+        to: {
+            id: jsonDoc.to.id,
+            balance: jsonDoc.to.balance,
+            owner: jsonDoc.to.owner
         }
     });
-    console.log('Connected to MongoDB server');
-    db.collection('Transactions').insertOne(jsonDoc, (err, result) => {
+
+    tx.save((err) => {
         if (err) {
-            console.log('Unable to insert Transaction', err);
+            console.log(err);
+        } else {
+            console.log('Saved to the db!');
         }
-    });
-    db.close();
+    })
 }
 
 /*
 / ======== Save Participant =========
 / Persists a Participant into a MongoDB DB System
 / @Param jsonDoc is a JSON Document that has all relevant information
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ Bugs:: Tested >> Further Tests:: Works correctly
 / ======== ======== ======== ========
 */
 
 
 const saveParticipant = (jsonDoc) => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+    var ptc = new Participant({
+        id: jsonDoc.id
+    });
+
+    ptc.save((err) => {
         if (err) {
-            return console.log('Unable to connect to MongoDB server');
+            console.log(err);
+        } else {
+            console.log('Saved to the db!');
         }
-        db.collection('Participants').insertOne(jsonDoc, (err, result) => {
-            if (err) {
-                console.log('Unable to insert Transaction', err);
-            }
-        });
-        db.close();
     });
 }
 
@@ -90,23 +100,24 @@ const saveParticipant = (jsonDoc) => {
 / ======== Save Asset =========
 / Persists an Asset into a MongoDB DB System
 / @Param jsonDoc is a JSON Document that has all relevant information
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ Bugs:: Tested >> Further Tests:: Works correctly
 / ======== ======== ======== ========
 */
 
 
-const saveAsset = (jsonDoc) => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
+const saveAsset = (jsonDoc, idOwner) => {
+    var wallet = new Wallet({
+        id: jsonDoc.id,
+        balance: jsonDoc.balance,
+        ownerID: idOwner
+    });
+
+    wallet.save((err) => {
         if (err) {
-            return console.log('Unable to connect to MongoDB server');
+            console.log(err);
+        } else {
+            console.log('Saved to the db!');
         }
-        console.log('Connected to MongoDB server');
-        db.collection('Assets').insertOne(jsonDoc, (err, result) => {
-            if (err) {
-                console.log('Unable to insert Transaction', err);
-            }
-        });
-        db.close();
     });
 
 }
@@ -120,81 +131,67 @@ const saveAsset = (jsonDoc) => {
 */
 
 const getAllTransactions = () => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
+    Transaction.find((err,transactions)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(transactions);
         }
     });
-    console.log('Connected to MongoDB server');
-    db.collection('Transactions').find({}).toArray().then((docs) => {
-        return JSON.stringify(docs, undefined, 2);
-    });
-    db.close();
 }
 
 /*
 / ======== Get All Participants =========
 / Retrieves all persisted participants
 / @returns a JSON document with all participants from a MongoDB DB System
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ $TODO: Needs to be formatted
+/ Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ============
 */
 
 const getAllParticipants = () => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
+    Participant.find((err,participants)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(participants);
         }
-        console.log('Connected to MongoDB server');
-        db.collection('Participants').find({}).toArray().then((docs) => {
-            return JSON.stringify(docs, undefined, 2);
-        });
-        db.close();
     });
-
 }
 
 /*
 / ======== Get All Assets ============
 / Retrieves all persisted assets
 / @returns a JSON document with all participants from a MongoDB DB System
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ $TODO: Needs to be formatted
+/ Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ========
 */
 
 const getAllAssets = () => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
+    Wallet.find((err,wallet)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(wallet);
         }
-        console.log('Connected to MongoDB server');
-        db.collection('Assets').find({}).toArray().then((docs) => {
-            return JSON.stringify(docs, undefined, 2);
-        });
-        db.close();
     });
 }
 
 /*
 / ======== Get One Transaction =========
 / Retrieves a particular transaction from MongoDB
-/ @params identifier is an md5 hash that identifies a transaction
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ $TODO: Needs to be formatted
+/ Bugs:: Not tested >> Further Tests:: Invoke it somewhere
+/ Pecularity : The editor launches an error on from.id
 / ======== ======== ======== ===========
 */
 
 const getOneTransaction = (identifier) => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
-        }
-        console.log('Connected to MongoDB server');
-        db.collection('Transactions').findOne({
-            id: identifier
-        }).toArray().then((docs) => {
-            return JSON.stringify(docs, undefined, 2);
-        });
-        db.close();
+    Transaction.findOne({
+        from.id : identifier
+    }).then((transaction)=>{
+        console.log(transaction);
     });
 }
 
@@ -202,22 +199,16 @@ const getOneTransaction = (identifier) => {
 / ======== Get One Asset ============
 / Retrieves all persisted assets
 / @params identifier is an md5 hash that identifies an asset
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ $TODO: Needs to be formatted
+/ Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ========
 */
 
 const getOneAsset = (identifier) => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
-        }
-        console.log('Connected to MongoDB server');
-        db.collection('Assets').findOne({
-            id: identifier
-        }).toArray().then((docs) => {
-            return JSON.stringify(docs, undefined, 2);
-        });
-        db.close();
+    Wallet.findOne({
+        id : identifier
+    }).then((wallet)=>{
+        console.log(wallet);
     });
 }
 
@@ -225,22 +216,16 @@ const getOneAsset = (identifier) => {
 / ======== Get One Participant =========
 / Retrieves all persisted assets
 / @params identifier is an md5 hash that identifies a participant
-/ Bugs:: Not tested >> Further Tests:: Once it is programmed
+/ $TODO: Needs to be formatted
+/ Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ==========
 */
 
 const getOneParticipant = (identifier) => {
-    MongoClient.connect('mongodb://localhost:27017/Lyra', (err, db) => {
-        if (err) {
-            return console.log('Unable to connect to MongoDB server');
-        }
-        console.log('Connected to MongoDB server');
-        db.collection('Participant').findOne({
-            id: identifier
-        }).toArray().then((docs) => {
-            return JSON.stringify(docs, undefined, 2);
-        });
-        db.close();
+    Participant.findOne({
+        id : identifier
+    }).then((participant)=>{
+        console.log(participant);
     });
 }
 
