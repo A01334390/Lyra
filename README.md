@@ -14,13 +14,6 @@ Semestre i's challenge Blockchain distribution
 <p> This program is supposed to be a work in progress to reach <i>at least</i> 1E9 transactions per day </p>
 
 <h2> Quick Installation process </h2>
-<h3> Node JS Path </h3>
-<p> If you've already got node.js and npm installed, you can reach to the project's folder and issue the following commands</p>
-<ul>
-  <li> $ npm run-script first-step</li>
-  <li> <b>Then logout and login again, reboot if possible</b></li>
-    <li> $ npm run-script second-step</li>
-</ul>
 
 <h3> The 'Clean Slate' Path </h3>
 <p> If your system has nothing but basic ubuntu installed, do the following <p>
