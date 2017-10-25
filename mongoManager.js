@@ -37,7 +37,7 @@ var {
 
 /** Start the connection */
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/Lyra');
+mongoose.connect('mongodb://localhost:27017/Lyra',{useMongoClient:true});
 
 /*
 / ======== Save Transaction =========

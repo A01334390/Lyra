@@ -90,7 +90,6 @@ const checkConnection = () => {
         .catch(function (error) {
             throw error;
         });
-
 }
 
 /*
@@ -130,7 +129,6 @@ const getAllParticipantRegistries = () => {
     then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
-
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -175,7 +173,7 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             wallet.balance = (Math.random() * top) + bottom;
             wallet.owner = ownerRelation;
             /** Save to MongoDB */
-            mongo.saveAsset(wallet,md5(clientSeed));
+            mongo.saveAsset(wallet, md5(clientSeed));
             /** Save the new state of this relationship to the Blockchain */
             return this.walletRegistry.add(wallet);
         }).then(() => {
@@ -350,6 +348,5 @@ module.exports = {
     initializatorDaemon,
     showCurrentAssets,
     showCurrentParticipants,
-    getAllParticipantRegistries,
     makeTransaction
 }

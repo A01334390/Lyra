@@ -4,7 +4,7 @@
 / As of now, it works with the latest version of Hyperledger
 / Made by Aabo Technologies © 2017 - Servers Division
 / Created > September 18th, 2017 @ 2:26 p.m. by A01334390
-/ Last revised > October 23rd, 2017 @ 12:00 p.m. by A01334390
+/ Last revised > October 25th, 2017 @ 1:30 p.m. by a01334390
 / ======== ======== ======== ========
 */
 
@@ -42,7 +42,7 @@ helloWorld((err, success) => {
 });
 
 /*
-/ ======== helloWorld =========
+/ ======== Hello World! =========
 / This method shows the main menu
 / It doesn't receive any parameters and doesn't return any particular ones
 / Bugs:: No >> Further Tests:: Any time a new option is added
@@ -59,7 +59,7 @@ function helloWorld() {
             })
         )
     );
-    console.log(chalk.cyan.bold('0.2.1'));
+    console.log(chalk.cyan.bold('0.3.1'));
     console.log(chalk.cyan.bold('Aabo Technologies'));
 
     console.log("\n");
@@ -72,25 +72,33 @@ function helloWorld() {
 
     console.log("\n");
     //Call to the main menu
-    showMainMenu((err, success) => {
-        if (err) {
-            return console.log('Main menu had a problem,shutting down...');
-        }
-    });
+    showMainMenu();
 }
-//Main menu with the needed methods
+/*
+/ ======== Main Menu =========
+/ This method shows the main options for the program
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: Once new options are added
+/ ======== ======== ======== ========
+*/
+
 function showMainMenu() {
+    console.log(
+        chalk.green(
+            figlet.textSync('Main Menu', {
+                horizontalLayout: 'full',
+                verticalLayout: 'default'
+            })
+        )
+    );
     var questions = [{
         type: "list",
         name: "initial",
-        message: "What should we do next?",
+        message: "Choose an Option from the main menu",
         choices: [
             new inquirer.Separator(),
-            "Check the connection with Hyperledger",
-            "Create a batch of Clients and Wallets",
-            "Show current Assets on the Blockchain",
-            "Show current Participants on the Blockchain",
-            "Make a transaction",
+            "Access Debug Menu",
+            "Start the testing mode",
             new inquirer.Separator(),
             "Exit"
         ]
@@ -98,54 +106,108 @@ function showMainMenu() {
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
-            case 'Check the connection with Hyperledger':
-                hyper.checkConnection();
-                setTimeout(() => {
-                    showMainMenu((err, success) => {
-                        if (err) {
-                            console.log(chalk.red('An error occured, closing..'));
-                            process.exit(1);
-                        }
-                    });
-                }, 8000);
-                break;
-            case 'Create a batch of Clients and Wallets':
-                batchCreation();
+            case "Access Debug Menu":
+                debugMenu();
                 break;
 
-            case 'Show current Assets on the Blockchain':
-                hyper.showCurrentAssets();
-                setTimeout(() => {
-                    showMainMenu((err, success) => {
-                        if (err) {
-                            console.log(chalk.red('An error occured, closing..'));
-                            process.exit(1);
-                        }
-                    });
-                }, 8000);
+            case "Start the testing mode":
+                testingMenu();
                 break;
 
-            case 'Show current Participants on the Blockchain':
-                hyper.showCurrentParticipants();
-                setTimeout(() => {
-                    showMainMenu((err, success) => {
-                        if (err) {
-                            console.log(chalk.red('An error occured, closing..'));
-                            process.exit(1);
-                        }
-                    });
-                }, 8000);
-            break;
-
-            case 'Make a transaction':
-                makeTransaction();
-            break;
-
-            case 'Exit':
+            case "Exit":
                 process.exit(0);
                 break;
         }
     });
+}
+
+/*
+/ ======== Debug Menu =========
+/ This method is used to test new functionality being added
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: Once new options are added
+/ ======== ======== ======== ========
+*/
+
+function debugMenu() {
+    clear();
+    console.log(
+        chalk.yellow(
+            figlet.textSync('Debug Menu', {
+                horizontalLayout: 'full',
+                verticalLayout: 'default'
+            })
+        )
+    );
+    var questions = [{
+        type: "list",
+        name: "initial",
+        message: "Choose an option from the debug menu",
+        choices: [
+            new inquirer.Separator(),
+            "Check Connection with Hyperledger",
+            "Check current Wallets on the system",
+            "Check current Clients on the system",
+            "Create Wallets and Participants",
+            "Make one transaction",
+            "Test ORA Spinners",
+            new inquirer.Separator(),
+            "Go back to the main menu"
+        ]
+    }];
+
+    inquirer.prompt(questions).then(function (answers) {
+        switch (answers.initial) {
+            case "Check Connection with Hyperledger":
+                hyper.checkConnection();
+                break;
+
+            case "Check current Wallets on the system":
+                hyper.showCurrentAssets();
+                break;
+
+            case "Check current Clients on the system":
+                hyper.showCurrentParticipants();
+                break;
+
+            case "Create Wallets and Participants":
+                batchCreation();
+                break;
+
+            case "Make one transaction":
+                makeTransaction();
+                break;
+
+            case "Test ORA Spinners":
+                oraSpinnerTest();
+                break;
+
+            case "Go back to the main menu":
+                clear();
+                showMainMenu();
+                break;
+        }
+    });
+}
+
+/*
+/ ======== Testing Menu =========
+/ This would be the main testing engine, will be programmed once everything's being maxed out
+/ It doesn't receive any parameters and doesn't return any particular ones
+/ Bugs:: No >> Further Tests:: Needs to be programmed
+/ ======== ======== ======== ========
+*/
+
+function testingMenu() {
+    clear();
+    console.log(
+        chalk.yellow(
+            figlet.textSync('Testing Menu', {
+                horizontalLayout: 'full',
+                verticalLayout: 'default'
+            })
+        )
+    );
 }
 
 /*
@@ -178,31 +240,15 @@ const batchCreation = () => {
     ];
 
     inquirer.prompt(questions).then(function (answers) {
-        //We first initiate the ora module
-        const spinner = new ora({
-            text: 'Initializing Clients and Wallets..',
-            spinner: 'moon'
-        });
-
         try {
-            spinner.start();
-                for(let i = 0; i < answers.clientNumber ; i++){
-                    hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
-                }            
+            for (let i = 0; i < answers.clientNumber; i++) {
+                hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
+            }
         } catch (err) {
-            spinner.fail('Found a problem while creating...');
             console.log(err);
         }
-        spinner.succeed('Clients and Wallets Created!');
-        showMainMenu((err, success) => {
-            if (err) {
-                console.log(chalk.red('An error occured, closing..'));
-                process.exit(1);
-            }
-        },8000);
-    
     });
-    
+
 }
 
 /*
@@ -213,8 +259,7 @@ const batchCreation = () => {
 / ======== ======== ======== ========
 */
 const makeTransaction = () => {
-    var questions = [
-        {
+    var questions = [{
             type: 'input',
             name: "from",
             message: 'Which Address from?'
@@ -231,26 +276,21 @@ const makeTransaction = () => {
         }
     ];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.makeTransaction(answers.from,answers.to,answers.funds);
-        setTimeout(() => {
-            showMainMenu((err, success) => {
-                if (err) {
-                    console.log(chalk.red('An error occured, closing..'));
-                    process.exit(1);
-                }
-            });
-        }, 8000);
+        hyper.makeTransaction(answers.from, answers.to, answers.funds);
     });
 }
 
 /*
-/ ======== Daniela =========
-/ This method handles up to 1E9 transactions at a time
+/ ======== Ora Spinner Test =========
+/ This method is just a POC About Ora Spinners
 / It doesn't receive any parameters and doesn't return any particular ones
 / Bugs:: No >> Further Tests:: It needs to be optimized heavily
 / ======== ======== ======== ========
 */
-
-const Daniela = () => {
-    console.log("I'm not built yet!");
-};
+const oraSpinnerTest = () => {
+    const ora = require('ora');
+    
+   const spinner = ora('Loading unicorns').start();
+    
+   
+}
