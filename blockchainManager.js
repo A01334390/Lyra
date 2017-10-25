@@ -50,14 +50,14 @@ let businessNetworkDefinition;
 let assetRegistry;
 
 /*
-/ ========Check Connection Method =========
+/ ========Check Registered Models Method =========
 / This method starts the connection with the chaincode and queries the registered models
 / It receives no parameters and returns no particular object
 / Useful to check if you're actually connected to the system
 / Bugs:: No >> Further Tests:: No particular behaviour for errors
 / ======== ======== ======== ========
 */
-const checkConnection = () => {
+const checkRegisteredModels = () => {
     // create the connection
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
         .then((result) => {
@@ -235,7 +235,7 @@ const showCurrentAssets = () => {
 }
 
 /*
-/ ======== Show Current Participants Error =========
+/ ======== Show Current Participants Method =========
 / This method shows the participants that exist in the Blockchain
 / Receives and returns no particular assets
 / Bugs:: Tested  >> Further Tests:: Shows all participants
@@ -344,7 +344,7 @@ const makeTransaction = (fromID, toID, funds) => {
 }
 
 module.exports = {
-    checkConnection,
+    checkRegisteredModels,
     initializatorDaemon,
     showCurrentAssets,
     showCurrentParticipants,

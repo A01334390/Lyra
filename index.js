@@ -145,6 +145,7 @@ function debugMenu() {
         message: "Choose an option from the debug menu",
         choices: [
             new inquirer.Separator(),
+            "Check Registered Models on Hyperledger",
             "Check Connection with Hyperledger",
             "Check current Wallets on the system",
             "Check current Clients on the system",
@@ -158,9 +159,13 @@ function debugMenu() {
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
-            case "Check Connection with Hyperledger":
-                hyper.checkConnection();
+            case "Check Registered Models on Hyperledger":
+                hyper.checkRegisteredModels();
                 break;
+
+            case "Check Connection with Hyperledger":
+                console.log('Im being programmed at the moment');
+            break;
 
             case "Check current Wallets on the system":
                 hyper.showCurrentAssets();
@@ -288,9 +293,17 @@ const makeTransaction = () => {
 / ======== ======== ======== ========
 */
 const oraSpinnerTest = () => {
-    const ora = require('ora');
-    
-   const spinner = ora('Loading unicorns').start();
-    
-   
+    const spinner = new ora({
+        text : 'Starting...',
+        color : 'cyan'
+    });
+    try{
+        spinner.start('Summing things!');
+        hyper.checkRegisteredModels();
+    }catch(err){
+        spinner.fail('We didnt do it folks!');
+    }finally{
+        spinner.succeed('We did it folks!');
+        showMainMenu();
+    }
 }
