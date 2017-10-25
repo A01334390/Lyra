@@ -28,6 +28,7 @@ var md5 = require('md5')
 
 // ------- Basic Libraries for this package -------
 const mongo = require('./mongoManager');
+const index = require('./index');
 
 // ------- Hyperledger libraries for this package -------
 
@@ -85,7 +86,7 @@ const checkRegisteredModels = () => {
         }).
     then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
-            getAllParticipantRegistries();
+            return getAllParticipantRegistries();
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -129,6 +130,9 @@ const getAllParticipantRegistries = () => {
     then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
+            setTimeout(function() {
+                index.selectMenu("debug");
+            }, 1000);
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -227,7 +231,10 @@ const showCurrentAssets = () => {
         }).then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
-            return businessNetworkConnection.disconnect();
+            businessNetworkConnection.disconnect();
+            setTimeout(function() {
+                return index.selectMenu("debug");
+            }, 1000);
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -273,7 +280,10 @@ const showCurrentParticipants = () => {
         }).then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
-            return businessNetworkConnection.disconnect();
+            businessNetworkConnection.disconnect();
+            setTimeout(function() {
+                return index.selectMenu("debug");
+            }, 1000);
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;

@@ -161,19 +161,27 @@ function debugMenu() {
         switch (answers.initial) {
             case "Check Registered Models on Hyperledger":
                 hyper.checkRegisteredModels();
-                console.log('wadddup');
+                setTimeout(function () {
+                    debugMenu();
+                }, 4000);
                 break;
 
             case "Check Connection with Hyperledger":
                 console.log('Im being programmed at the moment');
-            break;
+                break;
 
             case "Check current Wallets on the system":
                 hyper.showCurrentAssets();
+                setTimeout(function () {
+                    debugMenu();
+                }, 4000);
                 break;
 
             case "Check current Clients on the system":
                 hyper.showCurrentParticipants();
+                setTimeout(function () {
+                    debugMenu();
+                }, 4000);
                 break;
 
             case "Create Wallets and Participants":
@@ -250,6 +258,11 @@ const batchCreation = () => {
             for (let i = 0; i < answers.clientNumber; i++) {
                 hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
             }
+
+            setTimeout(function () {
+                debugMenu();
+            }, 100 * answer.clientNumber);
+
         } catch (err) {
             console.log(err);
         }
@@ -284,6 +297,9 @@ const makeTransaction = () => {
     inquirer.prompt(questions).then(function (answers) {
         hyper.makeTransaction(answers.from, answers.to, answers.funds);
     });
+    setTimeout(function () {
+        debugMenu();
+    }, 5000);
 }
 
 /*
@@ -295,16 +311,33 @@ const makeTransaction = () => {
 */
 const oraSpinnerTest = () => {
     const spinner = new ora({
-        text : 'Starting...',
-        color : 'cyan'
+        text: 'Starting...',
+        color: 'cyan'
     });
-    try{
+    try {
         spinner.start('Summing things!');
         hyper.checkRegisteredModels();
-    }catch(err){
+    } catch (err) {
         spinner.fail('We didnt do it folks!');
-    }finally{
+    } finally {
         spinner.succeed('We did it folks!');
         showMainMenu();
     }
 }
+
+function selectMenu(type) {
+    console.log(chalk.red.bold("Taking you back from Hyperledger..."));
+    switch (type) {
+        case "main":
+            showMainMenu();
+            break;
+        case "debug":
+            debugMenu();
+            break;
+        case "test":
+            testingMenu();
+            break;
+    }
+}
+
+module.exports.selectMenu = selectMenu;
