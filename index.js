@@ -161,6 +161,7 @@ function debugMenu() {
         switch (answers.initial) {
             case "Check Registered Models on Hyperledger":
                 hyper.checkRegisteredModels();
+                console.log('wadddup');
                 break;
 
             case "Check Connection with Hyperledger":
