@@ -212,6 +212,16 @@ const getOneParticipant = (identifier) => {
     });
 }
 
+/**
+ * 
+ */
+
+ const getAllAssetsID = () => {
+     Wallet.find({
+
+     })
+ }
+
 
 module.exports = {
     saveAsset,

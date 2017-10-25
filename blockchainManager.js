@@ -353,6 +353,19 @@ const makeTransaction = (fromID, toID, funds) => {
         });
 }
 
+/*
+/ ======== Super Transaction Engine =========
+/ This method supports the fast transaction engine 
+/ @param amount of transactions to send in this node
+/ Bugs:: Not Tested  >> Further Tests:: Make it faster, make it stronger, make it better.
+/ ======== ======== ======== ========
+*/
+
+const superTransactionEngine = () => {
+    /** Get all Wallet ID's on the system */
+    var wallets = mongo.getAllAssets();
+}
+
 module.exports = {
     checkRegisteredModels,
     initializatorDaemon,
