@@ -26,6 +26,10 @@ var config = require('config').get('lyra-cli');
 var chalk = require('chalk');
 var md5 = require('md5')
 
+/** Multithread Performance up here */
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+
 // ------- Basic Libraries for this package -------
 const mongo = require('./mongoManager');
 
