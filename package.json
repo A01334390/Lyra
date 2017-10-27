@@ -31,6 +31,7 @@
     "clear": "0.0.1",
     "cli-spinners": "^1.1.0",
     "cli-table": "latest",
+    "cluster": "^0.7.7",
     "composer-client": "latest",
     "config": "^1.21.0",
     "digitalproperty-network": "latest",
