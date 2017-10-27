@@ -129,7 +129,6 @@ function showMainMenu() {
 */
 
 function debugMenu() {
-    clear();
     console.log(
         chalk.yellow(
             figlet.textSync('Debug Menu', {
@@ -151,6 +150,7 @@ function debugMenu() {
             "Create Wallets and Participants",
             "Make one transaction",
             "Test ORA Spinners",
+            "Super Transaction Processor",
             new inquirer.Separator(),
             "Go back to the main menu"
         ]
@@ -199,6 +199,10 @@ function debugMenu() {
                 clear();
                 showMainMenu();
                 break;
+
+            case "Super Transaction Processor":
+                hyper.superTransactionEngine();
+                break;
         }
     });
 }
@@ -221,6 +225,11 @@ function testingMenu() {
             })
         )
     );
+    console.log(chalk.red('Not done yet...'));
+    setTimeout(function(){
+        clear();
+        debugMenu();
+    },3000);
 }
 
 /*
@@ -260,7 +269,7 @@ const batchCreation = () => {
 
             setTimeout(function () {
                 debugMenu();
-            }, 100 * answer.clientNumber);
+            }, 100 * answers.clientNumber);
 
         } catch (err) {
             console.log(err);
@@ -300,43 +309,3 @@ const makeTransaction = () => {
         debugMenu();
     }, 5000);
 }
-
-/*
-/ ======== Ora Spinner Test =========
-/ This method is just a POC About Ora Spinners
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: It needs to be optimized heavily
-/ ======== ======== ======== ========
-*/
-const oraSpinnerTest = () => {
-    const spinner = new ora({
-        text: 'Starting...',
-        color: 'cyan'
-    });
-    try {
-        spinner.start('Summing things!');
-        hyper.checkRegisteredModels();
-    } catch (err) {
-        spinner.fail('We didnt do it folks!');
-    } finally {
-        spinner.succeed('We did it folks!');
-        showMainMenu();
-    }
-}
-
-function selectMenu(type) {
-    console.log(chalk.red.bold("Taking you back from Hyperledger..."));
-    switch (type) {
-        case "main":
-            showMainMenu();
-            break;
-        case "debug":
-            debugMenu();
-            break;
-        case "test":
-            testingMenu();
-            break;
-    }
-}
-
-module.exports.selectMenu = selectMenu;

@@ -130,9 +130,6 @@ const getAllParticipantRegistries = () => {
     then(() => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
-            setTimeout(function() {
-                index.selectMenu("debug");
-            }, 1000);
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -232,9 +229,6 @@ const showCurrentAssets = () => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
             businessNetworkConnection.disconnect();
-            setTimeout(function() {
-                return index.selectMenu("debug");
-            }, 1000);
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -281,9 +275,6 @@ const showCurrentParticipants = () => {
             console.log(chalk.blue(' ------ All done! ------'));
             console.log('\n');
             businessNetworkConnection.disconnect();
-            setTimeout(function() {
-                return index.selectMenu("debug");
-            }, 1000);
         }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
@@ -363,7 +354,8 @@ const makeTransaction = (fromID, toID, funds) => {
 
 const superTransactionEngine = () => {
     /** Get all Wallet ID's on the system */
-    var wallets = mongo.getAllAssets();
+    var wallets = mongo.getAllAssetsID();
+    console.log(wallets);
 }
 
 module.exports = {
@@ -371,5 +363,6 @@ module.exports = {
     initializatorDaemon,
     showCurrentAssets,
     showCurrentParticipants,
-    makeTransaction
+    makeTransaction,
+    superTransactionEngine
 }

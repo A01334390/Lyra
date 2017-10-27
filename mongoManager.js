@@ -217,9 +217,12 @@ const getOneParticipant = (identifier) => {
  */
 
  const getAllAssetsID = () => {
-     Wallet.find({
-
-     })
+    Wallet.find({}).select({
+        "_id":0,
+        id:1
+    }).then((assets)=>{
+        return assets;
+    });
  }
 
 
@@ -231,5 +234,6 @@ module.exports = {
     getAllParticipants,
     getAllTransactions,
     getOneParticipant,
-    getOneAsset
+    getOneAsset,
+    getAllAssetsID
 }
