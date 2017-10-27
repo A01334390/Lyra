@@ -130,99 +130,79 @@ const saveAsset = (jsonDoc, idOwner) => {
 / ======== ======== ======== ============
 */
 
-const getAllTransactions = () => {
-    Transaction.find((err,transactions)=>{
-        if(err){
-            console.log(err);
-        }else{
-            console.log(transactions);
-        }
-    });
+async function getAllTransactions() {
+    let data = await Transaction.find({});
+    return data;
 }
 
 /*
 / ======== Get All Participants =========
 / Retrieves all persisted participants
 / @returns a JSON document with all participants from a MongoDB DB System
-/ $TODO: Needs to be formatted
 / Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ============
 */
 
-const getAllParticipants = () => {
-    Participant.find((err,participants)=>{
-        if(err){
-            console.log(err);
-        }else{
-            console.log(participants);
-        }
-    });
+async function getAllParticipants() {
+    let data = await Participant.find({});
+    return data;
 }
 
 /*
 / ======== Get All Assets ============
 / Retrieves all persisted assets
 / @returns a JSON document with all participants from a MongoDB DB System
-/ $TODO: Needs to be formatted
 / Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ========
 */
 
-const getAllAssets = () => {
-    Wallet.find((err,wallet)=>{
-        if(err){
-            console.log(err);
-        }else{
-            console.log(wallet);
-        }
-    });
+async function getAllAssets(){
+    let data = await Wallet.find({});
+    return data;
 }
 
 /*
 / ======== Get One Asset ============
 / Retrieves all persisted assets
 / @params identifier is an md5 hash that identifies an asset
-/ $TODO: Needs to be formatted
 / Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ========
 */
 
-const getOneAsset = (identifier) => {
-    Wallet.findOne({
+async function getOneAsset(identifier) {
+    let data = await Wallet.findOne({
         id : identifier
-    }).then((wallet)=>{
-        console.log(wallet);
     });
+
+    return data;
 }
 
 /*
 / ======== Get One Participant =========
 / Retrieves all persisted assets
 / @params identifier is an md5 hash that identifies a participant
-/ $TODO: Needs to be formatted
 / Bugs:: Not tested >> Further Tests:: Invoke it somewhere
 / ======== ======== ======== ==========
 */
 
-const getOneParticipant = (identifier) => {
-    Participant.findOne({
+async function getOneParticipant(identifier){
+    let data = await Participant.findOne({
         id : identifier
-    }).then((participant)=>{
-        console.log(participant);
     });
+    return data;
 }
 
 /**
- * 
+ * ======== Get All Assets IDs =========
+ * Retrieves all persisted assets' id
+ * Receives no parameters 
+ * Returns all assets ID's (Not the mongo ones)
+ * Bugs: None >> Further Tests :: Check if it can be faster
  */
 
- const getAllAssetsID = () => {
-    Wallet.find({}).select({
-        "_id":0,
-        id:1
-    }).then((assets)=>{
-        return assets;
-    });
+ async function getAllAssetsID(){
+    let data = await Wallet.find({},'id -_id');
+    return data;
  }
 
 

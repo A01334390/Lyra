@@ -16,7 +16,7 @@ if (cluster.isMaster) {
 } else {
   // Workers can share any TCP connection
   // In this case it is an HTTP server
-  hyper.showCurrentParticipants();
+  hyper.superTransactionEngine(1000/numCPUs);
 
   console.log(`Worker ${process.pid} started`);
 }

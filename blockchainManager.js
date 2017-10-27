@@ -28,7 +28,6 @@ var md5 = require('md5')
 
 // ------- Basic Libraries for this package -------
 const mongo = require('./mongoManager');
-const index = require('./index');
 
 // ------- Hyperledger libraries for this package -------
 
@@ -299,8 +298,6 @@ const makeTransaction = (fromID, toID, funds) => {
     businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
         .then((result) => {
             businessNetworkDefinition = result;
-            console.log('\n');
-            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
                 .then(function (vr) {
                     walletRegistry = vr;
@@ -331,7 +328,6 @@ const makeTransaction = (fromID, toID, funds) => {
                             "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                         }
                     });
-                    mongo.saveTransaction(resource);
                     return businessNetworkConnection.submitTransaction(resource);
                 });
         }).then((result) => {
@@ -352,10 +348,29 @@ const makeTransaction = (fromID, toID, funds) => {
 / ======== ======== ======== ========
 */
 
-const superTransactionEngine = () => {
+async function superTransactionEngine(simAmmount) {
     /** Get all Wallet ID's on the system */
-    var wallets = mongo.getAllAssetsID();
-    console.log(wallets);
+    mongo.getAllAssetsID().then((data) => {
+        /**Create Transaction Plan */
+        let transactionPlan = [];
+        /**Create a from/to pair to make the transaction next */
+        for (let i = 0; i < simAmmount; i++) {
+            var fromRandomUser = (Math.floor(Math.random() * (data.length - 1)));
+            var toRandomUser = (Math.floor(Math.random() * (data.length - 1)));
+            var fundsRandom = (Math.random() * 1000) + 100;
+            transactionPlan.push({
+                from: data[fromRandomUser].id,
+                to: data[toRandomUser].id,
+                funds: fundsRandom
+            });
+        }
+        /** Send it to the Transfer Fund Processor */
+        for (let x = 0; x < transactionPlan.length; x++) {
+            makeTransaction(transactionPlan[x].from, transactionPlan[x].to, transactionPlan[x].funds);
+        }
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 module.exports = {

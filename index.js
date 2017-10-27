@@ -58,8 +58,8 @@ function helloWorld() {
             })
         )
     );
-    console.log(chalk.cyan.bold('0.3.1'));
-    console.log(chalk.cyan.bold('Aabo Technologies'));
+    console.log(chalk.cyan.bold('0.9.6'));
+    console.log(chalk.cyan.bold('Aabo Technologies © 2017'));
 
     console.log("\n");
     console.log(chalk.cyan.bold('Welcome to the fast Blockchain Simulator'));
@@ -201,7 +201,9 @@ function debugMenu() {
                 break;
 
             case "Super Transaction Processor":
-                hyper.superTransactionEngine();
+                hyper.superTransactionEngine(10).then((result)=>{
+                    console.log(result);
+                });
                 break;
         }
     });
