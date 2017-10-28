@@ -13,11 +13,13 @@ var chalk = require('chalk');
 var clear = require('clear');
 var figlet = require('figlet');
 var inquirer = require('inquirer');
-var cliSpinners = require('cli-spinners');
-var ora = require('ora');
+var yargs = require('yargs');
+var _ = require('lodash');
 
 //Hyperledger Fabric Code And Connectors
 var hyper = require('./blockchainManager');
+var pjson = require('./package.json');
+
 
 
 
@@ -33,12 +35,70 @@ var hyper = require('./blockchainManager');
 //      \__\/           \__\/    \  \:\        \  \:\    
 //                                \__\/         \__\/    
 
-//Initializes the main menu
-helloWorld((err, success) => {
-    if (err) {
-        return console.log('An error just happened, shutting down...');
+//Execution Command Line Arguments
+const argv = yargs
+.command('cli','Start Lyra as a CLI App',)
+.command('author',"Show Lyra's main programmers")
+.command('batch','Creates Clients and Wallets in Batch')
+.command('fast','Creates a batch transaction process',{
+    txnumber : {
+        describe: 'Number of transactions to make',
+        demand: true,
+        alias:'t'
     }
-});
+})
+.command('models','Shows registered models on the network')
+.command('wallets','Shows current wallets on the network')
+.command('clients','Shows current clients on the network')
+.help()
+.argv;
+
+
+switch(argv._[0]){
+    case 'cli':
+    helloWorld();
+    showMainMenu();
+    break;
+
+    case 'author':
+    helloWorld();
+    process.exit(0);
+    break;
+
+    case 'batch':
+    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+    break;
+
+    case 'fast':
+    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+    superTransactionProcessor().then(()=>{
+    });
+    break;
+
+    case 'models':
+    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+    hyper.checkRegisteredModels().then(()=>{
+    });
+    break;
+
+    case 'wallets':
+    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+    hyper.showCurrentAssets().then(()=>{
+    });
+    break;
+
+    case 'clients':
+    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+    hyper.showCurrentParticipants().then(()=>{
+    });
+    break;
+
+    default:
+    console.log(chalk.red('Command not Recognized, if you need help type --help'));
+    process.exit(0);
+    break;
+}
+
 
 /*
 / ======== Hello World! =========
@@ -58,7 +118,7 @@ function helloWorld() {
             })
         )
     );
-    console.log(chalk.cyan.bold('0.9.6'));
+    console.log(chalk.cyan.bold(pjson.version));
     console.log(chalk.cyan.bold('Aabo Technologies © 2017'));
 
     console.log("\n");
@@ -70,8 +130,6 @@ function helloWorld() {
     console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
 
     console.log("\n");
-    //Call to the main menu
-    showMainMenu();
 }
 /*
 / ======== Main Menu =========
@@ -144,13 +202,11 @@ function debugMenu() {
         choices: [
             new inquirer.Separator(),
             "Check Registered Models on Hyperledger",
-            "Check Connection with Hyperledger",
             "Check current Wallets on the system",
             "Check current Clients on the system",
             "Create Wallets and Participants",
             "Make one transaction",
-            "Test ORA Spinners",
-            "Super Transaction Processor",
+            "Make Batch Transactions",
             new inquirer.Separator(),
             "Go back to the main menu"
         ]
@@ -163,10 +219,6 @@ function debugMenu() {
                 setTimeout(function () {
                     debugMenu();
                 }, 4000);
-                break;
-
-            case "Check Connection with Hyperledger":
-                console.log('Im being programmed at the moment');
                 break;
 
             case "Check current Wallets on the system":
@@ -191,21 +243,33 @@ function debugMenu() {
                 makeTransaction();
                 break;
 
-            case "Test ORA Spinners":
-                oraSpinnerTest();
-                break;
-
             case "Go back to the main menu":
                 clear();
                 showMainMenu();
                 break;
 
-            case "Super Transaction Processor":
-                hyper.superTransactionEngine(10).then((result)=>{
-                    console.log(result);
-                });
+            case "Make Batch Transactions":
+                /** Make the questions */
+                var q = [{
+                    type: "input",
+                    name: "transactionNumber",
+                    message: "How Many Transactions would you like?",
+                }];
+                /** Send it! */
+                inquirer.prompt(q)
+                    .then(function (an) {
+                        superTransactionProcessor(an.transactionNumber).then({
+
+                        });
+                    });
                 break;
         }
+    });
+}
+
+async function superTransactionProcessor(maxNumber) {
+    return await hyper.superTransactionEngine(maxNumber).then((result) => {
+        
     });
 }
 
@@ -228,10 +292,10 @@ function testingMenu() {
         )
     );
     console.log(chalk.red('Not done yet...'));
-    setTimeout(function(){
+    setTimeout(function () {
         clear();
         debugMenu();
-    },3000);
+    }, 3000);
 }
 
 /*

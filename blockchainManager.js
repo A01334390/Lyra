@@ -27,7 +27,7 @@ var chalk = require('chalk');
 var md5 = require('md5')
 
 /** Multithread Performance up here */
-const cluster = require('cluster');
+require('events').EventEmitter.prototype._maxListeners = 15000;
 const numCPUs = require('os').cpus().length;
 
 // ------- Basic Libraries for this package -------
@@ -369,7 +369,8 @@ async function superTransactionEngine(simAmmount) {
             });
         }
         /** Send it to the Transfer Fund Processor */
-        for (let x = 0; x < transactionPlan.length; x++) {
+        let x;
+        for (x = 0; x < transactionPlan.length; x++) {
             makeTransaction(transactionPlan[x].from, transactionPlan[x].to, transactionPlan[x].funds);
         }
     }).catch((err) => {
