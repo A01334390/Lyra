@@ -19,6 +19,7 @@ var _ = require('lodash');
 //Hyperledger Fabric Code And Connectors
 var hyper = require('./blockchainManager');
 var pjson = require('./package.json');
+const async = require("async");
 
 
 
@@ -37,66 +38,62 @@ var pjson = require('./package.json');
 
 //Execution Command Line Arguments
 const argv = yargs
-.command('cli','Start Lyra as a CLI App',)
-.command('author',"Show Lyra's main programmers")
-.command('batch','Creates Clients and Wallets in Batch')
-.command('fast','Creates a batch transaction process',{
-    txnumber : {
-        describe: 'Number of transactions to make',
-        demand: true,
-        alias:'t'
-    }
-})
-.command('models','Shows registered models on the network')
-.command('wallets','Shows current wallets on the network')
-.command('clients','Shows current clients on the network')
-.help()
-.argv;
+    .command('cli','Start Lyra as a CLI App')
+    .command('author',"Show Lyra's main programmers")
+    .command('batch','Creates Clients and Wallets in Batch')
+    .command('fast','Creates a batch transaction process',{
+        txnumber : {
+            describe: 'Number of transactions to make',
+            demand: true,
+            alias:'t'
+        }
+    })
+    .command('models','Shows registered models on the network')
+    .command('wallets','Shows current wallets on the network')
+    .command('clients','Shows current clients on the network')
+    .help()
+    .argv;
 
 
 switch(argv._[0]){
     case 'cli':
-    helloWorld();
-    showMainMenu();
-    break;
+        helloWorld();
+        showMainMenu();
+        break;
 
     case 'author':
-    helloWorld();
-    process.exit(0);
-    break;
+        helloWorld();
+        process.exit(0);
+        break;
 
     case 'batch':
-    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
-    break;
+        console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+        break;
 
     case 'fast':
-    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
-    superTransactionProcessor().then(()=>{
-    });
-    break;
+        console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+        superTransactionProcessor();
+        break;
 
     case 'models':
-    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
-    hyper.checkRegisteredModels().then(()=>{
-    });
-    break;
+        console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+        hyper.checkRegisteredModels();
+        break;
 
     case 'wallets':
-    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
-    hyper.showCurrentAssets().then(()=>{
-    });
-    break;
+        console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+        hyper.showCurrentAssets();
+        break;
 
     case 'clients':
-    console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
-    hyper.showCurrentParticipants().then(()=>{
-    });
-    break;
+        console.log(chalk.cyan('Lyra v'+pjson.version),chalk.blue('made by Aabo Technologies © 2017'));
+        hyper.showCurrentParticipants();
+        break;
 
     default:
-    console.log(chalk.red('Command not Recognized, if you need help type --help'));
-    process.exit(0);
-    break;
+        console.log(chalk.red('Command not Recognized, if you need help type --help'));
+        process.exit(0);
+        break;
 }
 
 
@@ -267,10 +264,11 @@ function debugMenu() {
     });
 }
 
-async function superTransactionProcessor(maxNumber) {
-    return await hyper.superTransactionEngine(maxNumber).then((result) => {
-        
-    });
+async;
+
+function superTransactionProcessor(maxNumber) {
+    return await;
+    hyper.superTransactionEngine(maxNumber).then((result) => {});
 }
 
 /*
@@ -308,11 +306,11 @@ function testingMenu() {
 
 const batchCreation = () => {
     var questions = [{
-            type: 'input',
-            name: 'clientNumber',
-            message: 'How many users are we going to create?',
-            default: 1,
-        },
+        type: 'input',
+        name: 'clientNumber',
+        message: 'How many users are we going to create?',
+        default: 1,
+    },
         {
             type: 'input',
             name: 'top',
@@ -329,7 +327,8 @@ const batchCreation = () => {
 
     inquirer.prompt(questions).then(function (answers) {
         try {
-            for (let i = 0; i < answers.clientNumber; i++) {
+            var i;
+            for (i = 0; i < answers.clientNumber; i++) {
                 hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
             }
 
@@ -353,10 +352,10 @@ const batchCreation = () => {
 */
 const makeTransaction = () => {
     var questions = [{
-            type: 'input',
-            name: "from",
-            message: 'Which Address from?'
-        },
+        type: 'input',
+        name: "from",
+        message: 'Which Address from?'
+    },
         {
             type: 'input',
             name: 'to',

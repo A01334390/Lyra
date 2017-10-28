@@ -22,9 +22,9 @@
 // ------- Basic Libraries for this package -------
 const Table = require('cli-table');
 const prettyoutput = require('prettyoutput');
-var config = require('config').get('lyra-cli');
-var chalk = require('chalk');
-var md5 = require('md5')
+const config = require('config').get('lyra-cli');
+const chalk = require('chalk');
+const md5 = require('md5');
 
 /** Multithread Performance up here */
 require('events').EventEmitter.prototype._maxListeners = 15000;
@@ -70,31 +70,31 @@ const checkRegisteredModels = () => {
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAllAssetRegistries();
         }).then((result) => {
-            console.log('List of asset registries=');
+        console.log('List of asset registries=');
 
-            let table = new Table({
-                head: ['Registry Type', 'ID', 'Name']
-            });
-            for (let i = 0; i < result.length; i++) {
-                let tableLine = [];
+        let table = new Table({
+            head: ['Registry Type', 'ID', 'Name']
+        });
+        for (let i = 0; i < result.length; i++) {
+            let tableLine = [];
 
-                tableLine.push(result[i].registryType);
-                tableLine.push(result[i].id);
-                tableLine.push(result[i].name);
-                table.push(tableLine);
-            }
+            tableLine.push(result[i].registryType);
+            tableLine.push(result[i].id);
+            tableLine.push(result[i].name);
+            table.push(tableLine);
+        }
 
-            console.log(chalk.white(table.toString()));
-            return businessNetworkConnection.disconnect();
-        }).
+        console.log(chalk.white(table.toString()));
+        return businessNetworkConnection.disconnect();
+    }).
     then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            return getAllParticipantRegistries();
-        }) // and catch any exceptions that are triggered
+        console.log(chalk.blue(' ------ All done! ------'));
+        return getAllParticipantRegistries();
+    }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
         });
-}
+};
 
 /*
 / ======== Get All Participant Registries =========
@@ -113,31 +113,31 @@ const getAllParticipantRegistries = () => {
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAllParticipantRegistries();
         }).then((result) => {
-            console.log('List of Participant registries=');
+        console.log('List of Participant registries=');
 
-            let table = new Table({
-                head: ['Registry Type', 'ID', 'Name']
-            });
-            for (let i = 0; i < result.length; i++) {
-                let tableLine = [];
+        let table = new Table({
+            head: ['Registry Type', 'ID', 'Name']
+        });
+        for (let i = 0; i < result.length; i++) {
+            let tableLine = [];
 
-                tableLine.push(result[i].registryType);
-                tableLine.push(result[i].id);
-                tableLine.push(result[i].name);
-                table.push(tableLine);
-            }
+            tableLine.push(result[i].registryType);
+            tableLine.push(result[i].id);
+            tableLine.push(result[i].name);
+            table.push(tableLine);
+        }
 
-            console.log(chalk.white(table.toString()));
-            return businessNetworkConnection.disconnect();
-        }).
+        console.log(chalk.white(table.toString()));
+        return businessNetworkConnection.disconnect();
+    }).
     then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-        }) // and catch any exceptions that are triggered
+        console.log(chalk.blue(' ------ All done! ------'));
+        console.log('\n');
+    }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
         });
-}
+};
 
 /*
 / ======== Initializator Daemon Method =========
@@ -161,34 +161,34 @@ const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
         }).then((result) => {
-            this.walletRegistry = result
-        }).then(() => {
-            let factory = businessNetworkDefinition.getFactory();
-            /** Create a new Participant within the network */
-            client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
-            client.id = md5(clientSeed);
-            /** Save to MongoDB */
-            mongo.saveParticipant(client);
-            /** Create a new relationship for the owner */
-            ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
-            /** Create a new wallet for the owner */
-            wallet = factory.newResource('org.aabo', 'Wallet', md5(walletSeed));
-            wallet.id = md5(walletSeed);
-            wallet.balance = (Math.random() * top) + bottom;
-            wallet.owner = ownerRelation;
-            /** Save to MongoDB */
-            mongo.saveAsset(wallet, md5(clientSeed));
-            /** Save the new state of this relationship to the Blockchain */
-            return this.walletRegistry.add(wallet);
-        }).then(() => {
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
-        }).then((clientRegistry) => {
-            return clientRegistry.add(client);
-        }).catch(function (error) {
-            console.log(error);
-            throw (error);
-        });
-}
+        this.walletRegistry = result
+    }).then(() => {
+        let factory = businessNetworkDefinition.getFactory();
+        /** Create a new Participant within the network */
+        client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
+        client.id = md5(clientSeed);
+        /** Save to MongoDB */
+        mongo.saveParticipant(client);
+        /** Create a new relationship for the owner */
+        ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
+        /** Create a new wallet for the owner */
+        wallet = factory.newResource('org.aabo', 'Wallet', md5(walletSeed));
+        wallet.id = md5(walletSeed);
+        wallet.balance = (Math.random() * top) + bottom;
+        wallet.owner = ownerRelation;
+        /** Save to MongoDB */
+        mongo.saveAsset(wallet, md5(clientSeed));
+        /** Save the new state of this relationship to the Blockchain */
+        return this.walletRegistry.add(wallet);
+    }).then(() => {
+        return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+    }).then((clientRegistry) => {
+        return clientRegistry.add(client);
+    }).catch(function (error) {
+        console.log(error);
+        throw (error);
+    });
+};
 
 /*
 / ======== Show Current Assets =========
@@ -209,34 +209,34 @@ const showCurrentAssets = () => {
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
         }).then((registry) => {
-            walletRegistry = registry;
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
-        }).then((registry) => {
-            clientRegistry = registry;
-            return walletRegistry.resolveAll();
-        }).then((aResources) => {
-            let table = new Table({
-                head: ['ID', 'Balance', 'Owner ID']
-            });
-            let arrayLength = aResources.length;
-            for (let i = 0; i < arrayLength; i++) {
-                let tableLine = [];
-                tableLine.push(aResources[i].id);
-                tableLine.push(aResources[i].balance);
-                tableLine.push(aResources[i].owner);
-                table.push(tableLine);
-            }
-            // Put to stdout - as this is really a command line app
-            console.log(table.toString());
-        }).then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-            businessNetworkConnection.disconnect();
-        }) // and catch any exceptions that are triggered
+        walletRegistry = registry;
+        return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+    }).then((registry) => {
+        clientRegistry = registry;
+        return walletRegistry.resolveAll();
+    }).then((aResources) => {
+        let table = new Table({
+            head: ['ID', 'Balance', 'Owner ID']
+        });
+        let arrayLength = aResources.length;
+        for (let i = 0; i < arrayLength; i++) {
+            let tableLine = [];
+            tableLine.push(aResources[i].id);
+            tableLine.push(aResources[i].balance);
+            tableLine.push(aResources[i].owner);
+            table.push(tableLine);
+        }
+        // Put to stdout - as this is really a command line app
+        console.log(table.toString());
+    }).then(() => {
+        console.log(chalk.blue(' ------ All done! ------'));
+        console.log('\n');
+        businessNetworkConnection.disconnect();
+    }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
         });
-}
+};
 
 /*
 / ======== Show Current Participants Method =========
@@ -257,32 +257,32 @@ const showCurrentParticipants = () => {
             console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
             return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
         }).then((registry) => {
-            walletRegistry = registry;
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
-        }).then((registry) => {
-            clientRegistry = registry;
-            return clientRegistry.resolveAll();
-        }).then((aResources) => {
-            let table = new Table({
-                head: ['ID']
-            });
-            let arrayLength = aResources.length;
-            for (let i = 0; i < arrayLength; i++) {
-                let tableLine = [];
-                tableLine.push(aResources[i].id);
-                table.push(tableLine);
-            }
-            // Put to stdout - as this is really a command line app
-            console.log(table.toString());
-        }).then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-            businessNetworkConnection.disconnect();
-        }) // and catch any exceptions that are triggered
+        walletRegistry = registry;
+        return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+    }).then((registry) => {
+        clientRegistry = registry;
+        return clientRegistry.resolveAll();
+    }).then((aResources) => {
+        let table = new Table({
+            head: ['ID']
+        });
+        let arrayLength = aResources.length;
+        for (let i = 0; i < arrayLength; i++) {
+            let tableLine = [];
+            tableLine.push(aResources[i].id);
+            table.push(tableLine);
+        }
+        // Put to stdout - as this is really a command line app
+        console.log(table.toString());
+    }).then(() => {
+        console.log(chalk.blue(' ------ All done! ------'));
+        console.log('\n');
+        businessNetworkConnection.disconnect();
+    }) // and catch any exceptions that are triggered
         .catch(function (error) {
             throw error;
         });
-}
+};
 
 /*
 / ======== Make Transaction Method =========
@@ -334,15 +334,15 @@ const makeTransaction = (fromID, toID, funds) => {
                     });
                     return businessNetworkConnection.submitTransaction(resource);
                 });
-        }).then((result) => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-            return businessNetworkConnection.disconnect();
-        }).catch(function (error) {
-            businessNetworkConnection.disconnect();
-            throw error;
-        });
-}
+        }).then(() => {
+        console.log(chalk.blue(' ------ All done! ------'));
+        console.log('\n');
+        return businessNetworkConnection.disconnect();
+    }).catch(function (error) {
+        businessNetworkConnection.disconnect();
+        throw error;
+    });
+};
 
 /*
 / ======== Super Transaction Engine =========
@@ -359,9 +359,9 @@ async function superTransactionEngine(simAmmount) {
         let transactionPlan = [];
         /**Create a from/to pair to make the transaction next */
         for (let i = 0; i < simAmmount; i++) {
-            var fromRandomUser = (Math.floor(Math.random() * (data.length - 1)));
-            var toRandomUser = (Math.floor(Math.random() * (data.length - 1)));
-            var fundsRandom = (Math.random() * 1000) + 100;
+            const fromRandomUser = (Math.floor(Math.random() * (data.length - 1)));
+            const toRandomUser = (Math.floor(Math.random() * (data.length - 1)));
+            const fundsRandom = (Math.random() * 1000) + 100;
             transactionPlan.push({
                 from: data[fromRandomUser].id,
                 to: data[toRandomUser].id,
@@ -385,4 +385,4 @@ module.exports = {
     showCurrentParticipants,
     makeTransaction,
     superTransactionEngine
-}
+};
