@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
 / ======== Index =========
 / This is the main file for the Lyra Project
@@ -13,11 +15,10 @@ var chalk = require('chalk');
 var clear = require('clear');
 var figlet = require('figlet');
 var inquirer = require('inquirer');
-var cliSpinners = require('cli-spinners');
-var ora = require('ora');
 
 //Hyperledger Fabric Code And Connectors
 var hyper = require('./blockchainManager');
+var jsond = require('./package');
 
 
 
@@ -33,12 +34,43 @@ var hyper = require('./blockchainManager');
 //      \__\/           \__\/    \  \:\        \  \:\    
 //                                \__\/         \__\/    
 
-//Initializes the main menu
-helloWorld((err, success) => {
-    if (err) {
-        return console.log('An error just happened, shutting down...');
-    }
-});
+//Initiate the Command Line Arguments
+var yargs = require('yargs')
+    .command('cli', 'Start the CLI Lyra Application')
+    .command('author', 'Show the projects authors')
+    .command('fast', 'Start the fast Transaction Command', {
+        transactions = {
+            describe: 'Ammount of transactions to make',
+            demand: true,
+            alias: 'tx'
+        }
+    })
+    .command('models', 'Show models on the Blockchain')
+    .help()
+    .argv;
+
+switch (argv._[0]) {
+    case 'cli':
+        helloWorld();
+        showMainMenu();
+        break;
+
+    case 'author':
+        helloWorld();
+        break;
+
+    case 'fast':
+        hyper.superTransactionEngine(argv.transactions);
+        break;
+
+    case 'models':
+        hyper.checkRegisteredModels();
+        break;
+
+    default:
+        console.log('WTF');
+        break;
+}
 
 /*
 / ======== Hello World! =========
@@ -58,7 +90,7 @@ function helloWorld() {
             })
         )
     );
-    console.log(chalk.cyan.bold('0.9.6'));
+    console.log(chalk.cyan.bold(jsond.version));
     console.log(chalk.cyan.bold('Aabo Technologies © 2017'));
 
     console.log("\n");
@@ -70,8 +102,6 @@ function helloWorld() {
     console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
 
     console.log("\n");
-    //Call to the main menu
-    showMainMenu();
 }
 /*
 / ======== Main Menu =========
@@ -201,9 +231,7 @@ function debugMenu() {
                 break;
 
             case "Super Transaction Processor":
-                hyper.superTransactionEngine(10).then((result)=>{
-                    console.log(result);
-                });
+                hyper.superTransactionEngine(5);
                 break;
         }
     });
@@ -228,10 +256,10 @@ function testingMenu() {
         )
     );
     console.log(chalk.red('Not done yet...'));
-    setTimeout(function(){
+    setTimeout(function () {
         clear();
         debugMenu();
-    },3000);
+    }, 3000);
 }
 
 /*
