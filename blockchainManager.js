@@ -22,7 +22,6 @@
 // ------- Basic Libraries for this package -------
 const Table = require('cli-table');
 const prettyoutput = require('prettyoutput');
-var config = require('config').get('lyra-cli');
 var chalk = require('chalk');
 var md5 = require('md5')
 
@@ -30,354 +29,423 @@ var md5 = require('md5')
 const mongo = require('./mongoManager');
 
 // ------- Hyperledger libraries for this package -------
-
-// Require the client API
 const BusinessNetworkConnection = require('composer-client').BusinessNetworkConnection;
-
+var config = require('config').get('lyra-cli');\
 // these are the credentials to use to connect to the Hyperledger Fabric
 let participantId = config.get('participantId');
 let participantPwd = config.get('participantPwd');
-// physical connection details (eg port numbers) are held in a profile
-let connectionProfile = config.get('connectionProfile');
 
-// the logical business newtork has an indentifier
-let businessNetworkIdentifier = config.get('businessNetworkIdentifier');
-// ... which allows us to get a connection to this business network
-let businessNetworkConnection = new BusinessNetworkConnection();
-// the network definition will be used later to create assets
-let businessNetworkDefinition;
 
-let assetRegistry;
+class BlockchainManager {
+    /**We need the mapping of the business Network to the URLs */
+    constructor() {
+        this.businessNetworkConnection = new BusinessNetworkConnection();
+        this.connectionProfile = config.get('connectionProfile');
+        this.businessNetworkIdentifier = config.get('businessNetworkIdentifier');
+    }
 
-/*
-/ ========Check Registered Models Method =========
-/ This method starts the connection with the chaincode and queries the registered models
-/ It receives no parameters and returns no particular object
-/ Useful to check if you're actually connected to the system
-/ Bugs:: No >> Further Tests:: No particular behaviour for errors
-/ ======== ======== ======== ========
-*/
-const checkRegisteredModels = () => {
-    // create the connection
-    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
-        .then((result) => {
-            businessNetworkDefinition = result;
-            console.log('\n');
-            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return businessNetworkConnection.getAllAssetRegistries();
-        }).then((result) => {
-            console.log('List of asset registries=');
+    /**@name init
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description Initializes the chaincode by making a connection to the composer runtime
+     * @returns {Promise} A promise whose fullfillment means the initialization has completed
+     */
 
-            let table = new Table({
-                head: ['Registry Type', 'ID', 'Name']
+    init() {
+        return this.businessNetworkConnection.connect(this.connectionProfile, this.businessNetworkIdentifier, participantId, participantPwd)
+            .then((result) => {
+                this.businessNetworkDefinition = result;
+            })
+            .catch(function (error) {
+                throw error;
             });
-            for (let i = 0; i < result.length; i++) {
-                let tableLine = [];
+    }
 
-                tableLine.push(result[i].registryType);
-                tableLine.push(result[i].id);
-                tableLine.push(result[i].name);
-                table.push(tableLine);
-            }
+    /**@name CheckRegisteredAssets
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description Lists all registered assets in the Blockchain
+     * @returns {Promise} 
+     */
 
-            console.log(chalk.white(table.toString()));
-            return businessNetworkConnection.disconnect();
-        }).
-    then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            return getAllParticipantRegistries();
-        }) // and catch any exceptions that are triggered
-        .catch(function (error) {
-            throw error;
-        });
-}
+    checkRegisteredAssets() {
+        const METHOD = 'checkRegisteredModels';
 
-/*
-/ ======== Get All Participant Registries =========
-/ This method retrieves all registered Participants on the network
-/ Receives and returns no particular parameters
-/ Bugs:: Tested  >> Further Tests:: No particular behaviour for errors
-/ ======== ======== ======== ========
-*/
-
-const getAllParticipantRegistries = () => {
-    // create the connection
-    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
-        .then((result) => {
-            businessNetworkDefinition = result;
-            console.log('\n');
-            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return businessNetworkConnection.getAllParticipantRegistries();
-        }).then((result) => {
-            console.log('List of Participant registries=');
-
-            let table = new Table({
-                head: ['Registry Type', 'ID', 'Name']
-            });
-            for (let i = 0; i < result.length; i++) {
-                let tableLine = [];
-
-                tableLine.push(result[i].registryType);
-                tableLine.push(result[i].id);
-                tableLine.push(result[i].name);
-                table.push(tableLine);
-            }
-
-            console.log(chalk.white(table.toString()));
-            return businessNetworkConnection.disconnect();
-        }).
-    then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-        }) // and catch any exceptions that are triggered
-        .catch(function (error) {
-            throw error;
-        });
-}
-
-/*
-/ ======== Initializator Daemon Method =========
-/ This method creates a client and a wallet based on the received parameters
-/ @param clientSeed is a Number that expects the seed for the client ID
-/ @param walletSeed is a Number that expects the seed for the wallet ID
-/ @param bottom is a Number that expects the lower bound for the wallet's random balance 
-/ @param top is a Number that expects the top bound for the wallet's random balance 
-/ Bugs:: Tested  >> Further Tests:: Will succesfully deploy multiple wallets 
-/ ======== ======== ======== ========
-*/
-
-const initializatorDaemon = (clientSeed, walletSeed, bottom, top) => {
-    let client;
-    let ownerRelation;
-    let wallet;
-    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
-        .then((result) => {
-            businessNetworkDefinition = result;
-            console.log('\n');
-            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
-        }).then((result) => {
-            this.walletRegistry = result
-        }).then(() => {
-            let factory = businessNetworkDefinition.getFactory();
-            /** Create a new Participant within the network */
-            client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
-            client.id = md5(clientSeed);
-            /** Save to MongoDB */
-            mongo.saveParticipant(client);
-            /** Create a new relationship for the owner */
-            ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
-            /** Create a new wallet for the owner */
-            wallet = factory.newResource('org.aabo', 'Wallet', md5(walletSeed));
-            wallet.id = md5(walletSeed);
-            wallet.balance = (Math.random() * top) + bottom;
-            wallet.owner = ownerRelation;
-            /** Save to MongoDB */
-            mongo.saveAsset(wallet, md5(clientSeed));
-            /** Save the new state of this relationship to the Blockchain */
-            return this.walletRegistry.add(wallet);
-        }).then(() => {
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
-        }).then((clientRegistry) => {
-            return clientRegistry.add(client);
-        }).catch(function (error) {
-            console.log(error);
-            throw (error);
-        });
-}
-
-/*
-/ ======== Show Current Assets =========
-/ This method shows the current assets that exist within the Blockchain
-/ Receives no particular parameter and returns nothing interesting
-/ Bugs:: Tested  >> Further Tests:: Shows wallets, but wont print tables
-/ ======== ======== ======== ========
-*/
-
-const showCurrentAssets = () => {
-    let walletRegistry;
-    let clientRegistry;
-
-    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
-        .then((result) => {
-            businessNetworkDefinition = result;
-            console.log('\n');
-            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
-        }).then((registry) => {
-            walletRegistry = registry;
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
-        }).then((registry) => {
-            clientRegistry = registry;
-            return walletRegistry.resolveAll();
-        }).then((aResources) => {
-            let table = new Table({
-                head: ['ID', 'Balance', 'Owner ID']
-            });
-            let arrayLength = aResources.length;
-            for (let i = 0; i < arrayLength; i++) {
-                let tableLine = [];
-                tableLine.push(aResources[i].id);
-                tableLine.push(aResources[i].balance);
-                tableLine.push(aResources[i].owner);
-                table.push(tableLine);
-            }
-            // Put to stdout - as this is really a command line app
-            console.log(table.toString());
-        }).then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-            businessNetworkConnection.disconnect();
-        }) // and catch any exceptions that are triggered
-        .catch(function (error) {
-            throw error;
-        });
-}
-
-/*
-/ ======== Show Current Participants Method =========
-/ This method shows the participants that exist in the Blockchain
-/ Receives and returns no particular assets
-/ Bugs:: Tested  >> Further Tests:: Shows all participants
-/ ======== ======== ======== ========
-*/
-
-const showCurrentParticipants = () => {
-    let walletRegistry;
-    let clientRegistry;
-
-    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
-        .then((result) => {
-            businessNetworkDefinition = result;
-            console.log('\n');
-            console.log(chalk.green('Connected: BusinessNetworkDefinition obtained = ' + businessNetworkDefinition.getIdentifier()));
-            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet');
-        }).then((registry) => {
-            walletRegistry = registry;
-            return businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
-        }).then((registry) => {
-            clientRegistry = registry;
-            return clientRegistry.resolveAll();
-        }).then((aResources) => {
-            let table = new Table({
-                head: ['ID']
-            });
-            let arrayLength = aResources.length;
-            for (let i = 0; i < arrayLength; i++) {
-                let tableLine = [];
-                tableLine.push(aResources[i].id);
-                table.push(tableLine);
-            }
-            // Put to stdout - as this is really a command line app
-            console.log(table.toString());
-        }).then(() => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-            businessNetworkConnection.disconnect();
-        }) // and catch any exceptions that are triggered
-        .catch(function (error) {
-            throw error;
-        });
-}
-
-/*
-/ ======== Make Transaction Method =========
-/ This method makes a transaction over the network
-/ @param fromPid is the md5 related to a Client on the Blockchain who's receiving money
-/ @param toPid is the md5 related to a Client on the Blockchain who's receiving money
-/ @param funds is a number that means the amount of money that is being sent
-/ Bugs:: Tested  >> Further Tests:: Make it faster, make it stronger
-/ ======== ======== ======== ========
-*/
-
-const makeTransaction = (fromID, toID, funds) => {
-    let walletRegistry;
-    let from;
-    let to;
-
-    businessNetworkConnection.connect(connectionProfile, businessNetworkIdentifier, participantId, participantPwd)
-        .then((result) => {
-            businessNetworkDefinition = result;
-            return businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
-                .then(function (vr) {
-                    walletRegistry = vr;
-                    return walletRegistry.get(fromID);
-                })
-                .then(function (v) {
-                    from = v;
-                    return walletRegistry.get(toID);
-                })
-                .then(function (v) {
-                    to = v;
-                })
-                .then(function () {
-                    let serializer = businessNetworkDefinition.getSerializer();
-                    let resource = serializer.fromJSON({
-                        "$class": "org.aabo.Transfer",
-                        "amount": funds,
-                        "from": {
-                            "$class": "org.aabo.Wallet",
-                            "id": from.getIdentifier(),
-                            "balance": from.balance,
-                            "owner": "resource:org.aabo.Client#" + from.owner.getIdentifier()
-                        },
-                        "to": {
-                            "$class": "org.aabo.Wallet",
-                            "id": to.getIdentifier(),
-                            "balance": to.balance,
-                            "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
-                        }
-                    });
-                    return businessNetworkConnection.submitTransaction(resource);
+        return this.businessNetworkConnection.getAllAssetRegistries()
+            .then((result) => {
+                let table = new Table({
+                    head: ['Registry Type', 'ID', 'Name']
                 });
-        }).then((result) => {
-            console.log(chalk.blue(' ------ All done! ------'));
-            console.log('\n');
-            return businessNetworkConnection.disconnect();
-        }).catch(function (error) {
-            businessNetworkConnection.disconnect();
+                for (let i = 0; i < result.length; i++) {
+                    let tableLine = [];
+
+                    tableLine.push(result[i].registryType);
+                    tableLine.push(result[i].id);
+                    tableLine.push(result[i].name);
+                    table.push(tableLine);
+                }
+
+                return table;
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@name CheckRegisteredParticipants
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description Lists all registered participants on the Blockchain 
+     * @returns {Promise} A promise whose fullfillment means the participants have been registered
+     */
+
+    checkRegisteredParticipants() {
+        const METHOD = 'checkRegisteredParticipants';
+        return this.businessNetworkConnection.getAllParticipantRegistries()
+            .then((result) => {
+                let table = new Table({
+                    head: ['Registry Type', 'ID', 'Name']
+                });
+                for (let i = 0; i < result.length; i++) {
+                    let tableLine = [];
+
+                    tableLine.push(result[i].registryType);
+                    tableLine.push(result[i].id);
+                    tableLine.push(result[i].name);
+                    table.push(tableLine);
+                }
+                return table;
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@name InitializatorDaemon
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description Initializes the Participants and Wallets on the network
+     * @param {Number} clientSeed is the seed for the client
+     * @param {Number} walletSeed is the seed for the wallet
+     * @param {Number} bottom is the least amount of money a wallet can have
+     * @param {Number} top is the most amount of money a wallet can have
+     * @returns {Promise} A promise whose fullfillment means the initialization of assets has completed
+     */
+
+    initializatorDaemon(clientSeed, walletSeed, bottom, top) {
+        const METHOD = 'initializatorDaemon';
+
+        let client;
+        let ownerRelation;
+        let wallet;
+
+        return this.businessNetworkConnection.getAllAssetRegistries('org.aabo.Wallet')
+            .then((result) => {
+                this.walletRegistry = result;
+            })
+            .then(() => {
+                let factory = this.businessNetworkDefinition.getFactory();
+                /** Create a new Participant within the network */
+                client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
+                client.id = md5(clientSeed);
+                /** Save to MongoDB */
+                mongo.saveParticipant(client);
+                /** Create a new relationship for the owner */
+                ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
+                /** Create a new wallet for the owner */
+                wallet = factory.newResource('org.aabo', 'Wallet', md5(walletSeed));
+                wallet.id = md5(walletSeed);
+                wallet.balance = (Math.random() * top) + bottom;
+                wallet.owner = ownerRelation;
+                /** Save to MongoDB */
+                mongo.saveAsset(wallet, md5(clientSeed));
+                /** Save the new state of this relationship to the Blockchain */
+                return this.walletRegistry.add(wallet);
+            })
+            .then(() => {
+                return this.businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+            })
+            .then((clientRegistry) => {
+                return clientRegistry.add(client);
+            })
+            .catch(function (err) {
+                throw (err);
+            });
+    }
+
+    /**@name ShowCurrentAssets
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description Lists all current wallets on the Ledger
+     * @returns {Promise} A promise whose fullfillment means all wallets have succesfully been listed 
+     */
+
+    showCurrentAssets() {
+        const METHOD = 'showCurrentAssets';
+        let walletRegistry;
+        let clientRegistry;
+        return this.businessNetworkConnection.getAllAssetRegistry('org.aabo.Wallet')
+            .then((registry) => {
+                walletRegistry = registry;
+                return this.businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+            })
+            .then((registry) => {
+                clientRegistry = registry;
+                return walletRegistry.resolveAll();
+            })
+            .then((aResources) => {
+                let table = new Table({
+                    head: ['ID', 'Balance', 'Owner ID']
+                });
+                let arrayLength = aResources.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    let tableLine = [];
+                    tableLine.push(aResources[i].id);
+                    tableLine.push(aResources[i].balance);
+                    tableLine.push(aResources[i].owner);
+                    table.push(tableLine);
+                }
+
+                return table;
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+
+    /**@name ShowCurrentParticipants
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description Lists all current Participants on the ledger
+     * @returns {Promise} A promise whose fullfillment means all participants have succesfully been listed 
+     */
+
+    showCurrentParticipants() {
+        const METHOD = 'showCurrentParticipants';
+
+        let walletRegistry;
+        let clientRegistry;
+
+        return this.businessNetworkConnection.getAllAssetRegistry('org.aabo.Wallet')
+            .then((registry) => {
+                walletRegistry = registry;
+                return this.businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
+            })
+            .then((registry) => {
+                clientRegistry = registry;
+                return clientRegistry.resolveAll();
+            })
+            .then((aResources) => {
+                let table = new Table({
+                    head: ['ID']
+                });
+                let arrayLength = aResources.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    let tableLine = [];
+                    tableLine.push(aResources[i].id);
+                    table.push(tableLine);
+                }
+                return table;
+            })
+            .catch(function (error) {
+                throw (error);
+            });
+    }
+
+    /**@name MakeTransactionMethod
+     * @author Fernando Martin Garcia Del Angel - A01334390
+     * @description This method makes a single transaction over the ledger
+     * @param {String} fromID is the md5 related to a Client's wallet on the ledger who's sending money
+     * @param {String} toID is the md5 related to a Client's wallet on the ledger who's receiving money
+     * @param {Number} funds is an amount of money to be sent from one wallet to the other
+     * @returns {Promise} whose fullfiment means a transaction was made succesfully 
+     */
+
+    makeTransaction(fromID, toID, funds) {
+        const METHOD = 'makeTransaction';
+        let walletRegistry;
+        let from;
+        let to;
+
+        return this.businessNetworkConnection.getAllAssetRegistry('org.aabo.Wallet')
+            .then((registry) => {
+                walletRegistry = registry;
+                return walletRegistry.get(fromID);
+            })
+            .then((fromm) => {
+                from = fromm;
+                return walletRegistry.get(toID);
+            })
+            .then((too) => {
+                to = too;
+            })
+            .then(() => {
+                let serializer = this.businessNetworkDefinition.getSerializer();
+                let resource = serializer.fromJSON({
+                    "$class": "org.aabo.Transfer",
+                    "amount": funds,
+                    "from": {
+                        "$class": "org.aabo.Wallet",
+                        "id": from.getIdentifier(),
+                        "balance": from.balance,
+                        "owner": "resource:org.aabo.Client#" + from.owner.getIdentifier()
+                    },
+                    "to": {
+                        "$class": "org.aabo.Wallet",
+                        "id": to.getIdentifier(),
+                        "balance": to.balance,
+                        "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
+                    }
+                });
+
+                return this.businessNetworkConnection.submitTransaction(resource);
+            })
+            .catch(function (error) {
+                throw (error);
+            })
+    }
+
+    /** @description Runs the Check Registered Assets command
+     *  @returns {Promise} resolved when the action is completed
+     */
+
+    static registeredAssets() {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.checkRegisteredAssets();
+            })
+            .then((assets) => {
+                console.log(assets);
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@description Runs the Check Registered Participants command
+     * @returns {Promise} resolved when the action is completed
+     */
+
+    static registeredParticipants() {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.checkRegisteredParticipants();
+            })
+            .then((participants) => {
+                console.log(participants);
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@description Runs the Initializator Daemon
+     * @param {Number} clientSeed is the seed for the client
+     * @param {Number} walletSeed is the seed for the wallet
+     * @param {Number} bottom is the least amount of money a wallet can have
+     * @param {Number} top is the most amount of money a wallet can have
+     * @returns {Promise} A promise whose fullfillment means the initialization of assets has completed
+     */
+
+    static initializeLedger(clientSeed, walletSeed, bottom, top) {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.initializatorDaemon(clientSeed, walletSeed, bottom, top);
+            })
+            .then(() => {
+                console.log('Accounts created successfully!');
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@description Runs the Show Current Assets method
+     * @returns {Promise} A promise whose fullfillment means all wallets have succesfully been listed 
+     */
+
+    static assetsOnLedger() {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.showCurrentAssets();
+            })
+            .then((assets) => {
+                console.log(assets);
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@description Runs the Show Current Participants method
+     * @returns {Promise} A promise whose fullfillment means all participants have succesfully been listed 
+     */
+
+    static participantsOnLedger() {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.showCurrentParticipants();
+            })
+            .then((participants) => {
+                console.log(participants);
+            })
+            .catch(function (error) {
+                throw error;
+            });
+    }
+
+    /**@description Runs the make transaction method
+     * @param {String} fromID is the md5 related to a Client's wallet on the ledger who's sending money
+     * @param {String} toID is the md5 related to a Client's wallet on the ledger who's receiving money
+     * @param {Number} funds is an amount of money to be sent from one wallet to the other
+     * @returns {Promise} whose fullfiment means a transaction was made succesfully 
+     */
+
+    static transfer(fromID, toID, funds){
+        let bm = new BlockchainManager();
+        return bm.init()
+        .then(()=>{
+            return bm.makeTransaction(fromID, toID, funds);
+        })
+        .then(()=>{
+            console.log('Success!');
+        })
+        .catch(function(error){
             throw error;
         });
+    }
 }
 
-/*
-/ ======== Super Transaction Engine =========
-/ This method supports the fast transaction engine 
-/ @param amount of transactions to send in this node
-/ Bugs:: Not Tested  >> Further Tests:: Make it faster, make it stronger, make it better.
-/ ======== ======== ======== ========
-*/
+module.exports = BlockchainManager;
 
-async function superTransactionEngine(simAmmount) {
-    /** Get all Wallet ID's on the system */
-    mongo.getAllAssetsID().then((data) => {
-        /**Create Transaction Plan */
-        let transactionPlan = [];
-        /**Create a from/to pair to make the transaction next */
-        for (let i = 0; i < simAmmount; i++) {
-            var fromRandomUser = (Math.floor(Math.random() * (data.length - 1)));
-            var toRandomUser = (Math.floor(Math.random() * (data.length - 1)));
-            var fundsRandom = (Math.random() * 1000) + 100;
-            transactionPlan.push({
-                from: data[fromRandomUser].id,
-                to: data[toRandomUser].id,
-                funds: fundsRandom
-            });
-        }
-        /** Send it to the Transfer Fund Processor */
-        for (let x = 0; x < transactionPlan.length; x++) {
-            makeTransaction(transactionPlan[x].from, transactionPlan[x].to, transactionPlan[x].funds);
-        }
-    }).catch((err) => {
-        console.log(err);
-    });
-}
+// /*
+// / ======== Super Transaction Engine =========
+// / This method supports the fast transaction engine 
+// / @param amount of transactions to send in this node
+// / Bugs:: Not Tested  >> Further Tests:: Make it faster, make it stronger, make it better.
+// / ======== ======== ======== ========
+// */
 
-module.exports = {
-    checkRegisteredModels,
-    initializatorDaemon,
-    showCurrentAssets,
-    showCurrentParticipants,
-    makeTransaction,
-    superTransactionEngine
-}
+// async function superTransactionEngine(simAmmount) {
+//     /** Get all Wallet ID's on the system */
+//     mongo.getAllAssetsID().then((data) => {
+//         /**Create Transaction Plan */
+//         let transactionPlan = [];
+//         /**Create a from/to pair to make the transaction next */
+//         for (let i = 0; i < simAmmount; i++) {
+//             var fromRandomUser = (Math.floor(Math.random() * (data.length - 1)));
+//             var toRandomUser = (Math.floor(Math.random() * (data.length - 1)));
+//             var fundsRandom = (Math.random() * 1000) + 100;
+//             transactionPlan.push({
+//                 from: data[fromRandomUser].id,
+//                 to: data[toRandomUser].id,
+//                 funds: fundsRandom
+//             });
+//         }
+//         /** Send it to the Transfer Fund Processor */
+//         for (let x = 0; x < transactionPlan.length; x++) {
+//             makeTransaction(transactionPlan[x].from, transactionPlan[x].to, transactionPlan[x].funds);
+//         }
+//     }).catch((err) => {
+//         console.log(err);
+//     });
+// }

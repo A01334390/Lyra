@@ -39,17 +39,17 @@ var yargs = require('yargs')
     .command('cli', 'Start the CLI Lyra Application')
     .command('author', 'Show the projects authors')
     .command('fast', 'Start the fast Transaction Command', {
-        transactions = {
+        transactions : {
             describe: 'Ammount of transactions to make',
             demand: true,
             alias: 'tx'
         }
     })
-    .command('models', 'Show models on the Blockchain')
+    .command('assets', 'Show assets registered on the Blockchain')
     .help()
     .argv;
 
-switch (argv._[0]) {
+switch (yargs._[0]) {
     case 'cli':
         helloWorld();
         showMainMenu();
@@ -63,8 +63,18 @@ switch (argv._[0]) {
         hyper.superTransactionEngine(argv.transactions);
         break;
 
-    case 'models':
-        hyper.checkRegisteredModels();
+    case 'assets':
+
+        exports.handler = function(){
+            return hyper.registeredAssets()
+            .then(()=>{
+                console.log('Command completed Successfully!');
+                process.exit(0);
+            })
+            .catch(()=>{
+                process.exit(1);
+            });
+        };
         break;
 
     default:
