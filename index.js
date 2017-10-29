@@ -155,6 +155,8 @@ switch (yargs._[0]) {
         break;
 }
 
+/**@description Shows current authors on the system */
+
 function author() {
     clear();
     console.log(
@@ -178,6 +180,8 @@ function author() {
     console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
     console.log("\n");
 }
+
+/**@description Shows the menu with the main options */
 
 function mainMenu() {
     /** Displays the main menu  */
@@ -218,6 +222,9 @@ function mainMenu() {
         }
     });
 }
+
+/**@description Shows the debug menu with the debug options */
+
 
 function debugMenu() {
     console.log(
@@ -300,6 +307,11 @@ function debugMenu() {
     });
 }
 
+/**@description Shows current testing options
+ * @version 0
+ */
+
+
 function testingMenu() {
     clear();
     console.log(
@@ -316,6 +328,11 @@ function testingMenu() {
         mainMenu();
     }, 3000);
 }
+
+/**@description Creates a batch amount of accounts and wallets on the system
+ * @param {Nothing}
+ */
+
 
 function batchCreation() {
     var questions = [{
@@ -349,8 +366,10 @@ function batchCreation() {
                 });
         }
     });
-
 }
+
+/**@description Makes a bunch of transactions */
+
 
 function makeTransaction() {
     var questions = [{

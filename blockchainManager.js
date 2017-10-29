@@ -57,7 +57,7 @@ class BlockchainManager {
                 this.businessNetworkDefinition = result;
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
             });
     }
 
@@ -87,7 +87,7 @@ class BlockchainManager {
                 return table.toString();
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
             });
     }
 
@@ -115,7 +115,7 @@ class BlockchainManager {
                 return table.toString();
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
             });
     }
 
@@ -146,7 +146,7 @@ class BlockchainManager {
                 client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
                 client.id = md5(clientSeed);
                 /** Save to MongoDB */
-                //mongo.saveParticipant(client);
+                mongo.savePnt(client);
                 /** Create a new relationship for the owner */
                 ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
                 /** Create a new wallet for the owner */
@@ -155,7 +155,7 @@ class BlockchainManager {
                 wallet.balance = (Math.random() * top) + bottom;
                 wallet.owner = ownerRelation;
                 /** Save to MongoDB */
-                //mongo.saveAsset(wallet, md5(clientSeed));
+                mongo.saveAst(wallet,md5(clientSeed));
                 /** Save the new state of this relationship to the Blockchain */
                 return this.walletRegistry.add(wallet);
             })
@@ -295,7 +295,7 @@ class BlockchainManager {
                         "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                     }
                 });
-
+                mongo.saveTx(serializer);
                 return this.businessNetworkConnection.submitTransaction(resource);
             })
             .catch(function (error) {
