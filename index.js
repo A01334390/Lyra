@@ -1,15 +1,5 @@
 #!/usr/bin/env node
 
-/*
-/ ======== Index =========
-/ This is the main file for the Lyra Project
-/ As of now, it works with the latest version of Hyperledger
-/ Made by Aabo Technologies © 2017 - Servers Division
-/ Created > September 18th, 2017 @ 2:26 p.m. by A01334390
-/ Last revised > October 25th, 2017 @ 1:30 p.m. by a01334390
-/ ======== ======== ======== ========
-*/
-
 //CLI Elements and Libraries
 var chalk = require('chalk');
 var clear = require('clear');
@@ -19,6 +9,7 @@ var inquirer = require('inquirer');
 //Hyperledger Fabric Code And Connectors
 var hyper = require('./blockchainManager');
 var jsond = require('./package');
+var index = require('.');
 
 
 
@@ -34,63 +25,137 @@ var jsond = require('./package');
 //      \__\/           \__\/    \  \:\        \  \:\    
 //                                \__\/         \__\/    
 
-//Initiate the Command Line Arguments
+
 var yargs = require('yargs')
     .command('cli', 'Start the CLI Lyra Application')
     .command('author', 'Show the projects authors')
-    .command('fast', 'Start the fast Transaction Command', {
-        transactions : {
-            describe: 'Ammount of transactions to make',
-            demand: true,
-            alias: 'tx'
+    .command('assets', 'Lists all registered assets in the Blockchain')
+    .command('participants', 'Lists all registered participants on the Blockchain')
+    .command('initialize', 'Initializes the Participants and Wallets on the network', {
+        amount: {
+            description: 'Amount of clients and wallets to make',
+            require: true,
+            alias: 'a'
+        },
+        top: {
+            description: 'Most amount of money a client can have',
+            require: true,
+            alias: 't'
+        },
+        bottom: {
+            description: 'Least amount of money a client can have',
+            require: true,
+            alias: 'b'
         }
     })
-    .command('assets', 'Show assets registered on the Blockchain')
+    .command('cassets', 'Lists all current wallets on the Ledger')
+    .command('passets', 'Lists all current participants on the Ledger')
+    .command('transfer', 'Makes a single transaction over the network', {
+        from: {
+            description: "Address from a client who's sending money",
+            require: true,
+            alias: 'f'
+        },
+        to: {
+            description: "Address from a client who's receiving money",
+            require: true,
+            alias: 't'
+        },
+        amount: {
+            description: "Amount of money to be sent",
+            require: true,
+            alias: 'a'
+        }
+    })
     .help()
     .argv;
 
 switch (yargs._[0]) {
     case 'cli':
-        helloWorld();
-        showMainMenu();
+        author();
+        mainMenu();
         break;
 
     case 'author':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
         helloWorld();
         break;
 
-    case 'fast':
-        hyper.superTransactionEngine(argv.transactions);
-        break;
-
     case 'assets':
-
-        exports.handler = function(){
-            return hyper.registeredAssets()
-            .then(()=>{
-                console.log('Command completed Successfully!');
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.registeredAssets()
+            .then(() => {
                 process.exit(0);
             })
-            .catch(()=>{
+            .catch(() => {
                 process.exit(1);
             });
-        };
+        break;
+
+    case 'participants':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.registeredParticipants()
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(() => {
+                process.exit(1);
+            });
+        break;
+    case 'initialize':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        for (let i = 0; i < yargs.amount; i++) {
+            hyper.batchAccount(i, (i + yargs.amount), yargs.top, yargs.bottom)
+                .then(() => {
+
+                })
+                .catch(function (error) {
+
+                });
+        }
+        break;
+
+    case 'cassets':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.assetsOnLedger()
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(() => {
+                process.exit(1);
+            });
+        break;
+
+    case 'passets':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.participantsOnLedger()
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(() => {
+                process.exit(1);
+            });
+        break;
+
+    case 'transfer':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.transfer(yargs.from, yargs.to, yargs.amount)
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(() => {
+                process.exit(1);
+            })
         break;
 
     default:
-        console.log('WTF');
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        console.log(chalk.bold.red('No commands were issued from the terminal. Please '));
+        process.exit(0);
         break;
 }
 
-/*
-/ ======== Hello World! =========
-/ This method shows the main menu
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: Any time a new option is added
-/ ======== ======== ======== ========
-*/
-
-function helloWorld() {
+function author() {
     clear();
     console.log(
         chalk.cyan(
@@ -102,26 +167,20 @@ function helloWorld() {
     );
     console.log(chalk.cyan.bold(jsond.version));
     console.log(chalk.cyan.bold('Aabo Technologies © 2017'));
-
+    /** Displays the characteristics of the Program */
     console.log("\n");
     console.log(chalk.cyan.bold('Welcome to the fast Blockchain Simulator'));
+    /** Displays the authors of the Program */
     console.log(chalk.magenta.bold('Made by:'));
     console.log(chalk.green.bold('--Andres Bustamante Diaz'));
     console.log(chalk.white.bold('--Enrique Navarro Torres-Arpi'));
     console.log(chalk.magenta.bold('--Fernando Martin Garcia Del Angel'));
     console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
-
     console.log("\n");
 }
-/*
-/ ======== Main Menu =========
-/ This method shows the main options for the program
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: Once new options are added
-/ ======== ======== ======== ========
-*/
 
-function showMainMenu() {
+function mainMenu() {
+    /** Displays the main menu  */
     console.log(
         chalk.green(
             figlet.textSync('Main Menu', {
@@ -160,14 +219,6 @@ function showMainMenu() {
     });
 }
 
-/*
-/ ======== Debug Menu =========
-/ This method is used to test new functionality being added
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: Once new options are added
-/ ======== ======== ======== ========
-*/
-
 function debugMenu() {
     console.log(
         chalk.yellow(
@@ -183,14 +234,13 @@ function debugMenu() {
         message: "Choose an option from the debug menu",
         choices: [
             new inquirer.Separator(),
-            "Check Registered Models on Hyperledger",
-            "Check Connection with Hyperledger",
-            "Check current Wallets on the system",
-            "Check current Clients on the system",
-            "Create Wallets and Participants",
-            "Make one transaction",
-            "Test ORA Spinners",
-            "Super Transaction Processor",
+            "Shows the project's authors",
+            "Lists all registered assets in the Blockchain",
+            "Lists all registered participants on the Blockchain",
+            "Initializes the Participants and Wallets on the network",
+            "Lists all current wallets on the Ledger",
+            "Lists all current participants on the Ledger",
+            "Makes a single transaction over the network",
             new inquirer.Separator(),
             "Go back to the main menu"
         ]
@@ -198,62 +248,57 @@ function debugMenu() {
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
-            case "Check Registered Models on Hyperledger":
-                hyper.checkRegisteredModels();
-                setTimeout(function () {
-                    debugMenu();
-                }, 4000);
+            case "Shows the project's authors":
+                author();
+                console.log('\n');
+                debugMenu();
                 break;
-
-            case "Check Connection with Hyperledger":
-                console.log('Im being programmed at the moment');
+            case "Lists all registered assets in the Blockchain":
+                hyper.registeredAssets()
+                    .then(() => {
+                        debugMenu();
+                    })
+                    .catch(() => {
+                        process.exit(1);
+                    });
                 break;
-
-            case "Check current Wallets on the system":
-                hyper.showCurrentAssets();
-                setTimeout(function () {
-                    debugMenu();
-                }, 4000);
+            case "Lists all registered participants on the Blockchain":
+                hyper.registeredParticipants()
+                    .then(() => {
+                        debugMenu();
+                    })
+                    .catch(() => {
+                        process.exit(1);
+                    });
                 break;
-
-            case "Check current Clients on the system":
-                hyper.showCurrentParticipants();
-                setTimeout(function () {
-                    debugMenu();
-                }, 4000);
-                break;
-
-            case "Create Wallets and Participants":
+            case "Initializes the Participants and Wallets on the network":
                 batchCreation();
                 break;
-
-            case "Make one transaction":
-                makeTransaction();
+            case "Lists all current wallets on the Ledger":
+                hyper.assetsOnLedger()
+                    .then(() => {
+                        debugMenu();
+                    })
+                    .catch(() => {
+                        process.exit(1);
+                    });
                 break;
-
-            case "Test ORA Spinners":
-                oraSpinnerTest();
+            case "Lists all current participants on the Ledger":
+                hyper.participantsOnLedger()
+                    .then(() => {
+                        debugMenu();
+                    })
+                    .catch(() => {
+                        process.exit(1);
+                    });
                 break;
-
             case "Go back to the main menu":
                 clear();
-                showMainMenu();
-                break;
-
-            case "Super Transaction Processor":
-                hyper.superTransactionEngine(5);
+                mainMenu();
                 break;
         }
     });
 }
-
-/*
-/ ======== Testing Menu =========
-/ This would be the main testing engine, will be programmed once everything's being maxed out
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: Needs to be programmed
-/ ======== ======== ======== ========
-*/
 
 function testingMenu() {
     clear();
@@ -268,19 +313,11 @@ function testingMenu() {
     console.log(chalk.red('Not done yet...'));
     setTimeout(function () {
         clear();
-        debugMenu();
+        mainMenu();
     }, 3000);
 }
 
-/*
-/ ======== Batch Creation =========
-/ This method creates multiple wallets and participants at the same time
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: It needs to be optimized
-/ ======== ======== ======== ========
-*/
-
-const batchCreation = () => {
+function batchCreation() {
     var questions = [{
             type: 'input',
             name: 'clientNumber',
@@ -302,30 +339,20 @@ const batchCreation = () => {
     ];
 
     inquirer.prompt(questions).then(function (answers) {
-        try {
-            for (let i = 0; i < answers.clientNumber; i++) {
-                hyper.initializatorDaemon(i, (answers.clientNumber + i), answers.bottom, answers.top);
-            }
+        for (let i = 0; i < yargs.amount; i++) {
+            hyper.batchAccount(i, (i + yargs.amount), yargs.top, yargs.bottom)
+                .then(() => {
 
-            setTimeout(function () {
-                debugMenu();
-            }, 100 * answers.clientNumber);
+                })
+                .catch(function (error) {
 
-        } catch (err) {
-            console.log(err);
+                });
         }
     });
 
 }
 
-/*
-/ ======== Make Transaction =========
-/ This method makes a Transfer transaction between two peers
-/ It doesn't receive any parameters and doesn't return any particular ones
-/ Bugs:: No >> Further Tests:: It needs to be optimized heavily
-/ ======== ======== ======== ========
-*/
-const makeTransaction = () => {
+function makeTransaction() {
     var questions = [{
             type: 'input',
             name: "from",
@@ -343,9 +370,12 @@ const makeTransaction = () => {
         }
     ];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.makeTransaction(answers.from, answers.to, answers.funds);
+        hyper.transfer(answers.from, answers.to, answers.funds)
+            .then(() => {
+                mainMenu();
+            })
+            .catch(function (error) {
+                throw error;
+            })
     });
-    setTimeout(function () {
-        debugMenu();
-    }, 5000);
 }

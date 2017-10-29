@@ -30,7 +30,7 @@ const mongo = require('./mongoManager');
 
 // ------- Hyperledger libraries for this package -------
 const BusinessNetworkConnection = require('composer-client').BusinessNetworkConnection;
-var config = require('config').get('lyra-cli');\
+var config = require('config').get('lyra-cli');
 // these are the credentials to use to connect to the Hyperledger Fabric
 let participantId = config.get('participantId');
 let participantPwd = config.get('participantPwd');
@@ -53,6 +53,7 @@ class BlockchainManager {
     init() {
         return this.businessNetworkConnection.connect(this.connectionProfile, this.businessNetworkIdentifier, participantId, participantPwd)
             .then((result) => {
+                console.log(chalk.green('Connected to Hyperledger!'));
                 this.businessNetworkDefinition = result;
             })
             .catch(function (error) {
@@ -83,7 +84,7 @@ class BlockchainManager {
                     table.push(tableLine);
                 }
 
-                return table;
+                return table.toString();
             })
             .catch(function (error) {
                 throw error;
@@ -111,7 +112,7 @@ class BlockchainManager {
                     tableLine.push(result[i].name);
                     table.push(tableLine);
                 }
-                return table;
+                return table.toString();
             })
             .catch(function (error) {
                 throw error;
@@ -129,13 +130,13 @@ class BlockchainManager {
      */
 
     initializatorDaemon(clientSeed, walletSeed, bottom, top) {
+        console.log(clientSeed, walletSeed, bottom, top);
         const METHOD = 'initializatorDaemon';
 
         let client;
         let ownerRelation;
         let wallet;
-
-        return this.businessNetworkConnection.getAllAssetRegistries('org.aabo.Wallet')
+        return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
             .then((result) => {
                 this.walletRegistry = result;
             })
@@ -145,7 +146,7 @@ class BlockchainManager {
                 client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
                 client.id = md5(clientSeed);
                 /** Save to MongoDB */
-                mongo.saveParticipant(client);
+                //mongo.saveParticipant(client);
                 /** Create a new relationship for the owner */
                 ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
                 /** Create a new wallet for the owner */
@@ -154,7 +155,7 @@ class BlockchainManager {
                 wallet.balance = (Math.random() * top) + bottom;
                 wallet.owner = ownerRelation;
                 /** Save to MongoDB */
-                mongo.saveAsset(wallet, md5(clientSeed));
+                //mongo.saveAsset(wallet, md5(clientSeed));
                 /** Save the new state of this relationship to the Blockchain */
                 return this.walletRegistry.add(wallet);
             })
@@ -165,7 +166,7 @@ class BlockchainManager {
                 return clientRegistry.add(client);
             })
             .catch(function (err) {
-                throw (err);
+                console.log('An error occured: ', chalk.bold.red(error));
             });
     }
 
@@ -177,9 +178,11 @@ class BlockchainManager {
 
     showCurrentAssets() {
         const METHOD = 'showCurrentAssets';
+
         let walletRegistry;
         let clientRegistry;
-        return this.businessNetworkConnection.getAllAssetRegistry('org.aabo.Wallet')
+
+        return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
             .then((registry) => {
                 walletRegistry = registry;
                 return this.businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
@@ -200,8 +203,7 @@ class BlockchainManager {
                     tableLine.push(aResources[i].owner);
                     table.push(tableLine);
                 }
-
-                return table;
+                return table.toString();
             })
             .catch(function (error) {
                 throw (error);
@@ -220,7 +222,7 @@ class BlockchainManager {
         let walletRegistry;
         let clientRegistry;
 
-        return this.businessNetworkConnection.getAllAssetRegistry('org.aabo.Wallet')
+        return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
             .then((registry) => {
                 walletRegistry = registry;
                 return this.businessNetworkConnection.getParticipantRegistry('org.aabo.Client');
@@ -239,7 +241,7 @@ class BlockchainManager {
                     tableLine.push(aResources[i].id);
                     table.push(tableLine);
                 }
-                return table;
+                return table.toString();
             })
             .catch(function (error) {
                 throw (error);
@@ -261,12 +263,14 @@ class BlockchainManager {
         let from;
         let to;
 
-        return this.businessNetworkConnection.getAllAssetRegistry('org.aabo.Wallet')
+        return businessNetworkConnection.getAllAssetRegistries('org.aabo.Wallet')
             .then((registry) => {
-                walletRegistry = registry;
+                console.log(1);
+                this.walletRegistry = registry;
                 return walletRegistry.get(fromID);
             })
             .then((fromm) => {
+                console.log(2);
                 from = fromm;
                 return walletRegistry.get(toID);
             })
@@ -313,7 +317,8 @@ class BlockchainManager {
                 console.log(assets);
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
             });
     }
 
@@ -331,7 +336,8 @@ class BlockchainManager {
                 console.log(participants);
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
             });
     }
 
@@ -353,7 +359,8 @@ class BlockchainManager {
                 console.log('Accounts created successfully!');
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
             });
     }
 
@@ -371,7 +378,8 @@ class BlockchainManager {
                 console.log(assets);
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
             });
     }
 
@@ -389,7 +397,8 @@ class BlockchainManager {
                 console.log(participants);
             })
             .catch(function (error) {
-                throw error;
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
             });
     }
 
@@ -397,21 +406,45 @@ class BlockchainManager {
      * @param {String} fromID is the md5 related to a Client's wallet on the ledger who's sending money
      * @param {String} toID is the md5 related to a Client's wallet on the ledger who's receiving money
      * @param {Number} funds is an amount of money to be sent from one wallet to the other
-     * @returns {Promise} whose fullfiment means a transaction was made succesfully 
+     * @returns {Promise} whose fullfilment means a transaction was made succesfully 
      */
 
-    static transfer(fromID, toID, funds){
+    static transfer(fromID, toID, funds) {
         let bm = new BlockchainManager();
         return bm.init()
-        .then(()=>{
-            return bm.makeTransaction(fromID, toID, funds);
-        })
-        .then(()=>{
-            console.log('Success!');
-        })
-        .catch(function(error){
-            throw error;
-        });
+            .then(() => {
+                return bm.makeTransaction(fromID, toID, funds);
+            })
+            .then(() => {
+                console.log('Success!');
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
+    }
+
+    /**@description Create batch accounts and wallets
+     * @param {Number} clientSeed is the seed for the client
+     * @param {Number} walletSeed is the seed for the wallet
+     * @param {Number} bottom is the least amount of money a wallet can have
+     * @param {Number} top is the most amount of money a wallet can have
+     * @returns {Promise} whose fullfilment means all accounts and wallets have been made
+     */
+
+    static batchAccount(clientSeed, walletSeed, bottom, top) {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.initializatorDaemon(clientSeed, walletSeed, bottom, top);
+            })
+            .then(() => {
+                console.log('Accounts created successfully!');
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            })
     }
 }
 
