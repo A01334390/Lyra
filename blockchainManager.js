@@ -259,14 +259,14 @@ class BlockchainManager {
 
     makeTransaction(fromID, toID, funds) {
         const METHOD = 'makeTransaction';
-        let walletRegistry;
         let from;
+        let walletRegistry;
         let to;
 
-        return businessNetworkConnection.getAllAssetRegistries('org.aabo.Wallet')
+        return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
             .then((registry) => {
                 console.log(1);
-                this.walletRegistry = registry;
+                walletRegistry = registry;
                 return walletRegistry.get(fromID);
             })
             .then((fromm) => {
@@ -449,14 +449,6 @@ class BlockchainManager {
 }
 
 module.exports = BlockchainManager;
-
-// /*
-// / ======== Super Transaction Engine =========
-// / This method supports the fast transaction engine 
-// / @param amount of transactions to send in this node
-// / Bugs:: Not Tested  >> Further Tests:: Make it faster, make it stronger, make it better.
-// / ======== ======== ======== ========
-// */
 
 // async function superTransactionEngine(simAmmount) {
 //     /** Get all Wallet ID's on the system */
