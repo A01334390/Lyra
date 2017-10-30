@@ -146,6 +146,8 @@ class BlockchainManager {
                 /** Create a new Participant within the network */
                 client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
                 client.id = md5(clientSeed);
+                /**Save to MDB */
+              //  mongo.savePnt(client);
                 /** Create a new relationship for the owner */
                 ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
                 /** Create a new wallet for the owner */
@@ -153,6 +155,8 @@ class BlockchainManager {
                 wallet.id = md5(walletSeed);
                 wallet.balance = (Math.random() * top) + bottom;
                 wallet.owner = ownerRelation;
+                /**Save to MDB */
+               // mongo.saveAst(wallet);
                 /** Save the new state of this relationship to the Blockchain */
                 return this.walletRegistry.add(wallet);
             })
@@ -290,6 +294,7 @@ class BlockchainManager {
                         "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                     }
                 });
+            //    mongo.saveTx(resource);    
                 return this.businessNetworkConnection.submitTransaction(resource);;
             })
             .then(() => {
