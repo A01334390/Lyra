@@ -23,7 +23,9 @@
 const Table = require('cli-table');
 const prettyoutput = require('prettyoutput');
 var chalk = require('chalk');
+var figlet = require('figlet');
 var md5 = require('md5')
+var now = require('performance-now');
 
 // ------- Basic Libraries for this package -------
 const mongo = require('./mongoManager');
@@ -329,6 +331,40 @@ class BlockchainManager {
             });
     }
 
+    profilingTime(timeStart,timeEnd,simTrax,whereFrom){
+        const METHOD = 'profilingTime';
+
+        let executedTime = (timeEnd-timeStart);
+        let opTime = executedTime / simTrax;
+        let opsPerDay = 86400000 / opTime;
+        let exp = (opsPerDay.toString().length)-13;
+        console.log(chalk.bold.blue('EXECUTION TIME:'),chalk.cyan(executedTime));
+        console.log(chalk.bold.blue('OPERATION TIME:'),chalk.cyan(opTime));
+        console.log(chalk.bold.blue('OPS PER DAY:'),chalk.cyan(opsPerDay),'or:',chalk.bold.blue('1E'+exp));
+        if(whereFrom === 'tx'){
+            if(exp < 9 ){
+                console.log(
+                    chalk.yellow(
+                        figlet.textSync('Not yet...', {
+                            horizontalLayout: 'full',
+                            verticalLayout: 'default'
+                        })
+                    )
+                );
+            }else{
+                console.log(
+                    chalk.green(
+                        figlet.textSync('DONE~!', {
+                            horizontalLayout: 'full',
+                            verticalLayout: 'default'
+                        })
+                    )
+                );
+            }
+        }
+    }
+
+
     /** @description Runs the Check Registered Assets command
      *  @returns {Promise} resolved when the action is completed
      */
@@ -460,15 +496,22 @@ class BlockchainManager {
 
     static batchAccount(amount, bottom, top) {
         let bm = new BlockchainManager();
+        //**Set up the time start */
+        let timeStart;
+        let timeEnd;
+        //**Set up the time end */
         return bm.init()
             .then(() => {
                 let all_promise = [];
                 for (let i = 0; i < amount; i++) {
                     all_promise.push(bm.initializatorDaemon(i, (i + amount), bottom, top));
                 }
+                timeStart = now();
                 return Promise.all(all_promise);
             })
             .then((arr) => {
+                timeEnd = now();
+                bm.profilingTime(timeStart,timeEnd,amount,'acc');
                 console.log('Accounts created successfully!');
             })
             .catch(function (error) {
@@ -505,6 +548,10 @@ class BlockchainManager {
 
     static transactionCannon(simTrax){
         let bm = new BlockchainManager();
+        //**Set up the time start */
+        let timeStart;
+        let timeEnd;
+        //**Set up the time end */
         return bm.init()
         .then(()=>{
             return bm.transactionSchedule(simTrax);
@@ -514,9 +561,12 @@ class BlockchainManager {
             for (let i = 0; i < result.length ; i++){
                 cannonBalls.push(bm.makeTransaction(result[i].from,result[i].to,result[i].funds));
             }
+            timeStart = now();
             return Promise.all(cannonBalls);
         })
         .then(()=>{
+            timeEnd = now();
+            bm.profilingTime(timeStart,timeEnd,simTrax,'tx');
             console.log('Transaction Cannon Finished');
         })
         .catch(function(error){
@@ -524,6 +574,7 @@ class BlockchainManager {
             process.exit(1);
         });
     }
+
 }
 
 module.exports = BlockchainManager;
