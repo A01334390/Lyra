@@ -356,8 +356,8 @@ function batchCreation() {
     ];
 
     inquirer.prompt(questions).then(function (answers) {
-        for (let i = 0; i < yargs.amount; i++) {
-            hyper.batchAccount(i, (i + yargs.amount), yargs.top, yargs.bottom)
+        for (let i = 0; i < answers.clientNumber; i++) {
+            hyper.batchAccount(i, (i + answers.clientNumber), answers.top, answers.bottom)
                 .then(() => {
 
                 })
