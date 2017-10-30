@@ -47,6 +47,7 @@ class MongoManager {
      * @return {Promise} whose fulfillment means the transaction has been saved
      */
     saveTransaction(jsonDoc) {
+        const METHOD = 'saveTransaction';
         var tx = new Transaction({
             amount: jsonDoc.amount,
             from: {
@@ -61,7 +62,7 @@ class MongoManager {
             }
         });
 
-        tx.save()
+        return tx.save()
             .then(() => {
                 return true;
             })
@@ -76,11 +77,12 @@ class MongoManager {
      */
 
     saveParticipant(jsonDoc) {
+        const METHOD = 'saveParticipant';
         var ptc = new Participant({
             id: jsonDoc.id
         });
 
-        ptc.save()
+        return ptc.save()
             .then(() => {
                 return true;
             })
@@ -96,13 +98,15 @@ class MongoManager {
      */
 
     saveAsset(jsonDoc, idOwner) {
+        const METHOD = 'saveAsset';
+        console.log(jsonDoc);
         var wallet = new Wallet({
             id: jsonDoc.id,
             balance: jsonDoc.balance,
             ownerID: idOwner
         });
 
-        wallet.save()
+        return wallet.save()
             .then(() => {
                 return true;
             })
@@ -116,7 +120,8 @@ class MongoManager {
      */
 
     getAllTransactions() {
-        Transaction.find({})
+        const METHOD = 'getAllTransactions';
+        return Transaction.find({})
             .then((result) => {
                 return result;
             })
@@ -130,7 +135,7 @@ class MongoManager {
      */
 
     getAllParticipants() {
-        Participant.find({})
+        return Participant.find({})
             .then((result) => {
                 return result;
             })
@@ -144,7 +149,7 @@ class MongoManager {
      */
 
     getAllAssets() {
-        Wallet.find({})
+       return Wallet.find({})
             .then((result) => {
                 return result;
             })
@@ -159,7 +164,7 @@ class MongoManager {
      */
 
     getOneAsset(identifier) {
-        Wallet.findOne({
+       return Wallet.findOne({
                 id: identifier
             })
             .then((result) => {
@@ -176,7 +181,7 @@ class MongoManager {
      */
 
     getOneParticipant(identifier) {
-        Participant.findOne({
+       return Participant.findOne({
                 id: identifier
             })
             .then((result) => {
@@ -192,7 +197,7 @@ class MongoManager {
      */
 
     getAllAssetsID() {
-        Wallet.find({}, 'id -_id')
+        return Wallet.find({}, 'id -_id')
             .then((result) => {
                 return result;
             })
@@ -207,13 +212,7 @@ class MongoManager {
 
     static saveTx(jsonDoc) {
         let mong = new MongoManager();
-        mong.saveTransaction(jsonDoc)
-            .then(() => {
-                return true;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.saveTransaction(jsonDoc);
     }
 
     /**@description Executes the Save Participant Command
@@ -222,13 +221,7 @@ class MongoManager {
 
     static savePnt(jsonDoc) {
         let mong = new MongoManager();
-        mong.saveParticipant()
-            .then(() => {
-                return true;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.saveParticipant(jsonDoc);
     }
 
     /**@description Executes the Save Asset Command
@@ -237,13 +230,7 @@ class MongoManager {
 
     static saveAst(jsonDoc, idOwner) {
         let mong = new MongoManager();
-        mong.saveAsset()
-            .then(() => {
-                return true;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.saveAsset(jsonDoc,idOwner);
     }
 
     /**@description Executes the Get All Transaction command
@@ -252,13 +239,13 @@ class MongoManager {
 
     static getAllTx() {
         let mong = new MongoManager();
-        mong.getAllTransactions()
-            .then((result) => {
-                return result;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.getAllTransactions()
+        .then((result)=>{
+            return result;
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+        });
     }
 
     /**@description Executes the Get All Participants command
@@ -267,13 +254,13 @@ class MongoManager {
 
     static getAllPnt() {
         let mong = new MongoManager();
-        mong.getAllParticipants()
-            .then((result) => {
-                return result;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.getAllParticipants()
+        .then((result)=>{
+            return result;
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+        });
     }
 
     /**@description Executes the Get All Assets command
@@ -282,13 +269,13 @@ class MongoManager {
 
     static getAllAst() {
         let mong = new MongoManager();
-        mong.getAllAssets()
-            .then((result) => {
-                return result;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.getAllAssets()
+        .then((result)=>{
+            return result;
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+        });
     }
 
     /**@description Executes the Get One Asset command
@@ -298,13 +285,13 @@ class MongoManager {
 
     static getOneAst(identifier) {
         let mong = new MongoManager();
-        mong.getOneAsset()
-            .then((result) => {
-                return result;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.getOneAsset(identifier)
+        .then((result)=>{
+            return result;
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+        });
     }
 
     /**@description Executes the Get One Participant command
@@ -314,13 +301,13 @@ class MongoManager {
 
     static getOnePnt(identifier) {
         let mong = new MongoManager();
-        mong.getOneParticipant()
-            .then((result) => {
-                return result;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.getOneParticipant(identifier)
+        .then((result)=>{
+            return result;
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+        });
     }
 
     /**@description Executes the All Asset's id command
@@ -329,13 +316,13 @@ class MongoManager {
 
     static getAllAstID() {
         let mong = new MongoManager();
-        mong.getAllAssetsID()
-            .then((result) => {
-                return result;
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
+        return mong.getAllAssetsID()
+        .then((result)=>{
+            return result;
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+        });
     }
 }
 
