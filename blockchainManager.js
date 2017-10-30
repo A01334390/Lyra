@@ -130,7 +130,6 @@ class BlockchainManager {
      */
 
     initializatorDaemon(clientSeed, walletSeed, bottom, top) {
-        console.log(clientSeed, walletSeed, bottom, top);
         const METHOD = 'initializatorDaemon';
 
         let client;
@@ -145,8 +144,6 @@ class BlockchainManager {
                 /** Create a new Participant within the network */
                 client = factory.newResource('org.aabo', 'Client', md5(clientSeed));
                 client.id = md5(clientSeed);
-                /** Save to MongoDB */
-                //mongo.savePnt(client);
                 /** Create a new relationship for the owner */
                 ownerRelation = factory.newRelationship('org.aabo', 'Client', md5(clientSeed));
                 /** Create a new wallet for the owner */
@@ -154,8 +151,6 @@ class BlockchainManager {
                 wallet.id = md5(walletSeed);
                 wallet.balance = (Math.random() * top) + bottom;
                 wallet.owner = ownerRelation;
-                /** Save to MongoDB */
-                //mongo.saveAst(wallet,md5(clientSeed));
                 /** Save the new state of this relationship to the Blockchain */
                 return this.walletRegistry.add(wallet);
             })
@@ -166,7 +161,7 @@ class BlockchainManager {
                 return clientRegistry.add(client);
             })
             .catch(function (err) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                console.log('An error occured: ', chalk.bold.red(err));
             });
     }
 
@@ -206,7 +201,7 @@ class BlockchainManager {
                 return table.toString();
             })
             .catch(function (error) {
-                throw (error);
+                console.log('An error occured: ', chalk.bold.red(error));
             });
     }
 
@@ -244,7 +239,7 @@ class BlockchainManager {
                 return table.toString();
             })
             .catch(function (error) {
-                throw (error);
+                console.log('An error occured: ', chalk.bold.red(error));
             });
     }
 
@@ -265,12 +260,10 @@ class BlockchainManager {
 
         return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
             .then((registry) => {
-                console.log(1);
                 walletRegistry = registry;
                 return walletRegistry.get(fromID);
             })
             .then((fromm) => {
-                console.log(2);
                 from = fromm;
                 return walletRegistry.get(toID);
             })
@@ -295,12 +288,14 @@ class BlockchainManager {
                         "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                     }
                 });
-                //mongo.saveTx(serializer);
-                return this.businessNetworkConnection.submitTransaction(resource);
+                return this.businessNetworkConnection.submitTransaction(resource);;
+            })
+            .then(() => {
+                //return mongo.saveTx(resource);
             })
             .catch(function (error) {
-                throw (error);
-            })
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
     }
 
     /**@name TransactionSchedule
@@ -309,26 +304,29 @@ class BlockchainManager {
      * @returns {JSON} document that includes the schedule
      */
 
-    transactionSchedule() {
-        console.log('TODO: Still not implemented');
-    }
-
-    /**@name AssetDuplicate
-     * @description Saves a copy of the wallets into MongoDB
-     * @returns {Promise} resolved when assets have been persisted
-     */
-
-    assetDuplicate() {
-        console.log('TODO: Still not implemented');
-    }
-
-    /**@name ParticipantDuplicate
-     * @description Saves a copy of the participants into MongoDB
-     * @returns {Promise} resolved when participants have been persisted
-     */
-
-    participantDuplicate() {
-        console.log('TODO: Still not implemented');
+    transactionSchedule(simTrax) {
+        const METHOD = 'transactionSchedule';
+        return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
+            .then((registry) => {
+                return registry.resolveAll();
+            })
+            .then((aResources) => {
+                let schedule = [];
+                for (let i = 0; i < simTrax; i++) {
+                    var fromRandomUser = (Math.floor(Math.random() * (aResources.length - 1)));
+                    var toRandomUser = (Math.floor(Math.random() * (aResources.length - 1)));
+                    var fundsRandom = (Math.random() * 1000) + 100;
+                    schedule.push({
+                        from: aResources[fromRandomUser].id,
+                        to: aResources[toRandomUser].id,
+                        funds: fundsRandom
+                    });
+                }
+                return schedule;
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
     }
 
     /** @description Runs the Check Registered Assets command
@@ -460,13 +458,17 @@ class BlockchainManager {
      * @returns {Promise} whose fullfilment means all accounts and wallets have been made
      */
 
-    static batchAccount(clientSeed, walletSeed, bottom, top) {
+    static batchAccount(amount, bottom, top) {
         let bm = new BlockchainManager();
         return bm.init()
             .then(() => {
-                return bm.initializatorDaemon(clientSeed, walletSeed, bottom, top);
+                let all_promise = [];
+                for (let i = 0; i < amount; i++) {
+                    all_promise.push(bm.initializatorDaemon(i, (i + amount), bottom, top));
+                }
+                return Promise.all(all_promise);
             })
-            .then(() => {
+            .then((arr) => {
                 console.log('Accounts created successfully!');
             })
             .catch(function (error) {
@@ -474,31 +476,54 @@ class BlockchainManager {
                 process.exit(1);
             })
     }
+
+    /**@description Executes the Transaction Schedule Command
+     * @param {Number} amount of transactions to simulate
+     * @returns {JSON} document that includes the schedule
+     */
+
+    static getTransactionSchedule(simTrax) {
+        let bm = new BlockchainManager();
+        return bm.init()
+            .then(() => {
+                return bm.transactionSchedule(simTrax);
+            })
+            .then((result) => {
+                return result;
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
+    }
+    /**@name TransactionCannon
+     * @author Fernando Martin Garcia Del Angel
+     * @description This is it. This launches as many transactions as possible, it doesn't care about your feelings
+     * @param {Number} amount of transactions to make
+     * @returns {Promise} that it will try it's best, don't sweat it
+     */
+
+    static transactionCannon(simTrax){
+        let bm = new BlockchainManager();
+        return bm.init()
+        .then(()=>{
+            return bm.transactionSchedule(simTrax);
+        })
+        .then((result)=>{
+            let cannonBalls = [];
+            for (let i = 0; i < result.length ; i++){
+                cannonBalls.push(bm.makeTransaction(result[i].from,result[i].to,result[i].funds));
+            }
+            return Promise.all(cannonBalls);
+        })
+        .then(()=>{
+            console.log('Transaction Cannon Finished');
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+            process.exit(1);
+        });
+    }
 }
 
 module.exports = BlockchainManager;
-
-// async function superTransactionEngine(simAmmount) {
-//     /** Get all Wallet ID's on the system */
-//     mongo.getAllAssetsID().then((data) => {
-//         /**Create Transaction Plan */
-//         let transactionPlan = [];
-//         /**Create a from/to pair to make the transaction next */
-//         for (let i = 0; i < simAmmount; i++) {
-//             var fromRandomUser = (Math.floor(Math.random() * (data.length - 1)));
-//             var toRandomUser = (Math.floor(Math.random() * (data.length - 1)));
-//             var fundsRandom = (Math.random() * 1000) + 100;
-//             transactionPlan.push({
-//                 from: data[fromRandomUser].id,
-//                 to: data[toRandomUser].id,
-//                 funds: fundsRandom
-//             });
-//         }
-//         /** Send it to the Transfer Fund Processor */
-//         for (let x = 0; x < transactionPlan.length; x++) {
-//             makeTransaction(transactionPlan[x].from, transactionPlan[x].to, transactionPlan[x].funds);
-//         }
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-// }

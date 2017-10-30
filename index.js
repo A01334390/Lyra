@@ -67,6 +67,20 @@ var yargs = require('yargs')
             alias: 'a'
         }
     })
+    .command('schedule', 'Make a Transaction Schedule', {
+        transactions: {
+            description: 'Amount of transactions to build the schedule',
+            require: true,
+            alias: 't'
+        }
+    })
+    .command('cannon', 'Launches a bunch of transactions as fast as possible', {
+        transactions: {
+            description: 'Amount of transactions to launch into the ledger',
+            require: true,
+            alias: 't'
+        }
+    })
     .help()
     .argv;
 
@@ -88,6 +102,7 @@ switch (yargs._[0]) {
                 process.exit(0);
             })
             .catch(() => {
+                console.log('An error occured: ', chalk.bold.red(error));
                 process.exit(1);
             });
         break;
@@ -99,20 +114,20 @@ switch (yargs._[0]) {
                 process.exit(0);
             })
             .catch(() => {
+                console.log('An error occured: ', chalk.bold.red(error));
                 process.exit(1);
             });
         break;
     case 'initialize':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        for (let i = 0; i < yargs.amount; i++) {
-            hyper.batchAccount(i, (i + yargs.amount), yargs.top, yargs.bottom)
-                .then(() => {
-
-                })
-                .catch(function (error) {
-
-                });
-        }
+        hyper.batchAccount(yargs.amount, yargs.top, yargs.bottom)
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
         break;
 
     case 'cassets':
@@ -122,6 +137,7 @@ switch (yargs._[0]) {
                 process.exit(0);
             })
             .catch(() => {
+                console.log('An error occured: ', chalk.bold.red(error));
                 process.exit(1);
             });
         break;
@@ -133,6 +149,7 @@ switch (yargs._[0]) {
                 process.exit(0);
             })
             .catch(() => {
+                console.log('An error occured: ', chalk.bold.red(error));
                 process.exit(1);
             });
         break;
@@ -144,13 +161,39 @@ switch (yargs._[0]) {
                 process.exit(0);
             })
             .catch(() => {
+                console.log('An error occured: ', chalk.bold.red(error));
                 process.exit(1);
             })
         break;
 
+    case 'schedule':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.getTransactionSchedule(yargs.transactions)
+            .then((result) => {
+                console.log(result);
+                process.exit(0);
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
+        break;
+
+    case 'cannon':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.transactionCannon(yargs.transactions)
+        .then(()=>{
+            process.exit(0);
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+            process.exit(1);
+        })
+        break;
+
     default:
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        console.log(chalk.bold.red('No commands were issued from the terminal. Please '));
+        console.log(chalk.bold.red('No commands were issued from the terminal. Please launch it again with --help'));
         process.exit(0);
         break;
 }
@@ -181,7 +224,9 @@ function author() {
     console.log("\n");
 }
 
-/**@description Shows the menu with the main options */
+/**@description Shows the menu with the main options 
+ * @returns {Nothing}
+*/
 
 function mainMenu() {
     /** Displays the main menu  */
@@ -223,7 +268,9 @@ function mainMenu() {
     });
 }
 
-/**@description Shows the debug menu with the debug options */
+/**@description Shows the debug menu with the debug options
+ * @returns {Nothing}
+ */
 
 
 function debugMenu() {
@@ -265,7 +312,8 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(() => {
+                    .catch(function(error){
+                        console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
                 break;
@@ -274,19 +322,21 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(() => {
+                    .catch(function(error){
+                        console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
                 break;
             case "Initializes the Participants and Wallets on the network":
-                batchCreation();
+                batchCreation('debug');
                 break;
             case "Lists all current wallets on the Ledger":
                 hyper.assetsOnLedger()
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(() => {
+                    .catch(function(error){
+                        console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
                 break;
@@ -295,7 +345,8 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(() => {
+                    .catch(function(error){
+                        console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
                 break;
@@ -308,9 +359,8 @@ function debugMenu() {
 }
 
 /**@description Shows current testing options
- * @version 0
+ * @version 1.0
  */
-
 
 function testingMenu() {
     clear();
@@ -322,19 +372,67 @@ function testingMenu() {
             })
         )
     );
-    console.log(chalk.red('Not done yet...'));
-    setTimeout(function () {
-        clear();
-        mainMenu();
-    }, 3000);
+    
+    var questions = [{
+        type: "list",
+        name: "initial",
+        message: "Choose an option from the debug menu",
+        choices: [
+            new inquirer.Separator(),
+            "Create batch accounts",
+            "Start the transaction cannon",
+            new inquirer.Separator(),
+            "Go back to the main menu"
+        ]
+    }];
+
+    inquirer.prompt(questions).then(function (answers) {
+        switch (answers.initial){
+            case 'Create batch accounts':
+                batchCreation('test');
+            break;
+
+            case 'Start the transaction cannon':
+                startTheCannon();
+            break;
+
+            case 'Go back to the main menu':
+            clear();
+            mainMenu();
+            break;
+        }
+    });
+}
+
+/**@description Starts the Transaction Cannon execution
+ * @returns {Nothing}
+ */
+
+function startTheCannon(){
+    var questions = [{
+        type: 'input',
+        name: 'transactions',
+        message: 'Amount of transactions to launch into the ledger',
+        default: 1,
+    }];
+    inquirer.prompt(questions).then(function (answers) {
+        hyper.transactionCannon(answers.transactions)
+        .then(()=>{
+            testingMenu();
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+            process.exit(1);
+        });
+    });
 }
 
 /**@description Creates a batch amount of accounts and wallets on the system
- * @param {Nothing}
+ * @param {String} whereto is where it will go after executing
+ * @returns {Nothing}
  */
 
-
-function batchCreation() {
+function batchCreation(whereTo) {
     var questions = [{
             type: 'input',
             name: 'clientNumber',
@@ -356,15 +454,18 @@ function batchCreation() {
     ];
 
     inquirer.prompt(questions).then(function (answers) {
-        for (let i = 0; i < answers.clientNumber; i++) {
-            hyper.batchAccount(i, (i + answers.clientNumber), answers.top, answers.bottom)
-                .then(() => {
-
-                })
-                .catch(function (error) {
-
-                });
-        }
+        hyper.batchAccount(answers.input,input.bottom,input.top)
+        .then(()=>{
+            if('debug'){
+                debugMenu();
+            }else{
+                testingMenu();
+            }
+        })
+        .catch(function(error){
+            console.log('An error occured: ', chalk.bold.red(error));
+            process.exit(1);
+        });
     });
 }
 
@@ -393,8 +494,9 @@ function makeTransaction() {
             .then(() => {
                 mainMenu();
             })
-            .catch(function (error) {
-                throw error;
-            })
+            .catch(function(error){
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
     });
 }
