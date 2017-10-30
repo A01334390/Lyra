@@ -303,6 +303,34 @@ class BlockchainManager {
             })
     }
 
+    /**@name TransactionSchedule
+     * @description Creates a transaction plan for the testing phase
+     * @param {Number} amount of transactions to simulate
+     * @returns {JSON} document that includes the schedule
+     */
+
+    transactionSchedule() {
+        console.log('TODO: Still not implemented');
+    }
+
+    /**@name AssetDuplicate
+     * @description Saves a copy of the wallets into MongoDB
+     * @returns {Promise} resolved when assets have been persisted
+     */
+
+    assetDuplicate() {
+        console.log('TODO: Still not implemented');
+    }
+
+    /**@name ParticipantDuplicate
+     * @description Saves a copy of the participants into MongoDB
+     * @returns {Promise} resolved when participants have been persisted
+     */
+
+    participantDuplicate() {
+        console.log('TODO: Still not implemented');
+    }
+
     /** @description Runs the Check Registered Assets command
      *  @returns {Promise} resolved when the action is completed
      */
