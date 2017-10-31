@@ -339,13 +339,13 @@ class BlockchainManager {
     profilingTime(timeStart,timeEnd,simTrax,whereFrom){
         const METHOD = 'profilingTime';
 
-        let executedTime = (timeEnd-timeStart);
-        let opTime = executedTime / simTrax;
-        let opsPerDay = 86400000 / opTime;
-        let exp = (opsPerDay.toString().length)-13;
-        console.log(chalk.bold.blue('EXECUTION TIME:'),chalk.cyan(executedTime));
-        console.log(chalk.bold.blue('OPERATION TIME:'),chalk.cyan(opTime));
-        console.log(chalk.bold.blue('OPS PER DAY:'),chalk.cyan(opsPerDay),'or:',chalk.bold.blue('1E'+exp));
+        let executedTime = (timeEnd-timeStart).toFixed(0);
+        let opTime = (executedTime / simTrax).toFixed(0);
+        let opsPerDay = (86400000 / opTime).toFixed(0);
+        let exp = (opsPerDay.toString().length)-1;
+        console.log(chalk.bold.yellow('EXECUTION TIME:'),chalk.white(executedTime),'ms');
+        console.log(chalk.bold.yellow('OPERATION TIME:'),chalk.white(opTime),'ms');
+        console.log(chalk.bold.yellow('OPS PER DAY:'),chalk.white(opsPerDay),'or:',chalk.bold.yellow('1E'+exp));
         if(whereFrom === 'tx'){
             if(exp < 9 ){
                 console.log(
@@ -511,11 +511,11 @@ class BlockchainManager {
                 for (let i = 0; i < amount; i++) {
                     all_promise.push(bm.initializatorDaemon(i, (i + amount), bottom, top));
                 }
-                timeStart = now();
+                timeStart = now().toFixed(0);
                 return Promise.all(all_promise);
             })
             .then((arr) => {
-                timeEnd = now();
+                timeEnd = now().toFixed(0);
                 bm.profilingTime(timeStart,timeEnd,amount,'acc');
                 console.log('Accounts created successfully!');
             })
@@ -566,11 +566,11 @@ class BlockchainManager {
             for (let i = 0; i < result.length ; i++){
                 cannonBalls.push(bm.makeTransaction(result[i].from,result[i].to,result[i].funds));
             }
-            timeStart = now();
+            timeStart = now().toFixed(0);
             return Promise.all(cannonBalls);
         })
         .then(()=>{
-            timeEnd = now();
+            timeEnd = now().toFixed(0);
             bm.profilingTime(timeStart,timeEnd,simTrax,'tx');
             console.log('Transaction Cannon Finished');
         })

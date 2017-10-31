@@ -93,6 +93,7 @@ switch (yargs._[0]) {
     case 'author':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
         author();
+        process.exit(0);
         break;
 
     case 'assets':
@@ -120,7 +121,7 @@ switch (yargs._[0]) {
         break;
     case 'initialize':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.batchAccount(yargs.amount, yargs.top, yargs.bottom)
+        hyper.batchAccount(yargs.amount, yargs.bottom, yargs.top)
             .then(() => {
                 process.exit(0);
             })
@@ -454,7 +455,7 @@ function batchCreation(whereTo) {
     ];
 
     inquirer.prompt(questions).then(function (answers) {
-        hyper.batchAccount(answers.input,input.bottom,input.top)
+        hyper.batchAccount(answers.clientNumber,answers.bottom,answers.top)
         .then(()=>{
             if('debug'){
                 debugMenu();
