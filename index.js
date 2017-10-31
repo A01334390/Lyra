@@ -92,7 +92,7 @@ switch (yargs._[0]) {
 
     case 'author':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        helloWorld();
+        author();
         break;
 
     case 'assets':
