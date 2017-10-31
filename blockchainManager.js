@@ -319,9 +319,9 @@ class BlockchainManager {
             })
             .then((aResources) => {
                 let schedule = [];
-                for (let i = 0; i < simTrax; i++) {
-                    var fromRandomUser = (Math.floor(Math.random() * (aResources.length - 1)));
-                    var toRandomUser = (Math.floor(Math.random() * (aResources.length - 1)));
+                for (let i = 1; i <= simTrax; i++) {
+                    var fromRandomUser = (2*i)-1;
+                    var toRandomUser = (2*i);
                     var fundsRandom = (Math.random() * 1000) + 100;
                     schedule.push({
                         from: aResources[fromRandomUser].id,
