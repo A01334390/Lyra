@@ -81,6 +81,13 @@ var yargs = require('yargs')
             alias: 't'
         }
     })
+    .command('ledger', 'Checks if ledger is synced', {
+        transactions: {
+            description: 'Amount of transactions to launch into the ledger',
+            require: true,
+            alias: 't'
+        }
+    })
     .help()
     .argv;
 
@@ -183,13 +190,33 @@ switch (yargs._[0]) {
     case 'cannon':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
         hyper.transactionCannon(yargs.transactions)
-        .then(()=>{
-            process.exit(0);
-        })
-        .catch(function(error){
-            console.log('An error occured: ', chalk.bold.red(error));
-            process.exit(1);
-        })
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            })
+        break;
+
+    case 'ledger':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.getTransactionSchedule(yargs.transactions)
+            .then((schedule) => {
+                return hyper.isLedgerStateCorrect(schedule);
+            })
+            .then((result) => {
+                if (result) {
+                    console.log(chalk.green('Success!'));
+                } else {
+                    console.log(chalk.red('Not Success'));
+                }
+                process.exit(0);
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
         break;
 
     default:
@@ -227,7 +254,7 @@ function author() {
 
 /**@description Shows the menu with the main options 
  * @returns {Nothing}
-*/
+ */
 
 function mainMenu() {
     /** Displays the main menu  */
@@ -313,7 +340,7 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(function(error){
+                    .catch(function (error) {
                         console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
@@ -323,7 +350,7 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(function(error){
+                    .catch(function (error) {
                         console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
@@ -336,7 +363,7 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(function(error){
+                    .catch(function (error) {
                         console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
@@ -346,7 +373,7 @@ function debugMenu() {
                     .then(() => {
                         debugMenu();
                     })
-                    .catch(function(error){
+                    .catch(function (error) {
                         console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
@@ -373,7 +400,7 @@ function testingMenu() {
             })
         )
     );
-    
+
     var questions = [{
         type: "list",
         name: "initial",
@@ -388,19 +415,19 @@ function testingMenu() {
     }];
 
     inquirer.prompt(questions).then(function (answers) {
-        switch (answers.initial){
+        switch (answers.initial) {
             case 'Create batch accounts':
                 batchCreation('test');
-            break;
+                break;
 
             case 'Start the transaction cannon':
                 startTheCannon();
-            break;
+                break;
 
             case 'Go back to the main menu':
-            clear();
-            mainMenu();
-            break;
+                clear();
+                mainMenu();
+                break;
         }
     });
 }
@@ -409,7 +436,7 @@ function testingMenu() {
  * @returns {Nothing}
  */
 
-function startTheCannon(){
+function startTheCannon() {
     var questions = [{
         type: 'input',
         name: 'transactions',
@@ -418,13 +445,13 @@ function startTheCannon(){
     }];
     inquirer.prompt(questions).then(function (answers) {
         hyper.transactionCannon(answers.transactions)
-        .then(()=>{
-            testingMenu();
-        })
-        .catch(function(error){
-            console.log('An error occured: ', chalk.bold.red(error));
-            process.exit(1);
-        });
+            .then(() => {
+                testingMenu();
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
     });
 }
 
@@ -455,18 +482,18 @@ function batchCreation(whereTo) {
     ];
 
     inquirer.prompt(questions).then(function (answers) {
-        hyper.batchAccount(answers.clientNumber,answers.bottom,answers.top)
-        .then(()=>{
-            if('debug'){
-                debugMenu();
-            }else{
-                testingMenu();
-            }
-        })
-        .catch(function(error){
-            console.log('An error occured: ', chalk.bold.red(error));
-            process.exit(1);
-        });
+        hyper.batchAccount(answers.clientNumber, answers.bottom, answers.top)
+            .then(() => {
+                if ('debug') {
+                    debugMenu();
+                } else {
+                    testingMenu();
+                }
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
     });
 }
 
@@ -495,7 +522,7 @@ function makeTransaction() {
             .then(() => {
                 mainMenu();
             })
-            .catch(function(error){
+            .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));
                 process.exit(1);
             });
