@@ -1,11 +1,10 @@
 {
   "name": "lyra-cli",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "Hyperledger Composer Super Fast Network",
-  "author": "Aabo Technologies© 2017",
+  "author": "Aabo Technologies© 2017 - Server's Team",
   "main": "index.js",
   "scripts": {
-    "preinstall": "composer --version || { echo 'Please first run npm install -g composer-cli'; exit 1;} ",
     "first-step": "scripts/lyrainstaller-1.sh",
     "second-step": "scripts/lyrainstaller-2.sh",
     "test": "echo 'Lyra-cli can be installed now'",
@@ -15,7 +14,6 @@
     "deployNetwork": "scripts/initHyper.sh",
     "restart": "scripts/restartAll.sh",
     "pingNetwork": "composer network ping -n lyra-cli -p hlfv1 -i admin -s adminpw",
-    "install": "scripts/download-hyperledger.sh && scripts/start-hyperledger.sh && npm run deployNetwork",
     "start": "node index.js"
   },
   "keywords": [

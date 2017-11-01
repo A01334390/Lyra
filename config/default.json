@@ -6,7 +6,6 @@
     "connectionProfile": "hlfv1"
   },
   "mongo-connection": {
-    "mongoURI": "mongodb://localhost:27017/",
-    "mongoDatabase": "lyra"
+    "mongoURI": "mongodb://localhost:27017/Lyra"
   }
 }
