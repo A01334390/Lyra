@@ -5,6 +5,7 @@ var chalk = require('chalk');
 var clear = require('clear');
 var figlet = require('figlet');
 var inquirer = require('inquirer');
+var Table = require('cli-table');
 
 //Hyperledger Fabric Code And Connectors
 var hyper = require('./blockchainManager');
@@ -178,7 +179,17 @@ switch (yargs._[0]) {
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
         hyper.getTransactionSchedule(yargs.transactions)
             .then((result) => {
-                console.log(result);
+                let table = new Table({
+                    head: ['From', 'To', 'Funds']
+                });
+                for (const key of Object.keys(result)) {
+                    let tableLine = [];
+                    tableLine.push(result[key].from);
+                    tableLine.push(result[key].to);
+                    tableLine.push(result[key].funds);
+                    table.push(tableLine);
+                }
+                console.log(table.toString());
                 process.exit(0);
             })
             .catch(function (error) {
@@ -194,11 +205,6 @@ switch (yargs._[0]) {
                 return hyper.isLedgerStateCorrect(result);
             })
             .then((result) => {
-                if (result) {
-                    console.log(chalk.bold.green('The ledger is indeed synced'));
-                } else {
-                    console.log(chalk.bold.red('The ledger is not synced'));
-                }
                 process.exit(0);
             })
             .catch(function (error) {
@@ -214,11 +220,6 @@ switch (yargs._[0]) {
                 return hyper.isLedgerStateCorrect(schedule);
             })
             .then((result) => {
-                if (result) {
-                    console.log(chalk.green('Success!'));
-                } else {
-                    console.log(chalk.red('Not Success'));
-                }
                 process.exit(0);
             })
             .catch(function (error) {
@@ -327,10 +328,10 @@ function debugMenu() {
             "Shows the project's authors",
             "Lists all registered assets in the Blockchain",
             "Lists all registered participants on the Blockchain",
-            "Initializes the Participants and Wallets on the network",
+            "Create a schedule for the transactions",
             "Lists all current wallets on the Ledger",
             "Lists all current participants on the Ledger",
-            "Makes a single transaction over the network",
+            "Make a single transaction over the network",
             new inquirer.Separator(),
             "Go back to the main menu"
         ]
@@ -338,6 +339,9 @@ function debugMenu() {
 
     inquirer.prompt(questions).then(function (answers) {
         switch (answers.initial) {
+            case "Create a schedule for the transactions":
+                makeSchedule();
+                break;
             case "Shows the project's authors":
                 author();
                 console.log('\n');
@@ -363,9 +367,6 @@ function debugMenu() {
                         process.exit(1);
                     });
                 break;
-            case "Initializes the Participants and Wallets on the network":
-                batchCreation('debug');
-                break;
             case "Lists all current wallets on the Ledger":
                 hyper.assetsOnLedger()
                     .then(() => {
@@ -385,6 +386,32 @@ function debugMenu() {
                         console.log('An error occured: ', chalk.bold.red(error));
                         process.exit(1);
                     });
+                break;
+            case "Make a single transaction over the network":
+            var questions = [{
+                type: "input",
+                name: "from",
+                message: "Input the wallet address to send balance from"
+            },{
+                type: "input",
+                name: 'to',
+                message: "Input the wallet address to receive balance"
+            },{
+                type: 'input',
+                name: 'money',
+                message: 'Input the amount of money to send'
+            }];
+        
+            inquirer.prompt(questions).then(function (answers) {
+                hyper.transfer(answers.from,answers.to,answers.money)
+                .then(()=>{
+                    debugMenu();
+                })
+                .catch(function(error){
+                    console.log('An error occured: ', chalk.bold.red(error));
+                    process.exit(1);
+                });
+            });
                 break;
             case "Go back to the main menu":
                 clear();
@@ -439,6 +466,42 @@ function testingMenu() {
         }
     });
 }
+/**
+ * @description Makes a Sample schedule for testing purposes
+ * @returns {Table} table including the transactions made by the schedule
+ */
+
+function makeSchedule() {
+    var questions = [{
+        type: 'input',
+        name: 'transactions',
+        message: 'Amount of transactions to create the sample schedule',
+        default: 1,
+    }];
+    inquirer.prompt(questions).then(function (answers) {
+        hyper.getTransactionSchedule(answers.transactions)
+            .then((result) => {
+                let table = new Table({
+                    head: ['From', 'To', 'Funds']
+                });
+                for (const key of Object.keys(result)) {
+                    let tableLine = [];
+                    tableLine.push(result[key].from);
+                    tableLine.push(result[key].to);
+                    tableLine.push(result[key].funds);
+                    table.push(tableLine);
+                }
+                console.log(table.toString());
+            })
+            .then(() => {
+                debugMenu();
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+                process.exit(1);
+            });
+    });
+}
 
 /**@description Starts the Transaction Cannon execution
  * @returns {Nothing}
@@ -453,8 +516,11 @@ function startTheCannon() {
     }];
     inquirer.prompt(questions).then(function (answers) {
         hyper.transactionCannon(answers.transactions)
+            .then((schedule) => {
+                return hyper.isLedgerStateCorrect(schedule);
+            })
             .then(() => {
-                testingMenu();
+                debugMenu();
             })
             .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));
@@ -528,7 +594,7 @@ function makeTransaction() {
     inquirer.prompt(questions).then(function (answers) {
         hyper.transfer(answers.from, answers.to, answers.funds)
             .then(() => {
-                mainMenu();
+                debugMenu();
             })
             .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));

@@ -18,7 +18,7 @@ var chalk = require('chalk');
 var figlet = require('figlet');
 var md5 = require('md5')
 var now = require('performance-now');
-
+const ora = require('ora');
 // ------- Basic Libraries for this package -------
 const mongo = require('./mongoManager');
 
@@ -47,7 +47,6 @@ class BlockchainManager {
     init() {
         return this.businessNetworkConnection.connect(this.connectionProfile, this.businessNetworkIdentifier, participantId, participantPwd)
             .then((result) => {
-                console.log(chalk.green('Connected to Hyperledger!'));
                 this.businessNetworkDefinition = result;
             })
             .catch(function (error) {
@@ -413,7 +412,7 @@ class BlockchainManager {
                 console.log(assets);
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                console.log('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -426,6 +425,7 @@ class BlockchainManager {
 
     static registeredParticipants() {
         let bm = new BlockchainManager();
+
         return bm.init()
             .then(() => {
                 return bm.checkRegisteredParticipants();
@@ -434,7 +434,7 @@ class BlockchainManager {
                 console.log(participants);
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                console.log('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -450,16 +450,25 @@ class BlockchainManager {
      */
 
     static initializeLedger(clientSeed, walletSeed, bottom, top) {
+        /**Start the spinner */
+        const spinner = new ora({
+            text: 'Connecting to Hyperledger...',
+            spinner: process.argv[2],
+            color: 'blue'
+        });
         let bm = new BlockchainManager();
+        spinner.start();
         return bm.init()
             .then(() => {
+                spinner.text = 'Creating wallets and accounts...';
+                spinner.color = 'magenta';
                 return bm.initializatorDaemon(clientSeed, walletSeed, bottom, top);
             })
             .then(() => {
-                console.log('Accounts created successfully!');
+                spinner.succeed('Accounts created successfully!');
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                spinner.fail('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -480,7 +489,7 @@ class BlockchainManager {
                 console.log(assets);
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                console.log('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -501,7 +510,7 @@ class BlockchainManager {
                 console.log(participants);
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                console.log('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -516,16 +525,25 @@ class BlockchainManager {
      */
 
     static transfer(fromID, toID, funds) {
+        /**Start the spinner */
+        const spinner = new ora({
+            text: 'Connecting to Hyperledger...',
+            spinner: process.argv[2],
+            color: 'blue'
+        });
         let bm = new BlockchainManager();
+        spinner.start();
         return bm.init()
             .then(() => {
+                spinner.text = 'Making transaction...';
+                spinner.color = 'magenta';
                 return bm.makeTransaction(fromID, toID, funds);
             })
             .then(() => {
-                console.log('Success!');
+                spinner.succeed('Transaction made successfully!');
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                spinner.fail('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -541,13 +559,23 @@ class BlockchainManager {
      */
 
     static batchAccount(amount, bottom, top) {
+        /**Start the spinner */
+        const spinner = new ora({
+            text: 'Connecting to Hyperledger...',
+            spinner: process.argv[2],
+            color: 'blue'
+        });
         let bm = new BlockchainManager();
         //**Set up the time start */
         let timeStart;
         let timeEnd;
         //**Set up the time end */
+        spinner.start();
         return bm.init()
             .then(() => {
+                spinner.text = 'Creating accounts...';
+                spinner.color = 'magenta';
+                /**Spinner business */
                 let all_promise = [];
                 for (let i = 0; i < amount; i++) {
                     all_promise.push(bm.initializatorDaemon(i, (i + amount), bottom, top));
@@ -558,10 +586,10 @@ class BlockchainManager {
             .then((arr) => {
                 timeEnd = now().toFixed(0);
                 bm.profilingTime(timeStart, timeEnd, amount, 'acc');
-                console.log('Accounts created successfully!');
+                spinner.succeed('Accounts created successfully!');
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                spinner.fail('An error occured:', error);
                 process.exit(1);
             })
     }
@@ -574,16 +602,28 @@ class BlockchainManager {
      */
 
     static getTransactionSchedule(simTrax) {
+        /**Start the spinner */
+        const spinner = new ora({
+            text: 'Connecting to Hyperledger...',
+            spinner: process.argv[2],
+            color: 'blue'
+        });
+        /**Get the Blockchain Manager */
         let bm = new BlockchainManager();
+        /**Start the Spinner */
+        spinner.start();
         return bm.init()
             .then(() => {
+                spinner.text = 'Getting the schedule...';
+                spinner.color = 'green';
                 return bm.transactionSchedule(simTrax);
             })
             .then((result) => {
+                spinner.succeed('Schedule created successfully!');
                 return result;
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                spinner.fail('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -595,17 +635,28 @@ class BlockchainManager {
      */
 
     static transactionCannon(simTrax) {
+        /**Start the spinner */
+        const spinner = new ora({
+            text: 'Connecting to Hyperledger...',
+            spinner: process.argv[2],
+            color: 'blue'
+        });
         let bm = new BlockchainManager();
         //**Set up the time start */
         let timeStart;
         let timeEnd;
         let schedule;
         //**Set up the time end */
+        spinner.start();
         return bm.init()
             .then(() => {
+                spinner.text = 'Getting the cannon balls...';
+                spinner.color = 'magenta';
                 return bm.transactionSchedule(simTrax);
             })
             .then((result) => {
+                spinner.text = 'Breaking into the chain...';
+                spinner.color = 'green';
                 let cannonBalls = [];
                 schedule = result;
                 for (let i = 0; i < result.length; i++) {
@@ -617,13 +668,14 @@ class BlockchainManager {
             .then(() => {
                 timeEnd = now().toFixed(0);
                 bm.profilingTime(timeStart, timeEnd, simTrax, 'tx');
-                console.log('Transaction Cannon Finished');
+                console.log('\n');
+                spinner.succeed('Transaction Cannon Finished!');
             })
             .then(() => {
                 return schedule;
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                spinner.fail('An error occured: ', error);
                 process.exit(1);
             });
     }
@@ -636,11 +688,20 @@ class BlockchainManager {
      */
 
     static isLedgerStateCorrect(schedule) {
+        /**Start the spinner */
+        const spinner = new ora({
+            text: 'Connecting to Hyperledger...',
+            spinner: process.argv[2],
+            color: 'blue'
+        });
         let bm = new BlockchainManager();
         let modState;
         /** Get the state of the database */
+        spinner.start();
         return mongo.getAllAst()
             .then((result) => {
+                spinner.text = 'Replicating transactions on memory...';
+                spinner.color = 'magenta';
                 modState = result;
                 for (let i = 0; i < schedule.length; i++) {
                     for (let x = 0; x < modState.length; x++) {
@@ -655,9 +716,13 @@ class BlockchainManager {
                 return bm.init();
             })
             .then(() => {
+                spinner.text = 'Retrieving assets from Hyperledger...';
+                spinner.color = 'yellow';
                 return bm.rawAssetsOnLedger();
             })
             .then((rawLedger) => {
+                spinner.text = 'Comparing in memory results with the ledger...';
+                spinner.color = 'magenta';
                 let state = true;
                 let unsynced = [];
                 for (let i = 0; i < rawLedger.length; i++) {
@@ -668,17 +733,21 @@ class BlockchainManager {
                         }
                     }
                 }
-                if(!state){
+                if (!state) {
+                    spinner.fail('Ledger is not synced');
+                    console.log('\n');
                     console.log('=============== UNSYNCED ===============');
-                    for(let i=0;i<unsynced.length;i++){
+                    for (let i = 0; i < unsynced.length; i++) {
                         console.log(unsynced[i]);
                     }
                     console.log('=============== UNSYNCED ===============');
+                } else {
+                    spinner.succeed('Ledger is synced!');
                 }
                 return state;
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
+                spinner.fail('An error occured: ', error);
                 process.exit(1);
             });
     }

@@ -310,7 +310,7 @@ class MongoManager {
 
     /**@description Executes the All Asset's id command
      * @returns {Promise} whose fullfilment means either all assets were retrieved or none existed
-     * @deprecated Should be taken out by release 1.0
+     * @deprecated Should be taken out by release 1.2 if not used
      */
 
     static getAllAstID() {
