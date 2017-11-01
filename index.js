@@ -190,7 +190,15 @@ switch (yargs._[0]) {
     case 'cannon':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
         hyper.transactionCannon(yargs.transactions)
-            .then(() => {
+            .then((result) => {
+                return hyper.isLedgerStateCorrect(result);
+            })
+            .then((result) => {
+                if (result) {
+                    console.log(chalk.bold.green('The ledger is indeed synced'));
+                } else {
+                    console.log(chalk.bold.red('The ledger is not synced'));
+                }
                 process.exit(0);
             })
             .catch(function (error) {

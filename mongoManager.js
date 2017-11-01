@@ -25,13 +25,13 @@ let connectionURI = config.get('mongoURI');
 /** Get the Schemas */
 var {
     Participant
-} = require('../Schemas/participant');
+} = require('./Schemas/participant');
 var {
     Transaction
-} = require('../Schemas/transaction');
+} = require('./Schemas/transaction');
 var {
     Wallet
-} = require('../Schemas/wallet');
+} = require('./Schemas/wallet');
 
 //Start the connection to Mongoose
 mongoose.Promise = global.Promise;
@@ -40,17 +40,6 @@ mongoose.connect(connectionURI, {
 });
 
 class MongoManager {
-    constructor() {
-        mongoose.connect(connectionURI, {
-            useMongoClient: true
-        })
-        .then((result)=>{
-            console.log('Connected to MongoDB');
-        })
-        .catch(function(error){
-            console.log('an error ocurred');
-        });
-    }
 
     /**@description Persists a transaction into MongoDB
      * @param {JSON} a JSON Document with transaction information

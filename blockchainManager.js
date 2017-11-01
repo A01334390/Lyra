@@ -599,6 +599,7 @@ class BlockchainManager {
         //**Set up the time start */
         let timeStart;
         let timeEnd;
+        let schedule;
         //**Set up the time end */
         return bm.init()
             .then(() => {
@@ -606,6 +607,7 @@ class BlockchainManager {
             })
             .then((result) => {
                 let cannonBalls = [];
+                schedule = result;
                 for (let i = 0; i < result.length; i++) {
                     cannonBalls.push(bm.makeTransaction(result[i].from, result[i].to, result[i].funds));
                 }
@@ -616,6 +618,9 @@ class BlockchainManager {
                 timeEnd = now().toFixed(0);
                 bm.profilingTime(timeStart, timeEnd, simTrax, 'tx');
                 console.log('Transaction Cannon Finished');
+            })
+            .then(() => {
+                return schedule;
             })
             .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));
@@ -634,20 +639,23 @@ class BlockchainManager {
         let bm = new BlockchainManager();
         let modState;
         /** Get the state of the database */
-        console.log(schedule);
-        return mdb.getAllAst()
+        return mongo.getAllAst()
             .then((result) => {
+                let arr = result;
                 for (let i = 0; i < schedule.length; i++) {
-                    for (let x = 0; x < result.length; x++) {
-                        if (result[x].id == schedule[i].from) {
-                            result[x].balance -= schedule[i].funds;
+                    for (let x = 0; x < arr.length; x++) {
+                        if (arr[x].id == schedule[i].from) {
+                            arr[x].balance = arr[x].balance - schedule[i].funds;
                         }
-                        if (result[x].id == schedule[i].to) {
-                            result[x].balance += schedule[i].funds;
+                        if (arr[x].id == schedule[i].to) {
+                            arr[x].balance = arr[x].balance + schedule[i].funds;
                         }
                     }
                 }
-                modState = result;
+                modState = arr;
+                return bm.init();
+            })
+            .then(() => {
                 return bm.rawAssetsOnLedger();
             })
             .then((rawLedger) => {
