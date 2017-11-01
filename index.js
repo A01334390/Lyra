@@ -80,6 +80,12 @@ var yargs = require('yargs')
             description: 'Amount of transactions to launch into the ledger',
             require: true,
             alias: 't'
+        },
+        replication: {
+            description : 'Replication of transactions into MongoDB',
+            require: false,
+            default : 'n',
+            alias :'r'
         }
     })
     .command('ledger', 'Checks if ledger is synced', {
@@ -200,7 +206,7 @@ switch (yargs._[0]) {
 
     case 'cannon':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.transactionCannon(yargs.transactions)
+        hyper.transactionCannon(yargs.transactions,yargs.replication)
             .then((result) => {
                 return hyper.isLedgerStateCorrect(result);
             })
@@ -513,14 +519,25 @@ function startTheCannon() {
         name: 'transactions',
         message: 'Amount of transactions to launch into the ledger',
         default: 1,
+    },{
+        type: 'confirm',
+        name: 'replica',
+        message: 'Do you want the transactions to be replicated?',
+        default : false
     }];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.transactionCannon(answers.transactions)
+        let rep;
+        if(answers.replica){
+            rep = 'y';
+        } else{
+            rep = 'n';
+        }
+        hyper.transactionCannon(answers.transactions,rep)
             .then((schedule) => {
                 return hyper.isLedgerStateCorrect(schedule);
             })
             .then(() => {
-                debugMenu();
+                testingMenu();
             })
             .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));

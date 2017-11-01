@@ -307,11 +307,64 @@ class BlockchainManager {
                         "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
                     }
                 });
-                //    mongo.saveTx(resource);    
+                return this.businessNetworkConnection.submitTransaction(resource);;
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
+    }
+
+    /**
+     * @name makeReplicatedTransaction
+     * @author Aabo Technologies © 2017 - Server's team
+     * @description This method makes a single transaction over the ledger
+     * @param {String} fromID is the md5 related to a Client's wallet on the ledger who's sending money
+     * @param {String} toID is the md5 related to a Client's wallet on the ledger who's receiving money
+     * @param {Number} funds is an amount of money to be sent from one wallet to the other
+     * @returns {Promise} whose fullfiment means a transaction was made succesfully 
+     */
+
+    makeReplicatedTransaction(fromID,toID,funds){
+        const METHOD = 'makeReplicatedTransaction';
+        let from;
+        let walletRegistry;
+        let to;
+        let resource;
+
+        return this.businessNetworkConnection.getAssetRegistry('org.aabo.Wallet')
+            .then((registry) => {
+                walletRegistry = registry;
+                return walletRegistry.get(fromID);
+            })
+            .then((fromm) => {
+                from = fromm;
+                return walletRegistry.get(toID);
+            })
+            .then((too) => {
+                to = too;
+            })
+            .then(() => {
+                let serializer = this.businessNetworkDefinition.getSerializer();
+                resource = serializer.fromJSON({
+                    "$class": "org.aabo.Transfer",
+                    "amount": funds,
+                    "from": {
+                        "$class": "org.aabo.Wallet",
+                        "id": from.getIdentifier(),
+                        "balance": from.balance,
+                        "owner": "resource:org.aabo.Client#" + from.owner.getIdentifier()
+                    },
+                    "to": {
+                        "$class": "org.aabo.Wallet",
+                        "id": to.getIdentifier(),
+                        "balance": to.balance,
+                        "owner": "resource:org.aabo.Client#" + to.owner.getIdentifier()
+                    }
+                });  
                 return this.businessNetworkConnection.submitTransaction(resource);;
             })
             .then(() => {
-                //return mongo.saveTx(resource);
+                return mongo.saveTx(resource);
             })
             .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));
@@ -631,10 +684,11 @@ class BlockchainManager {
      * @author Aabo Technologies © 2017 - Server's team
      * @description This is it. This launches as many transactions as possible, it doesn't care about your feelings
      * @param {Number} amount of transactions to make
+     * @param {String} replica if the transaction information will be replicated
      * @returns {Promise} that it will try it's best, don't sweat it
      */
 
-    static transactionCannon(simTrax) {
+    static transactionCannon(simTrax,replica) {
         /**Start the spinner */
         const spinner = new ora({
             text: 'Connecting to Hyperledger...',
@@ -655,12 +709,20 @@ class BlockchainManager {
                 return bm.transactionSchedule(simTrax);
             })
             .then((result) => {
-                spinner.text = 'Breaking into the chain...';
-                spinner.color = 'green';
                 let cannonBalls = [];
                 schedule = result;
-                for (let i = 0; i < result.length; i++) {
-                    cannonBalls.push(bm.makeTransaction(result[i].from, result[i].to, result[i].funds));
+                if(replica.toLowerCase() == 'n'){
+                    for (let i = 0; i < result.length; i++) {
+                        spinner.text = 'Breaking into the chain...';
+                        spinner.color = 'green';
+                        cannonBalls.push(bm.makeTransaction(result[i].from, result[i].to, result[i].funds));
+                    } 
+                }else{
+                    for (let i = 0; i < result.length; i++) {
+                        spinner.text = 'Merely tapping into the chain...';
+                        spinner.color = 'red';
+                        cannonBalls.push(bm.makeReplicatedTransaction(result[i].from, result[i].to, result[i].funds));
+                    }
                 }
                 timeStart = now().toFixed(0);
                 return Promise.all(cannonBalls);
