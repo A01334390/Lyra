@@ -94,22 +94,19 @@ Once installed, you can get all available commands by issuing into the prompt :
 ```
 $ node index --help
 ```
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/A01334390/Lyra/tags). 
 
 ## Authors
 
-* **Andres Bustamante Diaz* - *Documentation and Network Consultant*
-* **Enrique Navarro Torres-Arpi* - *Documentation and Programming Consultant*
-* **Fernando Martin Garcia Del Angel* - *Programming and Documentation Consultant*
-* **Hector Carlos Flores Reynoso* - *Network and Programming Consultant*
+* **Andres Bustamante Diaz** - *Documentation and Network Consultant*
+* **Enrique Navarro Torres-Arpi** - *Documentation and Programming Consultant*
+* **Fernando Martin Garcia Del Angel** - *Programming and Documentation Consultant*
+* **Hector Carlos Flores Reynoso** - *Network and Programming Consultant*
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/A01334390/Lyra/contributors) who participated in this project.
 
 ## License
 
