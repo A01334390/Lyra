@@ -641,18 +641,17 @@ class BlockchainManager {
         /** Get the state of the database */
         return mongo.getAllAst()
             .then((result) => {
-                let arr = result;
+                modState = result;
                 for (let i = 0; i < schedule.length; i++) {
-                    for (let x = 0; x < arr.length; x++) {
-                        if (arr[x].id == schedule[i].from) {
-                            arr[x].balance = arr[x].balance - schedule[i].funds;
+                    for (let x = 0; x < modState.length; x++) {
+                        if (modState[x].id == schedule[i].from) {
+                            modState[x].balance = modState[x].balance - schedule[i].funds;
                         }
-                        if (arr[x].id == schedule[i].to) {
-                            arr[x].balance = arr[x].balance + schedule[i].funds;
+                        if (modState[x].id == schedule[i].to) {
+                            modState[x].balance = modState[x].balance + schedule[i].funds;
                         }
                     }
                 }
-                modState = arr;
                 return bm.init();
             })
             .then(() => {
@@ -660,12 +659,21 @@ class BlockchainManager {
             })
             .then((rawLedger) => {
                 let state = true;
+                let unsynced = [];
                 for (let i = 0; i < rawLedger.length; i++) {
                     for (let x = 0; x < modState.length; x++) {
                         if (rawLedger[i].id == modState[x].id && rawLedger[i].balance != modState[x].balance) {
+                            unsynced.push(rawLedger[i].id);
                             state = false;
                         }
                     }
+                }
+                if(!state){
+                    console.log('=============== UNSYNCED ===============');
+                    for(let i=0;i<unsynced.length;i++){
+                        console.log(unsynced[i]);
+                    }
+                    console.log('=============== UNSYNCED ===============');
                 }
                 return state;
             })

@@ -7,7 +7,7 @@ var figlet = require('figlet');
 var inquirer = require('inquirer');
 
 //Hyperledger Fabric Code And Connectors
-var hyper = require('./lib/blockchainManager');
+var hyper = require('./blockchainManager');
 var jsond = require('./package');
 var index = require('.');
 
