@@ -1,0 +1,44 @@
+{
+  "name": "lyra-hlf",
+  "version": "1.1.0",
+  "description": "Super Fast Blockchain Simulator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A01334390/Lyra.git"
+  },
+  "keywords": [
+    "Hyperledger",
+    "Fabric",
+    "Fast",
+    "IBM",
+    "Blockchain"
+  ],
+  "author": "Aabo Technologies © 2017",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.2.0",
+    "clear": "0.0.1",
+    "cli-spinners": "^1.1.0",
+    "cli-table": "latest",
+    "config": "^1.21.0",
+    "figlet": "^1.2.0",
+    "inquirer": "^3.3.0",
+    "md5": "^2.2.1",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.12.4",
+    "ora": "^1.3.0",
+    "performance-now": "^2.1.0",
+    "prettyoutput": "^1.1.1",
+    "shelljs": "^0.7.5",
+    "winston": "^2.2.0",
+    "yargs": "^6.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/A01334390/Lyra/issues"
+  },
+  "homepage": "https://github.com/A01334390/Lyra#readme"
+}

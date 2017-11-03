@@ -7,19 +7,28 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"crypto/md5"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	sc "github.com/hyperledger/fabric/protos/peer"
 )
 
+// ______  __      ___________             
+// ___  / / /_____ ___  /__  /_________  __
+// __  /_/ /_  __ `/_  /__  /_  _ \_  / / /
+// _  __  / / /_/ /_  / _  / /  __/  /_/ / 
+// /_/ /_/  \__,_/ /_/  /_/  \___/_\__, /  
+//                                /____/   
+
+
 // Define the smart contract Structure
 type SmartContract struct {
-
 }
 
-/* Define the Wallet Structure with 2 properties
+/* Define the Wallet Structure with 3 properties
 / [ID] <-- Wallet Identifier made up of an md5 hash
 / [Balance] <-- Balance that indicates the amount of money a wallet holds
+/ [Owner] <-- Owner that is the holder of a wallet
 */
 type Wallet struct {
 	id string `json:"id"`
@@ -43,22 +52,27 @@ func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
 
 func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response {
 	// Retrieve the requested Smart Contract function and arguments
-	function, args := APIstu.GetFunctionAndParameters();
+	function, args := APIstub.GetFunctionAndParameters();
 	//Route to the appropiate handler function to interact with the ledger appropiately
 	if function == "transferFunds" {
-		return s.transferFunds(APIstub,args)
-	} else if function == "getAllWallets" {
-		return s.getWallets(APIstub)
+		return s.transferFunds(APIstub, args)
+	} else if function == "getWalletsByRange" {
+		return s.getWalletsByRange(APIstub, args)
 	} else if function == "createWallet" {
-		return s.createWallet(APIstub,args)
+		return s.createWallet(APIstub, args)
 	} else if function == "getWalletHistory" {
 		return s.getWalletHistory(APIstub, args)
+	} else if function == "queryWallet" {
+		return s.queryWallet(APIstub, args)
+	} else if function == "initLedger" {
+		return s.initLedger(APIstub, args)
+	} else if function == "delete" {
+		return s.delete(APIstub, args)
 	} else if function == "queryWallet" {
 		return s.queryWallet(APIstub,args)
 	}
 
 	// If nothing was invoked, launch an error
-	fmt.Println("Invoke didn't find any function: "+function)
 	return shim.Error("Received Unknown function invocation")
 }
 
@@ -89,7 +103,7 @@ func (s *SmartContract) transferFunds(APIstub shim.ChaincodeStubInterface, args[
 	
 	/** We need to get the from wallet */
 	fromAsBytes, err := APIstub.GetState(args[0])
-	if err!=null {
+	if err != nil {
 		return shim.Error("Failed to retrieve wallet: "+err.Error())
 	} else if fromAsBytes == nil {
 		return shim.Error("Wallet doesn't exist")
@@ -100,7 +114,7 @@ func (s *SmartContract) transferFunds(APIstub shim.ChaincodeStubInterface, args[
 
 	/** Then we get the to wallet */
 	toAsBytes, err:= APIstub.GetState(args[1])
-	if err!=null {
+	if err != nil {
 		return shim.Error("Failed to retrieve wallet: "+err.Error())
 	} else if toAsBytes == nil {
 		return shim.Error("Wallet doesn't exist")
@@ -112,17 +126,17 @@ func (s *SmartContract) transferFunds(APIstub shim.ChaincodeStubInterface, args[
 	/** Make the transfer */
 	funds := strconv.Atoi(args[2])
 	from.balance -= funds
-	from.balance += funds
+	to.balance += funds
 
 	/** Persist into a new state */
 	fromJSONasBytes, _ := json.Marshal(from)
-	err = APIstub.PutState(args[0],from)
+	err = APIstub.PutState(args[0],fromJSONasBytes)
 	if err!=nil {
 		return shim.Error(err.Error)
 	}
 
 	toJSONasBytes, _ := json.Marshal(to)
-	err = APIstub.PutState(args[1],to)
+	err = APIstub.PutState(args[1],toJSONasBytes)
 	if err!=nil {
 		return shim.Error(err.Error)
 	}
@@ -131,14 +145,50 @@ func (s *SmartContract) transferFunds(APIstub shim.ChaincodeStubInterface, args[
 	return shim.Success(nil)
 }
 /*
-* getWallets
-* This method returns all wallets that reside in the ledger
-* [Nothing]	= Receives no arguments
+* getWalletsByRange
+* This method returns all wallets within a range that reside in the ledger
+* [Start]	= Starting key to query the ledger
+* [End]		= Ending key to query the ledger
 * (JSON)	= JSON with all wallets on the ledger
 */
 
-func (s *SmartContract) getWallets(APIstub shim.ChaincodeStubInterface) sc.Response {
-	//TODO
+func (s *SmartContract) getWalletsByRange(APIstub shim.ChaincodeStubInterface, args[]string) sc.Response {
+	if len(args) < 2 {
+		return shim.Error("Incorrect Number of arguments. Expecting 2")
+	}
+	resultsIterator, err := APIstub.GetStateByRange(args[0],args[1])
+	if err!= nil {
+		return shim.Error(err.Error())
+	}
+	defer resultsIterator.Close()
+	//buffer is a JSON array containing QueryResults
+	var buffer bytes.Buffer
+	buffer.WriteString("[")
+
+	bArrayMemberAlreadyWritten := false
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		// Add a comma before array members, suppress it for the first array member
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"Key\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(queryResponse.Key)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Record\":")
+		// Record is a JSON object, so we write as-is
+		buffer.WriteString(string(queryResponse.Value))
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
+
+	return shim.Success(buffer.Bytes())
 }
 
 /*
@@ -155,20 +205,14 @@ func (s *SmartContract) createWallet(APIstub shim.ChaincodeStubInterface, args[]
 	}
 
 	/** We need to sanitize the input */
-	if len(args[0] <=0){
-		return shim.Error("1st argument must be a non-empty string")
-	}
-	if len(args[1] <=0){
-		return shim.Error("1st argument must be a non-empty string")
-	}
-	if len(args[2] <=0){
-		return shim.Error("3rd argument must be a non-empty string")
+	if len(args[0] <=0 || len(args[1] <=0 || len(args[2] <=0){
+		return shim.Error("Arguments must be non-empty strings")
 	}
 
 	/** We create the wallet */
 	var wallet = Wallet{
-		id:args[0],
-		balance:args[1],
+		id: md5.Sum(args[0]),
+		balance: strconv.Atoi(args[1]),
 		owner:args[2]
 	}
 
@@ -235,10 +279,93 @@ func (s *SmartContract) getWalletHistory(APIstub shim.ChaincodeStubInterface, ar
 */
 
 func (s *SmartContract) queryWallet(APIstub shim.ChaincodeStubInterface, args[]string) sc.Response {
-	if len(args) !=1 {
+	if len(args) < 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
 	walletAsBytes, _:= APIstub.GetState(args[0])
 	return shim.Success(walletAsBytes)
+}
+
+/*
+* initLedger
+* This method intitializes the ledger fast and easily
+* [seed]	= Amount of accounts to be created
+*/
+
+func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface, args[]string) sc.Response {
+	if len(args) < 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
+	i := 0
+	for i < len(args[0]) {
+		wallet := Wallet{
+				id: md5.Sum(args[0]),
+				balance: strconv.Atoi(args[1]),
+				owner:args[2]
+		}
+		walletAsBytes, _ := json.Marshal(wallet)
+		APIstub.PutState(wallet.id,walletAsBytes)
+		i = i + 1
+	}
+} 
+
+/*
+* delete
+* This method 'deletes' the wallet from the ledger
+* [id]		= This is the md5 hash of the wallet to be deleted
+*/
+
+func (s *SmartContract) delete(APIstub shim.ChaincodeStubInterface, args[]string) sc.Response {
+	if len(args) < 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
+
+	err = APIstub.DelState(args[0])
+	if err !=nil {
+		return shim.Error("Failed to delete state: "+err.Error())
+	}
+}
+
+/*
+* queryWallet
+* This method performs a rich query against the ledger 
+* [query]	= This is the query to be performed
+*/
+
+func (s *SmartContract) queryWallet(APIstub shim.ChaincodeStubInterface, args[]string) sc.Response {
+	if len(args) < 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 1")
+	}
+
+	resultsIterator, err := APIstub.GetQueryResult(args[0])
+	if err !=nil {
+		return shim.Error("Failed to execute query: "+err.Error())
+	}
+	defer resultsIterator.Close()
+
+	bArrayMemberAlreadyWritten := false
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		// Add a comma before array members, suppress it for the first array member
+		if bArrayMemberAlreadyWritten == true {
+			buffer.WriteString(",")
+		}
+		buffer.WriteString("{\"Key\":")
+		buffer.WriteString("\"")
+		buffer.WriteString(queryResponse.Key)
+		buffer.WriteString("\"")
+
+		buffer.WriteString(", \"Record\":")
+		// Record is a JSON object, so we write as-is
+		buffer.WriteString(string(queryResponse.Value))
+		buffer.WriteString("}")
+		bArrayMemberAlreadyWritten = true
+	}
+	buffer.WriteString("]")
+
+	return shim.Success(buffer.Bytes())
 }
