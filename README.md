@@ -1,5 +1,5 @@
 # Lyra
-A Tecnologico de Monterrey's POC Blockchain Project built for performance
+A Tecnologico de Monterrey's Blockchain Project built for performance
 
 ## Work in progress
 As stated on the [4d728a] commit, the Lyra Composer project was deprecated and moved into the _Lyra Composer_ folder. Expect the documentation to improve in the following week.
