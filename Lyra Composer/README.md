@@ -1,4 +1,4 @@
-# Lyra
+# Lyra Composer
 A Tecnologico de Monterrey's POC Blockchain Project built for performance
 ## Getting Started
 These instructions will help you get the project up and running on your local machine for development and testing purposes. See deployment notes on how to deploy the project on a live system. Bare in mind this project was made for Banco Banorte with the help of IBM and it's subject to the rules and rights they hold on the project. Through this project, the Lyra Business Network will be called LBM to be concise.
