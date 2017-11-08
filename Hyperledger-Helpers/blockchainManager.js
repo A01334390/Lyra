@@ -19,6 +19,7 @@ var figlet = require('figlet');
 var md5 = require('md5')
 var now = require('performance-now');
 const ora = require('ora');
+var crypto = require('crypto');
 var config = require('config').get("hyperledger-connection");
 // ------- Basic Libraries for this persistance modules -------
 const mongo = require('../mongoManager');
@@ -294,6 +295,9 @@ class BlockchainManager {
      */
 
     static transactionCannon(top) {
+        let start;
+        let end;
+        let leng;
         let bm = new BlockchainManager();
         let uss;
         bm.init();
@@ -303,6 +307,7 @@ class BlockchainManager {
                 return this.createSchedule(top);
             }).then((schedule) => {
                 let cannonBalls = [];
+                leng = schedule.length;
                 for (let i = 0; i < schedule.length; i++) {
                     let args = [];
                     args.push(schedule[i].from);
@@ -310,10 +315,12 @@ class BlockchainManager {
                     args.push(schedule[i].funds.toString());
                     cannonBalls.push(bm.invokeFunction('transferFunds', args, uss));
                 }
+                start = now();
                 return Promise.all(cannonBalls);
             })
             .then(() => {
-                console.log('Did it!');
+                end = now();
+                bm.profilingTime(start,end,leng,'tx');
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
@@ -340,7 +347,7 @@ class BlockchainManager {
                 let fun = 'getWalletsByRange';
                 let args = [];
                 args.push('0');
-                args.push(top);
+                args.push(top.toString());
                 return bm.queryFunction(fun, args, user);
             })
             .then((result) => {
@@ -369,6 +376,8 @@ class BlockchainManager {
      */
 
     static createWallets(amount) {
+        let start;
+        let end;
         //Get the BlockchainManager object created
         let bm = new BlockchainManager();
         //Initialize the peers and channels
@@ -380,13 +389,16 @@ class BlockchainManager {
                 let fun = 'initWallet';
                 for (let i = 0; i < amount; i++) {
                     let args = [];
-                    args.push(i.toString());
-                    args.push(i.toString());
+                    args.push(crypto.randomBytes(20).toString('hex'));
+                    args.push((i*1000).toString());
                     all_promise.push(bm.invokeFunction(fun, args, user));
                 }
+                start = now();
                 return Promise.all(all_promise);
             })
             .then(() => {
+                end = now();
+                bm.profilingTime(start,end,amount,'acc');
                 return true;
             })
             .catch(function (err) {
@@ -483,6 +495,8 @@ class BlockchainManager {
      * @returns {Boolean} done, if the process has ended it'll return TRUE
      */
     static transfer(from, to, funds) {
+        let start;
+        let end;
         //Get the BlockchainManager object created
         let bm = new BlockchainManager();
         //Initialize the peers and channels
@@ -492,13 +506,16 @@ class BlockchainManager {
             .then((user) => {
                 let all_promise = [];
                 let fun = 'transferFunds';
-                    let args = [];
-                    args.push(from);
-                    args.push(to);
-                    args.push(funds.toString());
-                return bm.invokeFunction(fun,args,user);
+                let args = [];
+                args.push(from);
+                args.push(to);
+                args.push(funds.toString());
+                start = now();
+                return bm.invokeFunction(fun, args, user);
             })
             .then(() => {
+                end = now();
+                bm.profilingTime(start,end,1,'tx');
                 return true;
             })
             .catch(function (err) {
@@ -516,6 +533,8 @@ class BlockchainManager {
      */
 
     static walletRegistration(id, balance) {
+        let start;
+        let end;
         //Get the BlockchainManager object created
         let bm = new BlockchainManager();
         //Initialize the peers and channels
@@ -527,9 +546,12 @@ class BlockchainManager {
                 let args = [];
                 args.push(id);
                 args.push(balance.toString());
+                start = now();
                 return bm.invokeFunction(fun, args, user);
             })
             .then(() => {
+                end = now();
+                bm.profilingTime(start,end,1,'acc');
                 return true;
             })
             .catch(function (err) {

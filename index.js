@@ -95,17 +95,18 @@ switch (yargs._[0]) {
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
             });
         break;
 
     case 'schedule':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.getTransactionSchedule(yargs.top)
+        hyper.createSchedule(yargs.top)
             .then((schedule) => {
                 let table = new Table({
                     head: ['From', 'To', 'Funds']
                 });
-                let arrayLength = result.length;
+                let arrayLength = schedule.length;
                 for (let i = 0; i < arrayLength; i++) {
                     let tableLine = [];
                     tableLine.push(schedule[i].from);
@@ -113,10 +114,12 @@ switch (yargs._[0]) {
                     tableLine.push(schedule[i].funds);
                     table.push(tableLine);
                 }
-                console.log(table);
+                console.log(table.toString());
+                process.exit(0);
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
             });
         break;
 
@@ -128,6 +131,7 @@ switch (yargs._[0]) {
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
             });
         break;
 
@@ -140,6 +144,7 @@ switch (yargs._[0]) {
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
             });
         break;
 
@@ -152,6 +157,7 @@ switch (yargs._[0]) {
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
             });
         break;
 
@@ -353,7 +359,6 @@ function debugMenu() {
  */
 
 function testingMenu() {
-    clear();
     console.log(
         chalk.yellow(
             figlet.textSync('Testing Menu', {
@@ -405,7 +410,7 @@ function makeSchedule() {
         message: 'Top wallet to be chosen for the schedule',
     }];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.createSchedule(answers.transactions)
+        hyper.createSchedule(answers.top)
             .then((result) => {
                 let table = new Table({
                     head: ['From', 'To', 'Funds']
@@ -437,8 +442,7 @@ function startTheCannon() {
     var questions = [{
         type: 'input',
         name: 'top',
-        message: 'Top wallet to be chosen for the schedule',
-        default: 1,
+        message: 'Top wallet to be chosen for the schedule'
     }];
     inquirer.prompt(questions).then(function (answers) {
         hyper.transactionCannon(answers.top)
