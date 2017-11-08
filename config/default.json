@@ -1,0 +1,13 @@
+{
+  "hyperledger-connection": {
+    "channel": "mychannel",
+    "peer": "grpc://localhost:7051",
+    "orderer": "grpc://localhost:7050",
+    "user": "user1",
+    "chaincodeId": "halley",
+    "chainId": "mychannel"
+  },
+  "mongo-connection": {
+    "mongoURI": "mongodb://localhost:27017/Lyra"
+  }
+}
