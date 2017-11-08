@@ -6,9 +6,10 @@ var clear = require('clear');
 var figlet = require('figlet');
 var inquirer = require('inquirer');
 var Table = require('cli-table');
+var colors = require('colors');
 
 //Hyperledger Fabric Code And Connectors
-var hyper = require('./blockchainManager');
+var hyper = require('./Hyperledger-Helpers/blockchainManager');
 var jsond = require('./package');
 var index = require('.');
 
@@ -30,69 +31,45 @@ var index = require('.');
 var yargs = require('yargs')
     .command('cli', 'Start the CLI Lyra Application')
     .command('author', 'Show the projects authors')
-    .command('assets', 'Lists all registered assets in the Blockchain')
-    .command('participants', 'Lists all registered participants on the Blockchain')
-    .command('initialize', 'Initializes the Participants and Wallets on the network', {
-        amount: {
-            description: 'Amount of clients and wallets to make',
-            require: true,
-            alias: 'a'
-        },
+    .command('cannon', 'Starts the transaction cannon', {
         top: {
-            description: 'Most amount of money a client can have',
+            description: 'Top wallet address to launch the cannon',
             require: true,
             alias: 't'
-        },
-        bottom: {
-            description: 'Least amount of money a client can have',
-            require: true,
-            alias: 'b'
         }
     })
-    .command('cassets', 'Lists all current wallets on the Ledger')
-    .command('passets', 'Lists all current participants on the Ledger')
-    .command('transfer', 'Makes a single transaction over the network', {
-        from: {
-            description: "Address from a client who's sending money",
-            require: true,
-            alias: 'f'
-        },
-        to: {
-            description: "Address from a client who's receiving money",
+    .command('schedule', 'Creates a sample schedule', {
+        top: {
+            description: 'Top wallet address to create the schedule',
             require: true,
             alias: 't'
-        },
+        }
+    })
+    .command('ballet', 'Creates a batch of wallets on the ledger', {
         amount: {
-            description: "Amount of money to be sent",
+            description: 'Amount of wallets to be created',
             require: true,
             alias: 'a'
         }
     })
-    .command('schedule', 'Make a Transaction Schedule', {
-        transactions: {
-            description: 'Amount of transactions to build the schedule',
+    .command('singwall', 'Retrieves the information of a wallet', {
+        id: {
+            description: 'ID of the wallet to retrieve',
             require: true,
-            alias: 't'
+            alias: 'i'
         }
     })
-    .command('cannon', 'Launches a bunch of transactions as fast as possible', {
-        transactions: {
-            description: 'Amount of transactions to launch into the ledger',
+    .command('wallrange', 'Retrieves wallets on a range', {
+        start: {
+            description: 'The leftmost or smallest wallet on the ledger',
             require: true,
-            alias: 't'
+            default: '0',
+            alias: 's'
         },
-        replication: {
-            description : 'Replication of transactions into MongoDB',
-            require: false,
-            default : 'n',
-            alias :'r'
-        }
-    })
-    .command('ledger', 'Checks if ledger is synced', {
-        transactions: {
-            description: 'Amount of transactions to launch into the ledger',
+        end: {
+            description: 'The rightmost or biggest wallet on the ledger',
             require: true,
-            alias: 't'
+            alias: 'e'
         }
     })
     .help()
@@ -110,127 +87,71 @@ switch (yargs._[0]) {
         process.exit(0);
         break;
 
-    case 'assets':
+    case 'cannon':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.registeredAssets()
+        hyper.transactionCannon(yargs.top)
             .then(() => {
                 process.exit(0);
             })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
             });
-        break;
-
-    case 'participants':
-        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.registeredParticipants()
-            .then(() => {
-                process.exit(0);
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
-            });
-        break;
-    case 'initialize':
-        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.batchAccount(yargs.amount, yargs.bottom, yargs.top)
-            .then(() => {
-                process.exit(0);
-            })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
-            });
-        break;
-
-    case 'cassets':
-        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.assetsOnLedger()
-            .then(() => {
-                process.exit(0);
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
-            });
-        break;
-
-    case 'passets':
-        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.participantsOnLedger()
-            .then(() => {
-                process.exit(0);
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
-            });
-        break;
-
-    case 'transfer':
-        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.transfer(yargs.from, yargs.to, yargs.amount)
-            .then(() => {
-                process.exit(0);
-            })
-            .catch(() => {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
-            })
         break;
 
     case 'schedule':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.getTransactionSchedule(yargs.transactions)
-            .then((result) => {
+        hyper.getTransactionSchedule(yargs.top)
+            .then((schedule) => {
                 let table = new Table({
                     head: ['From', 'To', 'Funds']
                 });
-                for (const key of Object.keys(result)) {
+                let arrayLength = result.length;
+                for (let i = 0; i < arrayLength; i++) {
                     let tableLine = [];
-                    tableLine.push(result[key].from);
-                    tableLine.push(result[key].to);
-                    tableLine.push(result[key].funds);
+                    tableLine.push(schedule[i].from);
+                    tableLine.push(schedule[i].to);
+                    tableLine.push(schedule[i].funds);
                     table.push(tableLine);
                 }
-                console.log(table.toString());
-                process.exit(0);
+                console.log(table);
             })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
             });
         break;
 
-    case 'cannon':
+    case 'ballet':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.transactionCannon(yargs.transactions,yargs.replication)
-            .then((result) => {
-                return hyper.isLedgerStateCorrect(result);
-            })
-            .then((result) => {
+        hyper.createWallets(yargs.amount)
+            .then(() => {
                 process.exit(0);
             })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
-            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            });
         break;
 
-    case 'ledger':
+    case 'singwall':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.getTransactionSchedule(yargs.transactions)
-            .then((schedule) => {
-                return hyper.isLedgerStateCorrect(schedule);
-            })
-            .then((result) => {
+        hyper.getWallet(yargs.id)
+            .then((wallet) => {
+                console.log(wallet);
                 process.exit(0);
             })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-                process.exit(1);
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            });
+        break;
+
+    case 'wallrange':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.getWalletByRange(yargs.start, yargs.end)
+            .then((wallets) => {
+                console.log(wallets);
+                process.exit(0);
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
             });
         break;
 
@@ -254,16 +175,15 @@ function author() {
         )
     );
     console.log(chalk.cyan.bold(jsond.version));
-    console.log(chalk.cyan.bold('Aabo Technologies © 2017'));
-    /** Displays the characteristics of the Program */
+    console.log('Aabo Technologies © 2017'.cyan.bold);
+    console.log("Server's division".cyan.bold)
     console.log("\n");
-    console.log(chalk.cyan.bold('Welcome to the fast Blockchain Simulator'));
-    /** Displays the authors of the Program */
-    console.log(chalk.magenta.bold('Made by:'));
-    console.log(chalk.green.bold('--Andres Bustamante Diaz'));
-    console.log(chalk.white.bold('--Enrique Navarro Torres-Arpi'));
-    console.log(chalk.magenta.bold('--Fernando Martin Garcia Del Angel'));
-    console.log(chalk.blue.bold('--Hector Carlos Flores Reynoso'));
+    console.log("Welcome to the".red.bold, "fast".rainbow, "transaction simulator".bold.red) // /** Displays the authors of the Program */
+    console.log(('Made by:').red.bold);
+    console.log(('--Andres Bustamante Diaz').zebra);
+    console.log(('--Enrique Navarro Torres-Arpi').america);
+    console.log(('--Fernando Martin Garcia Del Angel'.rainbow));
+    console.log(('--Hector Carlos Flores Reynoso').random);
     console.log("\n");
 }
 
@@ -332,11 +252,9 @@ function debugMenu() {
         choices: [
             new inquirer.Separator(),
             "Shows the project's authors",
-            "Lists all registered assets in the Blockchain",
-            "Lists all registered participants on the Blockchain",
             "Create a schedule for the transactions",
-            "Lists all current wallets on the Ledger",
-            "Lists all current participants on the Ledger",
+            "Lists wallets on a range",
+            "Register a single wallet over the network",
             "Make a single transaction over the network",
             new inquirer.Separator(),
             "Go back to the main menu"
@@ -353,71 +271,74 @@ function debugMenu() {
                 console.log('\n');
                 debugMenu();
                 break;
-            case "Lists all registered assets in the Blockchain":
-                hyper.registeredAssets()
-                    .then(() => {
-                        debugMenu();
-                    })
-                    .catch(function (error) {
-                        console.log('An error occured: ', chalk.bold.red(error));
-                        process.exit(1);
-                    });
+            case "Lists wallets on a range":
+                var questions = [{
+                    type: "input",
+                    name: "start",
+                    message: "Which is the lefftmost or smallest wallet to retrieve?"
+                }, {
+                    type: "input",
+                    name: "end",
+                    message: "Which is the rightmost or biggest wallet to retrieve?"
+                }];
+                inquirer.prompt(questions).then(function (answers) {
+                    hyper.getWalletByRange(answers.start, answers.end)
+                        .then((wallets) => {
+                            console.log(wallets);
+                            debugMenu();
+                        })
+                        .catch(function (err) {
+                            console.log('An error occured: ', chalk.bold.red(error));
+                            process.exit(1);
+                        });
+                })
                 break;
-            case "Lists all registered participants on the Blockchain":
-                hyper.registeredParticipants()
-                    .then(() => {
-                        debugMenu();
-                    })
-                    .catch(function (error) {
-                        console.log('An error occured: ', chalk.bold.red(error));
-                        process.exit(1);
-                    });
-                break;
-            case "Lists all current wallets on the Ledger":
-                hyper.assetsOnLedger()
-                    .then(() => {
-                        debugMenu();
-                    })
-                    .catch(function (error) {
-                        console.log('An error occured: ', chalk.bold.red(error));
-                        process.exit(1);
-                    });
-                break;
-            case "Lists all current participants on the Ledger":
-                hyper.participantsOnLedger()
-                    .then(() => {
-                        debugMenu();
-                    })
-                    .catch(function (error) {
-                        console.log('An error occured: ', chalk.bold.red(error));
-                        process.exit(1);
-                    });
-                break;
-            case "Make a single transaction over the network":
-            var questions = [{
-                type: "input",
-                name: "from",
-                message: "Input the wallet address to send balance from"
-            },{
-                type: "input",
-                name: 'to',
-                message: "Input the wallet address to receive balance"
-            },{
-                type: 'input',
-                name: 'money',
-                message: 'Input the amount of money to send'
-            }];
-        
-            inquirer.prompt(questions).then(function (answers) {
-                hyper.transfer(answers.from,answers.to,answers.money)
+
+            case "Register a single wallet over the network":
+                var questions = [{
+                    type: "input",
+                    name: "id",
+                    message : "Input a wallet address"
+                },{
+                    type: "input",
+                    name: "balance",
+                    message: "Input the initial balance"
+                }];
+            inquirer.prompt(questions).then(function(answers){
+                hyper.walletRegistration(answers.id,answers.balance)
                 .then(()=>{
                     debugMenu();
                 })
-                .catch(function(error){
-                    console.log('An error occured: ', chalk.bold.red(error));
-                    process.exit(1);
+                .catch(function(err){
+                    console.log('An error occured: ', chalk.bold.red(err));
                 });
             });
+            break;
+            case "Make a single transaction over the network":
+                var questions = [{
+                    type: "input",
+                    name: "from",
+                    message: "Input the wallet address to send balance from"
+                }, {
+                    type: "input",
+                    name: 'to',
+                    message: "Input the wallet address to receive balance"
+                }, {
+                    type: 'input',
+                    name: 'money',
+                    message: 'Input the amount of money to send'
+                }];
+
+                inquirer.prompt(questions).then(function (answers) {
+                    hyper.transfer(answers.from, answers.to, answers.money)
+                        .then(() => {
+                            debugMenu();
+                        })
+                        .catch(function (error) {
+                            console.log('An error occured: ', chalk.bold.red(error));
+                            process.exit(1);
+                        });
+                });
                 break;
             case "Go back to the main menu":
                 clear();
@@ -480,12 +401,11 @@ function testingMenu() {
 function makeSchedule() {
     var questions = [{
         type: 'input',
-        name: 'transactions',
-        message: 'Amount of transactions to create the sample schedule',
-        default: 1,
+        name: 'top',
+        message: 'Top wallet to be chosen for the schedule',
     }];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.getTransactionSchedule(answers.transactions)
+        hyper.createSchedule(answers.transactions)
             .then((result) => {
                 let table = new Table({
                     head: ['From', 'To', 'Funds']
@@ -516,26 +436,12 @@ function makeSchedule() {
 function startTheCannon() {
     var questions = [{
         type: 'input',
-        name: 'transactions',
-        message: 'Amount of transactions to launch into the ledger',
+        name: 'top',
+        message: 'Top wallet to be chosen for the schedule',
         default: 1,
-    },{
-        type: 'confirm',
-        name: 'replica',
-        message: 'Do you want the transactions to be replicated?',
-        default : false
     }];
     inquirer.prompt(questions).then(function (answers) {
-        let rep;
-        if(answers.replica){
-            rep = 'y';
-        } else{
-            rep = 'n';
-        }
-        hyper.transactionCannon(answers.transactions,rep)
-            .then((schedule) => {
-                return hyper.isLedgerStateCorrect(schedule);
-            })
+        hyper.transactionCannon(answers.top)
             .then(() => {
                 testingMenu();
             })
@@ -553,27 +459,14 @@ function startTheCannon() {
 
 function batchCreation(whereTo) {
     var questions = [{
-            type: 'input',
-            name: 'clientNumber',
-            message: 'How many users are we going to create?',
-            default: 1,
-        },
-        {
-            type: 'input',
-            name: 'top',
-            message: 'Which will be the top amount of balance the client will have?',
-            default: 100000
-        },
-        {
-            type: 'input',
-            name: 'bottom',
-            message: 'Which will be the bottom amount of balance the client will have?',
-            default: 0
-        }
-    ];
+        type: 'input',
+        name: 'clientNumber',
+        message: 'How many users are we going to create?',
+        default: 1,
+    }];
 
     inquirer.prompt(questions).then(function (answers) {
-        hyper.batchAccount(answers.clientNumber, answers.bottom, answers.top)
+        hyper.createWallets(answers.clientNumber)
             .then(() => {
                 if ('debug') {
                     debugMenu();

@@ -1,6 +1,6 @@
 {
   "name": "lyra-hlf",
-  "version": "1.1.0",
+  "version": "1.5.6",
   "description": "Super Fast Blockchain Simulator",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,10 @@
     "clear": "0.0.1",
     "cli-spinners": "^1.1.0",
     "cli-table": "latest",
+    "colors": "^1.1.2",
     "config": "^1.21.0",
+    "fabric-ca-client": "^1.0.1",
+    "fabric-client": "^1.0.1",
     "figlet": "^1.2.0",
     "inquirer": "^3.3.0",
     "md5": "^2.2.1",
@@ -35,9 +38,7 @@
     "prettyoutput": "^1.1.1",
     "shelljs": "^0.7.5",
     "winston": "^2.2.0",
-    "yargs": "^6.5.0",
-    "fabric-ca-client": "^1.0.1",
-    "fabric-client": "^1.0.1"
+    "yargs": "^6.5.0"
   },
   "bugs": {
     "url": "https://github.com/A01334390/Lyra/issues"

@@ -293,31 +293,31 @@ class BlockchainManager {
      * @returns {Boolean} done, if the process has ended it'll return TRUE
      */
 
-    static transactionCannon(transactions, top) {
+    static transactionCannon(top) {
         let bm = new BlockchainManager();
-        let uss ;
+        let uss;
         bm.init();
         return bm.envSetter()
-        .then((user)=>{
-            uss = user;
-            return this.createSchedule(top);
-        }).then((schedule)=>{
-            let cannonBalls = [];
-            for (let i = 0; i < schedule.length ; i++){
-                let args = [];
-                args.push(schedule[i].from);
-                args.push(schedule[i].to);
-                args.push(schedule[i].funds.toString());
-                cannonBalls.push(bm.invokeFunction('transferFunds',args,uss));
-            }
-            return Promise.all(cannonBalls);
-        })
-        .then(()=>{
-            console.log('Did it!');
-        })
-        .catch(function(err){
-            console.log('An error occured: ', chalk.bold.red(err));
-        })
+            .then((user) => {
+                uss = user;
+                return this.createSchedule(top);
+            }).then((schedule) => {
+                let cannonBalls = [];
+                for (let i = 0; i < schedule.length; i++) {
+                    let args = [];
+                    args.push(schedule[i].from);
+                    args.push(schedule[i].to);
+                    args.push(schedule[i].funds.toString());
+                    cannonBalls.push(bm.invokeFunction('transferFunds', args, uss));
+                }
+                return Promise.all(cannonBalls);
+            })
+            .then(() => {
+                console.log('Did it!');
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            })
     }
 
     /**
@@ -345,10 +345,10 @@ class BlockchainManager {
             })
             .then((result) => {
                 let schedule = [];
-                for (let i = 0; i < (result.length/2); i++) {
+                for (let i = 0; i < (result.length / 2); i++) {
                     var tran = {
-                        from: result[2*i].Key,
-                        to: result[(2*i)+1].Key,
+                        from: result[2 * i].Key,
+                        to: result[(2 * i) + 1].Key,
                         funds: Math.floor(Math.random() * (1000 - 10) + 10)
                     };
                     schedule.push(tran);
@@ -466,12 +466,75 @@ class BlockchainManager {
                     tableLine.push(result[i].Record.balance);
                     table.push(tableLine);
                 }
-
                 return table.toString();
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
+    }
+
+    /**
+     * @name transfer
+     * @author Aabo Technologies © 2017 - Server's team
+     * @description Transfers funds from one account to the other
+     * @param {String} from, the id of the wallet that's sending money
+     * @param {String} to, the id of the wallet that's receiving money
+     * @param {Number} funds, the amount of money to be sent
+     * @returns {Boolean} done, if the process has ended it'll return TRUE
+     */
+    static transfer(from, to, funds) {
+        //Get the BlockchainManager object created
+        let bm = new BlockchainManager();
+        //Initialize the peers and channels
+        bm.init();
+        //Start the fun!
+        return bm.envSetter()
+            .then((user) => {
+                let all_promise = [];
+                let fun = 'transferFunds';
+                    let args = [];
+                    args.push(from);
+                    args.push(to);
+                    args.push(funds.toString());
+                return bm.invokeFunction(fun,args,user);
+            })
+            .then(() => {
+                return true;
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            })
+    }
+
+    /**
+     * @name walletRegistration
+     * @author Aabo Technologies © 2017 - Server's team
+     * @description Creates a single wallet
+     * @param {String} id, the id of the wallet within the ledger
+     * @param {Number} balance, the balance of the wallet
+     * @returns {Boolean} done, if the process has ended it'll return TRUE
+     */
+
+    static walletRegistration(id, balance) {
+        //Get the BlockchainManager object created
+        let bm = new BlockchainManager();
+        //Initialize the peers and channels
+        bm.init();
+        //Start the fun!
+        return bm.envSetter()
+            .then((user) => {
+                let fun = 'initWallet';
+                let args = [];
+                args.push(id);
+                args.push(balance.toString());
+                return bm.invokeFunction(fun, args, user);
+            })
+            .then(() => {
+                return true;
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            })
     }
 }
 
