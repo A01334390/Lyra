@@ -97,30 +97,24 @@ class BlockchainManager {
     }
 
     /**
-     * @name transferFunds
+     * @name invokeFunction
      * @author Aabo Technologies © 2017 - Server's team
-     * @description This method transfers funds between wallets on the Blockchain
-     * @param {String} from, the md5 hash of the wallet that sends funds
-     * @param {String} to, the md5 hash of the wallet that receives funds
-     * @param {Number} funds, the amount of money that is being transfered
-     * @param {Object} user, the signing user for each transaction
-     * @returns {Boolean} bool, if the transaction was made successfully
+     * @description This function allows invocations to the chaincode, therefore, it's flexible
+     * @argument {String} fun, The function to execute on the chaincode
+     * @argument {Array} argum, The arguments that the chaincode needs
+     * @argument {Object} user, The user that signs the transaction
+     * @returns {Boolean} done, if the function was done executing
      */
 
-    transferFunds(from, to, funds, user) {
-        const METHOD = 'transferFunds';
+    invokeFunction(fun, argums, user) {
+        const METHOD = 'invokeFunction';
         var member_user = user;
-        // get a transaction id object based on the current user assigned to fabric client
-        // get a transaction id object based on the current user assigned to fabric client
         var tx_id = this.fabric_client.newTransactionID();
 
-        // createCar chaincode function - requires 5 args, ex: args: ['CAR12', 'Honda', 'Accord', 'Black', 'Tom'],
-        // changeCarOwner chaincode function - requires 2 args , ex: args: ['CAR10', 'Barry'],
-        // must send the proposal to endorsing peers
         var request = {
             chaincodeId: chaincodeId,
-            fcn: 'transferFunds',
-            args: [from, to, funds],
+            fcn: fun,
+            args: argums,
             chainId: chainId,
             txId: tx_id
         };
@@ -208,165 +202,24 @@ class BlockchainManager {
     }
 
     /**
-     * @name createWallet
+     * @name queryFunction 
      * @author Aabo Technologies © 2017 - Server's team
      * @description This method creates a wallet instance on the Blockchain
-     * @param {String} id, the md5 hash of the wallet that's going to be created
-     * @param {Number} balance, the initial balance of the wallet
+     * @argument {String} fun, The function to execute on the chaincode
+     * @argument {Array} argums, The arguments that the chaincode needs
      * @param {Object} user, the signing user for each transaction
-     * @returns {Nothing}
+     * @returns {JSON} result, the result of the query to the ledger
      */
 
-    createWallet(id, funds, user) {
-        const METHOD = 'createWallet';
-        var member_user = user;
-        // get a transaction id object based on the current user assigned to fabric client
-        // get a transaction id object based on the current user assigned to fabric client
-        var tx_id = this.fabric_client.newTransactionID();
+    queryFunction(fun, argums, user) {
+        const METHOD = 'queryFunction';
 
-        // createCar chaincode function - requires 5 args, ex: args: ['CAR12', 'Honda', 'Accord', 'Black', 'Tom'],
-        // changeCarOwner chaincode function - requires 2 args , ex: args: ['CAR10', 'Barry'],
-        // must send the proposal to endorsing peers
-        var request = {
-            chaincodeId: chaincodeId,
-            fcn: 'initWallet',
-            args: [id, funds],
-            chainId: chainId,
-            txId: tx_id
-        };
-
-        // send the transaction proposal to the peers
-        return this.channel.sendTransactionProposal(request)
-            .then((results) => {
-                var proposalResponses = results[0];
-                var proposal = results[1];
-                let isProposalGood = false;
-                if (proposalResponses && proposalResponses[0].response &&
-                    proposalResponses[0].response.status === 200) {
-                    isProposalGood = true;
-                } else {}
-                if (isProposalGood) {
-                    // build up the request for the orderer to have the transaction committed
-                    var request = {
-                        proposalResponses: proposalResponses,
-                        proposal: proposal
-                    };
-
-                    // set the transaction listener and set a timeout of 30 sec
-                    // if the transaction did not get committed within the timeout period,
-                    // report a TIMEOUT status
-                    var transaction_id_string = tx_id.getTransactionID(); //Get the transaction ID string to be used by the event processing
-                    var promises = [];
-                    var sendPromise = this.channel.sendTransaction(request);
-                    promises.push(sendPromise); //we want the send transaction first, so that we know where to check status
-
-                    // get an eventhub once the fabric client has a user assigned. The user
-                    // is required bacause the event registration must be signed
-                    let event_hub = this.fabric_client.newEventHub();
-                    event_hub.setPeerAddr('grpc://localhost:7053');
-
-                    // using resolve the promise so that result status may be processed
-                    // under the then clause rather than having the catch clause process
-                    // the status
-                    let txPromise = new Promise((resolve, reject) => {
-                        let handle = setTimeout(() => {
-                            event_hub.disconnect();
-                            resolve({
-                                event_status: 'TIMEOUT'
-                            }); //we could use reject(new Error('Trnasaction did not complete within 30 seconds'));
-                        }, 3000);
-                        event_hub.connect();
-                        event_hub.registerTxEvent(transaction_id_string, (tx, code) => {
-                            // this is the callback for transaction event status
-                            // first some clean up of event listener
-                            clearTimeout(handle);
-                            event_hub.unregisterTxEvent(transaction_id_string);
-                            event_hub.disconnect();
-
-                            // now let the application know what happened
-                            var return_status = {
-                                event_status: code,
-                                tx_id: transaction_id_string
-                            };
-                            if (code !== 'VALID') {
-                                resolve(return_status); // we could use reject(new Error('Problem with the tranaction, event status ::'+code));
-                            } else {
-                                resolve(return_status);
-                            }
-                        }, (err) => {
-                            //this is the callback if something goes wrong with the event registration or processing
-                            reject(new Error('There was a problem with the eventhub ::' + err));
-                        });
-                    });
-                    promises.push(txPromise);
-                    return Promise.all(promises);
-                } else {
-                    throw new Error('Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...');
-                }
-            }).then((results) => {
-                if (results && results[0] && results[0].status !== 'SUCCESS') {
-                    console.error('Failed to order the transaction. Error code: ' + response.status);
-                }
-                if (results && results[1] && results[1].event_status !== 'VALID') {
-                    console.log('Transaction failed to be committed to the ledger due to ::' + results[1].event_status);
-                }
-                return true;
-            }).catch((err) => {
-                console.error('Failed to invoke successfully :: ' + err);
-                return false;
-            });
-    }
-
-    /**
-     * @name readWallet 
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description This method creates a wallet instance on the Blockchain
-     * @param {String} id, the md5 hash of the wallet that's going to be read
-     * @param {Object} user, the signing user for each transaction
-     */
-
-    readWallet(id, user) {
         var tx_id = this.fabric_client.newTransactionID();
         const request = {
             chaincodeId: chaincodeId,
             txId: tx_id,
-            fcn: 'readWallet',
-            args: [id]
-        };
-        return this.channel.queryByChaincode(request)
-            .then((query_responses) => {
-                console.log("returned from query");
-                if (!query_responses.length) {
-                    console.log("No payloads were returned from query");
-                } else {
-                    console.log("Query result count = ", query_responses.length)
-                }
-                if (query_responses[0] instanceof Error) {
-                    console.error("error from query = ", query_responses[0]);
-                }
-                return JSON.parse(query_responses[0]);
-            })
-            .catch(function (err) {
-                console.error("Caught Error", err);
-            });
-    }
-
-    /**
-     * @name getWalletsByRange
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description This method gets the information of several wallets depending on a range
-     * @param {String} start, the leftmost or smallest key for search
-     * @param {String} finish, the rightmost or biggest key for search
-     * @param {Object} user, the signing user for each transaction
-     */
-
-    getWalletsByRange(start, finish, user) {
-        var tx_id = this.fabric_client.newTransactionID();
-        const request = {
-            chaincodeId: chaincodeId,
-            txId: tx_id,
-            fcn: 'getWalletsByRange',
-            args: [start, finish]
+            fcn: fun,
+            args: argums
         };
         return this.channel.queryByChaincode(request)
             .then((query_responses) => {
@@ -441,7 +294,30 @@ class BlockchainManager {
      */
 
     static transactionCannon(transactions, top) {
-        //TODO
+        let bm = new BlockchainManager();
+        let uss ;
+        bm.init();
+        return bm.envSetter()
+        .then((user)=>{
+            uss = user;
+            return this.createSchedule(top);
+        }).then((schedule)=>{
+            let cannonBalls = [];
+            for (let i = 0; i < schedule.length ; i++){
+                let args = [];
+                args.push(schedule[i].from);
+                args.push(schedule[i].to);
+                args.push(schedule[i].funds.toString());
+                cannonBalls.push(bm.invokeFunction('transferFunds',args,uss));
+            }
+            return Promise.all(cannonBalls);
+        })
+        .then(()=>{
+            console.log('Did it!');
+        })
+        .catch(function(err){
+            console.log('An error occured: ', chalk.bold.red(err));
+        })
     }
 
     /**
@@ -449,11 +325,39 @@ class BlockchainManager {
      * @author Aabo Technologies © 2017 - Server's team
      * @description Creates a schedule for the transaction cannon
      * @param {Number} top, this is the top wallet to be chosen for transactiions
+     * @param {Number} amount, this is the amount of transactions to be made
      * @returns {JSON} schedule, a json list of transactions to be made 
      */
 
     static createSchedule(top) {
-        //TODO
+        //Get the BlockchainManager object created
+        let bm = new BlockchainManager();
+        //Initialize the peers and channels
+        bm.init();
+        //Start the fun!
+        return bm.envSetter()
+            .then((user) => {
+                let fun = 'getWalletsByRange';
+                let args = [];
+                args.push('0');
+                args.push(top);
+                return bm.queryFunction(fun, args, user);
+            })
+            .then((result) => {
+                let schedule = [];
+                for (let i = 0; i < (result.length/2); i++) {
+                    var tran = {
+                        from: result[2*i].Key,
+                        to: result[(2*i)+1].Key,
+                        funds: Math.floor(Math.random() * (1000 - 10) + 10)
+                    };
+                    schedule.push(tran);
+                }
+                return schedule;
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            });
     }
 
     /**
@@ -473,8 +377,12 @@ class BlockchainManager {
         return bm.envSetter()
             .then((user) => {
                 let all_promise = [];
+                let fun = 'initWallet';
                 for (let i = 0; i < amount; i++) {
-                    all_promise.push(bm.createWallet(i.toString(), i.toString()));
+                    let args = [];
+                    args.push(i.toString());
+                    args.push(i.toString());
+                    all_promise.push(bm.invokeFunction(fun, args, user));
                 }
                 return Promise.all(all_promise);
             })
@@ -503,7 +411,10 @@ class BlockchainManager {
         //Start the fun!
         return bm.envSetter()
             .then((user) => {
-                return bm.readWallet(id, user);
+                let args = [];
+                let fun = 'readWallet';
+                args.push(id);
+                return bm.queryFunction(fun, args, user);
             })
             .then((result) => {
                 let table = new Table({
@@ -538,7 +449,11 @@ class BlockchainManager {
         // Start the fun!
         return bm.envSetter()
             .then((user) => {
-                return bm.getWalletsByRange(start, end, user);
+                let args = [];
+                let fun = 'getWalletsByRange';
+                args.push(start);
+                args.push(end);
+                return bm.queryFunction(fun, args, user);
             })
             .then((result) => {
                 let table = new Table({
