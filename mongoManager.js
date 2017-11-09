@@ -19,19 +19,19 @@ const {
     ObjectID
 } = require('mongodb');
 var config = require('config').get('mongo-connection');
-
+const chalk = require('chalk');
 /** Get data from the configuration files */
 let connectionURI = config.get('mongoURI');
 /** Get the Schemas */
-var {
-    Participant
-} = require('./Schemas/participant');
 var {
     Transaction
 } = require('./Schemas/transaction');
 var {
     Wallet
 } = require('./Schemas/wallet');
+var {
+    Schedule
+} = require('./Schemas/schedule')
 
 //Start the connection to Mongoose
 mongoose.Promise = global.Promise;
@@ -41,67 +41,61 @@ mongoose.connect(connectionURI, {
 
 class MongoManager {
 
-    /**@description Persists a transaction into MongoDB
+    /**
+     * @description Persists a Transaction from a Schedule into MongoDB
+     * @param {JSON} a JSON Document with transaction information
+     * @return {Promise} whose fulfillment means the transaction has been saved
+     */
+    saveSchedule(jsonDoc) {
+        const METHOD = 'saveSchedule'
+        var sch = new Schedule({
+            from: jsonDoc.from,
+            to: jsonDoc.to,
+            funds: jsonDoc.funds
+        });
+        return sch.save()
+            .then(() => {
+                return true;
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            });
+    }
+
+    /**
+     * @description Persists a transaction into MongoDB
      * @param {JSON} a JSON Document with transaction information
      * @return {Promise} whose fulfillment means the transaction has been saved
      */
     saveTransaction(jsonDoc) {
         const METHOD = 'saveTransaction';
         var tx = new Transaction({
-            amount: jsonDoc.amount,
-            from: {
-                id: jsonDoc.from.id,
-                balance: jsonDoc.from.balance,
-                owner: jsonDoc.from.owner
-            },
-            to: {
-                id: jsonDoc.to.id,
-                balance: jsonDoc.to.balance,
-                owner: jsonDoc.to.owner
-            }
+            from: jsonDoc[0],
+            to: jsonDoc[1],
+            funds: jsonDoc[2]
         });
 
         return tx.save()
             .then(() => {
                 return true;
             })
-            .catch(function () {
-                console.log('An error occured: ', chalk.bold.red(error));
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
             });
     }
 
-    /**@description Persists a participant into MongoDB
-     * @param {JSON} a JSON Document with participant information
-     * @return {Promise} whose fulfillment means the participant has been saved
-     */
-
-    saveParticipant(jsonDoc) {
-        const METHOD = 'saveParticipant';
-        var ptc = new Participant({
-            id: jsonDoc.id
-        });
-
-        return ptc.save()
-            .then(() => {
-                return true;
-            })
-            .catch(function () {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**@description Persists an asset into MongoDB
+    /**
+     * @description Persists an asset into MongoDB
      * @param {JSON} a JSON Document with asset information
      * @param {String} an md5 address of the owner
      * @return {Promise} whose fulfillment means the asset has been saved
      */
 
-    saveAsset(jsonDoc, idOwner) {
+    saveAsset(jsonDoc) {
         const METHOD = 'saveAsset';
         var wallet = new Wallet({
-            id: jsonDoc.id,
-            balance: jsonDoc.balance,
-            ownerID: idOwner
+            id: jsonDoc[0],
+            balance: jsonDoc[1]
         });
 
         return wallet.save()
@@ -113,7 +107,23 @@ class MongoManager {
             });
     }
 
-    /**@description Queries all transactions persisted on MongoDB
+    /**
+     * @description Queries all transactions from a Schedule persisted on MongoDB
+     * @return {JSON} a file with all transactions persisted on mongoDB
+     */
+    getAllSchedule() {
+        const METHOD = 'getAllSchedule';
+        return Schedule.find({})
+            .then((result) => {
+                return result;
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
+    }
+
+    /**
+     * @description Queries all transactions persisted on MongoDB
      * @return {JSON} a file with all transactions persisted on mongoDB
      */
 
@@ -128,21 +138,8 @@ class MongoManager {
             });
     }
 
-    /**@description Queries all participants persisted on MongoDB
-     * @return {JSON} a file with all participants persisted on mongoDB
-     */
-
-    getAllParticipants() {
-        return Participant.find({})
-            .then((result) => {
-                return result;
-            })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**@description Queries all Assets persisted on MongoDB
+    /**
+     * @description Queries all Assets persisted on MongoDB
      * @return {JSON} a file with all assets persisted on mongoDB
      */
 
@@ -156,7 +153,8 @@ class MongoManager {
             });
     }
 
-    /**@description Queries one asset persisted on MongoDB
+    /**
+     * @description Queries one asset persisted on MongoDB
      * @param {String} Id of the wallet on MongoDB
      * @return {JSON} a file with one asset persisted on mongoDB
      */
@@ -173,24 +171,8 @@ class MongoManager {
             });
     }
 
-    /**@description Queries one participant persisted on MongoDB
-     * @param {String} Id of the participant on MongoDB
-     * @return {JSON} a file with one participant persisted on mongoDB
-     */
-
-    getOneParticipant(identifier) {
-        return Participant.findOne({
-                id: identifier
-            })
-            .then((result) => {
-                return result;
-            })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**@description Queries all assets on MongoDB
+    /**
+     * @description Queries all assets on MongoDB
      * @return {JSON} a file with all asset's id persisted on mongoDB
      */
 
@@ -204,7 +186,18 @@ class MongoManager {
             });
     }
 
-    /**@description Executes the Save Transaction Command
+    /**
+     * @description Executes the Save Schedule Command
+     * @returns {Promise} whose fullfilment means the transaction has been persisted
+     */
+
+    static saveSch(jsonDoc) {
+        let mong = new MongoManager();
+        return mong.saveSchedule(jsonDoc);
+    }
+
+    /**
+     * @description Executes the Save Transaction Command
      * @returns {Promise} whose fullfilment means the transaction has been persisted
      */
 
@@ -213,16 +206,8 @@ class MongoManager {
         return mong.saveTransaction(jsonDoc);
     }
 
-    /**@description Executes the Save Participant Command
-     * @returns {Promise} whose fullfilment means the participant has been persisted
-     */
-
-    static savePnt(jsonDoc) {
-        let mong = new MongoManager();
-        return mong.saveParticipant(jsonDoc);
-    }
-
-    /**@description Executes the Save Asset Command
+    /**
+     * @description Executes the Save Asset Command
      * @returns {Promise} whose fullfilment means the asset has been persisted
      */
 
@@ -231,7 +216,24 @@ class MongoManager {
         return mong.saveAsset(jsonDoc, idOwner);
     }
 
-    /**@description Executes the Get All Transaction command
+    /**
+     * @description Executes the Get All Schedule command
+     * @returns {Promise} whose fullfilment means all transactions have been retrieved
+     */
+
+    static getAllSch() {
+        let mong = new MongoManager();
+        return mong.getAllSchedule()
+            .then((result) => {
+                return result;
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
+    }
+
+    /**
+     * @description Executes the Get All Transaction command
      * @returns {Promise} whose fullfilment means all transactions have been retrieved
      */
 
@@ -246,22 +248,8 @@ class MongoManager {
             });
     }
 
-    /**@description Executes the Get All Participants command
-     * @returns {Promise} whose fullfilment means all participants have been retrieved
-     */
-
-    static getAllPnt() {
-        let mong = new MongoManager();
-        return mong.getAllParticipants()
-            .then((result) => {
-                return result;
-            })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**@description Executes the Get All Assets command
+    /**
+     * @description Executes the Get All Assets command
      * @returns {Promise} whose fullfilment means all assets have been retrieved
      */
 
@@ -276,7 +264,8 @@ class MongoManager {
             });
     }
 
-    /**@description Executes the Get One Asset command
+    /**
+     * @description Executes the Get One Asset command
      * @param {String} that identifies the asset on the Database 
      * @returns {Promise} whose fullfilment means either the asset was retrieved or none existed
      */
@@ -292,25 +281,9 @@ class MongoManager {
             });
     }
 
-    /**@description Executes the Get One Participant command
-     * @param {String} that identifies the participant on the Database 
-     * @returns {Promise} whose fullfilment means either the participant was retrieved or none existed
-     */
-
-    static getOnePnt(identifier) {
-        let mong = new MongoManager();
-        return mong.getOneParticipant(identifier)
-            .then((result) => {
-                return result;
-            })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**@description Executes the All Asset's id command
+    /**
+     * @description Executes the All Asset's id command
      * @returns {Promise} whose fullfilment means either all assets were retrieved or none existed
-     * @deprecated Should be taken out by release 1.2 if not used
      */
 
     static getAllAstID() {
@@ -322,6 +295,51 @@ class MongoManager {
             .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));
             });
+    }
+
+    /**
+     * @description Removes all Schedule Transactions
+     * @returns {Promise} whose fullfilment means all schedule transactions have been deleted
+     */
+
+    static removeAllSchedule() {
+        return Schedule.remove({})
+            .then(() => {
+                console.log(('All Schedule Transactions have been removed'));
+            })
+            .catch(function () {
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
+    }
+
+    /**
+     * @description Removes all Wallets
+     * @returns {Promise} whose fullfilment means all assets were deleted
+     */
+
+    static removeAllAssets() {
+        return Wallet.remove({})
+            .then(() => {
+                console.log(('All Wallets have been removed'));
+            })
+            .catch(function () {
+                console.log('An error occured: ', chalk.bold.red(error));
+            });
+    }
+
+    /**
+     * @description Removes all Transactions
+     * @returns {Promise} whose fullfilment means all Transactions were deleted
+     */
+
+    static removeAllTransactions() {
+        return Transaction.remove({})
+            .then(() => {
+                console.log(('All Transactions have been removed'));
+            })
+            .catch(function () {
+                console.log('An error occured: ', chalk.bold.red(error));
+            })
     }
 
 }

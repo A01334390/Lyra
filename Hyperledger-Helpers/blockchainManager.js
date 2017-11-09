@@ -16,7 +16,6 @@ const Table = require('cli-table');
 const prettyoutput = require('prettyoutput');
 var chalk = require('chalk');
 var figlet = require('figlet');
-var md5 = require('md5')
 var now = require('performance-now');
 const ora = require('ora');
 var crypto = require('crypto');
@@ -391,6 +390,7 @@ class BlockchainManager {
                     let args = [];
                     args.push(crypto.randomBytes(20).toString('hex'));
                     args.push((i*1000).toString());
+                    mongo.saveAst(args);
                     all_promise.push(bm.invokeFunction(fun, args, user));
                 }
                 start = now();
@@ -430,7 +430,7 @@ class BlockchainManager {
             })
             .then((result) => {
                 let table = new Table({
-                    head: ['ID', 'Balance']
+                    head: ['Address', 'Balance']
                 });
                 let tableLine = [];
                 tableLine.push(result.address);
@@ -469,7 +469,7 @@ class BlockchainManager {
             })
             .then((result) => {
                 let table = new Table({
-                    head: ['ID', 'Balance']
+                    head: ['Address', 'Balance']
                 });
                 let arrayLength = result.length;
                 for (let i = 0; i < arrayLength; i++) {
@@ -510,6 +510,7 @@ class BlockchainManager {
                 args.push(from);
                 args.push(to);
                 args.push(funds.toString());
+                mongo.saveTx(args);
                 start = now();
                 return bm.invokeFunction(fun, args, user);
             })
@@ -546,6 +547,7 @@ class BlockchainManager {
                 let args = [];
                 args.push(id);
                 args.push(balance.toString());
+                mongo.saveAst(args);
                 start = now();
                 return bm.invokeFunction(fun, args, user);
             })

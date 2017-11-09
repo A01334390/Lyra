@@ -1,5 +1,27 @@
 const bm = require('./blockchainManager');
-const md5 = require('md5');
+const mongo = require('../mongoManager');
+
+// mongo.getOneAst('lkjewfkjojipwqdpjoqwdojp').then((result)=>{
+//     console.log(result);
+// })
+
+// let poop = {
+//     from : '1',
+//     to : '2',
+//     funds : '233'
+// };
+
+// mongo.saveSch(poop);
+
+// mongo.getAllSch().then((result)=>{
+//     console.log(result);
+// })
+
+// mongo.removeAllSchedule();
+
+// mongo.removeAllAssets();
+// mongo.removeAllTransactions();
+
 
 // bm.getWalletByRange('0','10000').then((result)=>{
 //     console.log(result);
@@ -25,8 +47,8 @@ const md5 = require('md5');
 //     console.log(error);
 // });
 
-bm.transactionCannon(2,'10').then((result)=>{
+// bm.transactionCannon(2,'10').then((result)=>{
 
-}).catch(function(err){
-    console.log("An error occured:",err);
-});
+// }).catch(function(err){
+//     console.log("An error occured:",err);
+// });

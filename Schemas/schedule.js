@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var Transaction = mongoose.model('Transaction',{
+var Schedule = mongoose.model('Schedule',{
     from : {
         type: String
     },
@@ -13,4 +13,4 @@ var Transaction = mongoose.model('Transaction',{
 
 });
 
-module.exports = {Transaction};
+module.exports = {Schedule};
