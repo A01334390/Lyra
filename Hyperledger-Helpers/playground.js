@@ -1,6 +1,10 @@
 const bm = require('./blockchainManager');
 const mongo = require('../mongoManager');
 
+// bm.enrollUser('Rem');
+
+// bm.enrollAdmin();
+
 // mongo.getOneAst('lkjewfkjojipwqdpjoqwdojp').then((result)=>{
 //     console.log(result);
 // })
