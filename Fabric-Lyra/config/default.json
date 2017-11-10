@@ -3,6 +3,9 @@
     "channel": "mychannel",
     "peer": "grpc://localhost:7051",
     "orderer": "grpc://localhost:7050",
+    "certificate": "http://localhost:7054",
+    "mspid": "Org1MSP",
+    "affiliation" : "org1.department1",
     "user": "user1",
     "chaincodeId": "halley",
     "chainId": "mychannel"

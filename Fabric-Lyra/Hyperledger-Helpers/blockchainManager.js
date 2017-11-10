@@ -34,6 +34,9 @@ const chainId = config.get('chainId');
 const peerAddress = config.get('peer');
 const ordererAddress = config.get('orderer');
 const channelName = config.get('channel');
+const certificateAddress = config.get('certificate');
+const mspidName = config.get('mspid');
+const affiliationName = config.get('affiliation');
 
 class BlockchainManager {
     /**We need the mapping of the business Network to the URLs */
@@ -97,6 +100,12 @@ class BlockchainManager {
             });
     }
 
+    /**
+     * @name registerUser
+     * @author IBM© - 2017
+     * @description Register an user to the Hyperledger Fabric Network
+     */
+
     registerUser(username) {
         let member_user;
         // create the key value store as defined in the fabric-client/config/default.json 'key-value-store' setting
@@ -118,7 +127,7 @@ class BlockchainManager {
                 verify: false
             };
             // be sure to change the http to https when the CA is running TLS enabled
-            this.fabric_ca_client = new Fabric_CA_Client('http://localhost:7054', null, '', crypto_suite);
+            this.fabric_ca_client = new Fabric_CA_Client(certificateAddress, null, '', crypto_suite);
 
             // first check to see if the admin is already enrolled
             return this.fabric_client.getUserContext('admin', true);
@@ -134,7 +143,7 @@ class BlockchainManager {
             // first need to register the user with the CA server
             return this.fabric_ca_client.register({
                 enrollmentID: username,
-                affiliation: 'org1.department1'
+                affiliation: affiliationName
             }, this.admin_user);
         }).then((secret) => {
             // next we need to enroll the user with CA server
@@ -148,7 +157,7 @@ class BlockchainManager {
             console.log('Successfully enrolled member user', username);
             return this.fabric_client.createUser({
                 username: username,
-                mspid: 'Org1MSP',
+                mspid: mspidName,
                 cryptoContent: {
                     privateKeyPEM: enrollment.key.toBytes(),
                     signedCertPEM: enrollment.certificate
@@ -170,6 +179,12 @@ class BlockchainManager {
 
     }
 
+    /**
+     * @name registerAdmin
+     * @author IBM© - 2017
+     * @description Register an admin to the Hyperledger Fabric Network
+     */
+
     registerAdmin() {
         return Fabric_Client.newDefaultKeyValueStore({
             path: this.store_path
@@ -189,7 +204,7 @@ class BlockchainManager {
                 verify: false
             };
             // be sure to change the http to https when the CA is running TLS enabled
-            this.fabric_ca_client = new Fabric_CA_Client('http://localhost:7054', tlsOptions, 'ca.example.com', crypto_suite);
+            this.fabric_ca_client = new Fabric_CA_Client(certificateAddress, tlsOptions, 'ca.example.com', crypto_suite);
 
             // first check to see if the admin is already enrolled
             return this.fabric_client.getUserContext('admin', true);
@@ -207,7 +222,7 @@ class BlockchainManager {
                     console.log('Successfully enrolled admin user "admin"');
                     return this.fabric_client.createUser({
                         username: 'admin',
-                        mspid: 'Org1MSP',
+                        mspid: mspidName,
                         cryptoContent: {
                             privateKeyPEM: enrollment.key.toBytes(),
                             signedCertPEM: enrollment.certificate
@@ -656,6 +671,12 @@ class BlockchainManager {
             })
     }
 
+    /**
+     * @name enrollUser
+     * @description Executes the registerUser method
+     * @param {Object} user, the username
+     */
+
     static enrollUser(user) {
         let bm = new BlockchainManager();
         bm.init();
@@ -667,6 +688,11 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+
+    /**
+     * @name enrollAdmin
+     * @description Executes the enrollAdmin method
+     */
 
     static enrollAdmin() {
         let bm = new BlockchainManager();
