@@ -300,20 +300,11 @@ class BlockchainManager {
                     // under the then clause rather than having the catch clause process
                     // the status
                     let txPromise = new Promise((resolve, reject) => {
-                        let handle = setTimeout(() => {
-                            event_hub.disconnect();
-                            resolve({
-                                event_status: 'TIMEOUT'
-                            }); //we could use reject(new Error('Trnasaction did not complete within 30 seconds'));
-                        }, 3000);
                         event_hub.connect();
                         event_hub.registerTxEvent(transaction_id_string, (tx, code) => {
                             // this is the callback for transaction event status
                             // first some clean up of event listener
-                            clearTimeout(handle);
                             event_hub.unregisterTxEvent(transaction_id_string);
-                            event_hub.disconnect();
-
                             // now let the application know what happened
                             var return_status = {
                                 event_status: code,
