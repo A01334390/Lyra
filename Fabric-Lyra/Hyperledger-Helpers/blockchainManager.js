@@ -311,7 +311,7 @@ class BlockchainManager {
                                 tx_id: transaction_id_string
                             };
                             if (code !== 'VALID') {
-                                resolve(return_status); // we could use reject(new Error('Problem with the tranaction, event status ::'+code));
+                                reject(return_status); // we could use reject(new Error('Problem with the tranaction, event status ::'+code));
                             } else {
                                 resolve(return_status);
                             }
