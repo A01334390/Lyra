@@ -29,9 +29,6 @@ var {
 var {
     Wallet
 } = require('./Schemas/wallet');
-var {
-    Schedule
-} = require('./Schemas/schedule')
 
 //Start the connection to Mongoose
 mongoose.Promise = global.Promise;
@@ -42,27 +39,6 @@ mongoose.connect(connectionURI, {
 class MongoManager {
 
     /**
-     * @description Persists a Transaction from a Schedule into MongoDB
-     * @param {JSON} a JSON Document with transaction information
-     * @return {Promise} whose fulfillment means the transaction has been saved
-     */
-    saveSchedule(jsonDoc) {
-        const METHOD = 'saveSchedule'
-        var sch = new Schedule({
-            from: jsonDoc.from,
-            to: jsonDoc.to,
-            funds: jsonDoc.funds
-        });
-        return sch.save()
-            .then(() => {
-                return true;
-            })
-            .catch(function (err) {
-                console.log('An error occured: ', chalk.bold.red(err));
-            });
-    }
-
-    /**
      * @description Persists a transaction into MongoDB
      * @param {JSON} a JSON Document with transaction information
      * @return {Promise} whose fulfillment means the transaction has been saved
@@ -70,9 +46,9 @@ class MongoManager {
     saveTransaction(jsonDoc) {
         const METHOD = 'saveTransaction';
         var tx = new Transaction({
-            from: jsonDoc[0],
-            to: jsonDoc[1],
-            funds: jsonDoc[2]
+            from: jsonDoc.from,
+            to: jsonDoc.to,
+            funds: jsonDoc.funds
         });
 
         return tx.save()
@@ -103,21 +79,6 @@ class MongoManager {
                 return true;
             })
             .catch(function () {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**
-     * @description Queries all transactions from a Schedule persisted on MongoDB
-     * @return {JSON} a file with all transactions persisted on mongoDB
-     */
-    getAllSchedule() {
-        const METHOD = 'getAllSchedule';
-        return Schedule.find({})
-            .then((result) => {
-                return result;
-            })
-            .catch(function (error) {
                 console.log('An error occured: ', chalk.bold.red(error));
             });
     }
@@ -187,16 +148,6 @@ class MongoManager {
     }
 
     /**
-     * @description Executes the Save Schedule Command
-     * @returns {Promise} whose fullfilment means the transaction has been persisted
-     */
-
-    static saveSch(jsonDoc) {
-        let mong = new MongoManager();
-        return mong.saveSchedule(jsonDoc);
-    }
-
-    /**
      * @description Executes the Save Transaction Command
      * @returns {Promise} whose fullfilment means the transaction has been persisted
      */
@@ -214,22 +165,6 @@ class MongoManager {
     static saveAst(jsonDoc, idOwner) {
         let mong = new MongoManager();
         return mong.saveAsset(jsonDoc, idOwner);
-    }
-
-    /**
-     * @description Executes the Get All Schedule command
-     * @returns {Promise} whose fullfilment means all transactions have been retrieved
-     */
-
-    static getAllSch() {
-        let mong = new MongoManager();
-        return mong.getAllSchedule()
-            .then((result) => {
-                return result;
-            })
-            .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
     }
 
     /**
@@ -293,21 +228,6 @@ class MongoManager {
                 return result;
             })
             .catch(function (error) {
-                console.log('An error occured: ', chalk.bold.red(error));
-            });
-    }
-
-    /**
-     * @description Removes all Schedule Transactions
-     * @returns {Promise} whose fullfilment means all schedule transactions have been deleted
-     */
-
-    static removeAllSchedule() {
-        return Schedule.remove({})
-            .then(() => {
-                console.log(('All Schedule Transactions have been removed'));
-            })
-            .catch(function () {
                 console.log('An error occured: ', chalk.bold.red(error));
             });
     }

@@ -6,7 +6,6 @@ var clear = require('clear');
 var figlet = require('figlet');
 var inquirer = require('inquirer');
 var Table = require('cli-table');
-var colors = require('colors');
 
 //Hyperledger Fabric Code And Connectors
 var hyper = require('./Hyperledger-Helpers/blockchainManager');
@@ -27,7 +26,9 @@ var index = require('.');
 //      \__\/           \__\/    \  \:\        \  \:\    
 //                                \__\/         \__\/    
 
-
+/**
+ * Command Line options
+ */
 var yargs = require('yargs')
     .command('cli', 'Start the CLI Lyra Application')
     .command('author', 'Show the projects authors')
@@ -44,14 +45,38 @@ var yargs = require('yargs')
         top: {
             description: 'Top wallet address to launch the cannon',
             require: true,
-            alias: 't'
+            alias: 't',
+            default: ''
+        },
+        amount: {
+            description: 'Amount of transactions to create',
+            require: true,
+            alias: 'a'
+        },
+        username: {
+            description: 'Username of the user to sign transactions',
+            require: true,
+            default: 'user1',
+            alias: 'n'
         }
     })
     .command('schedule', 'Creates a sample schedule', {
         top: {
             description: 'Top wallet address to create the schedule',
             require: true,
-            alias: 't'
+            alias: 't',
+            default: ''
+        },
+        amount: {
+            description: "Amount of transactions for the schedule",
+            require: true,
+            alias: 'a'
+        },
+        username: {
+            description: 'Username of the user to sign transactions',
+            require: true,
+            default: 'user1',
+            alias: 'n'
         }
     })
     .command('ballet', 'Creates a batch of wallets on the ledger', {
@@ -59,30 +84,66 @@ var yargs = require('yargs')
             description: 'Amount of wallets to be created',
             require: true,
             alias: 'a'
+        },
+        username: {
+            description: 'Username of the user to sign transactions',
+            require: true,
+            default: 'user1',
+            alias: 'n'
         }
     })
-    .command('singwall', 'Retrieves the information of a wallet', {
+    .command('wallet', 'Retrieves the information of a wallet', {
         id: {
             description: 'ID of the wallet to retrieve',
             require: true,
             alias: 'i'
+        },
+        username: {
+            description: 'Username of the user to sign transactions',
+            require: true,
+            default: 'user1',
+            alias: 'n'
         }
     })
-    .command('wallrange', 'Retrieves wallets on a range', {
+    .command('rwallet', 'Retrieves wallets on a range', {
         start: {
             description: 'The leftmost or smallest wallet on the ledger',
             require: true,
-            default: '0',
+            default: '',
             alias: 's'
         },
         end: {
             description: 'The rightmost or biggest wallet on the ledger',
             require: true,
-            alias: 'e'
+            alias: 'e',
+            default: ''
+        },
+        username: {
+            description: 'Username of the user to sign transactions',
+            require: true,
+            default: 'user1',
+            alias: 'n'
+        }
+    })
+    .command('history', 'Retrieves a wallet history', {
+        id: {
+            description: 'ID of the walle to retrieve',
+            require: true,
+            alias: 'i'
+        },
+        username: {
+            description: 'Username of the user to sign transactions',
+            require: true,
+            default: 'user1',
+            alias: 'n'
         }
     })
     .help()
     .argv;
+
+/**
+ * Command Line Processing
+ */
 
 switch (yargs._[0]) {
     case 'cli':
@@ -111,18 +172,18 @@ switch (yargs._[0]) {
     case 'user':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
         hyper.enrollUser(yargs.username)
-        .then(() => {
-            process.exit(0);
-        })
-        .catch(function (error) {
-            console.log('An error occured: ', chalk.bold.red(err));
-            process.exit(1);
-        });
+            .then(() => {
+                process.exit(0);
+            })
+            .catch(function (error) {
+                console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
+            });
         break;
 
     case 'cannon':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.transactionCannon(yargs.top)
+        hyper.transactionCannon(yargs.top, yargs.amount, yargs.username)
             .then(() => {
                 process.exit(0);
             })
@@ -134,7 +195,7 @@ switch (yargs._[0]) {
 
     case 'schedule':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.createSchedule(yargs.top)
+        hyper.createSchedule(yargs.top, yargs.amount, yargs.username)
             .then((schedule) => {
                 let table = new Table({
                     head: ['From', 'To', 'Funds']
@@ -158,7 +219,7 @@ switch (yargs._[0]) {
 
     case 'ballet':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.createWallets(yargs.amount)
+        hyper.createWallets(yargs.amount, yargs.username)
             .then(() => {
                 process.exit(0);
             })
@@ -168,9 +229,9 @@ switch (yargs._[0]) {
             });
         break;
 
-    case 'singwall':
+    case 'wallet':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.getWallet(yargs.id)
+        hyper.getWallet(yargs.id, yargs.username)
             .then((wallet) => {
                 console.log(wallet);
                 process.exit(0);
@@ -181,11 +242,34 @@ switch (yargs._[0]) {
             });
         break;
 
-    case 'wallrange':
+    case 'rwallet':
         console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
-        hyper.getWalletByRange(yargs.start, yargs.end)
-            .then((wallets) => {
-                console.log(wallets);
+        hyper.getWalletByRange(yargs.start, yargs.end, yargs.username)
+            .then((result) => {
+                let table = new Table({
+                    head: ['Address', 'Balance']
+                });
+                let arrayLength = result.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    let tableLine = [];
+                    tableLine.push(result[i].Record.address);
+                    tableLine.push(result[i].Record.balance);
+                    table.push(tableLine);
+                }
+                console.log(table.toString());
+                process.exit(0);
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+                process.exit(1);
+            });
+        break;
+
+    case 'history':
+        console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+        hyper.getWalletHistory(yargs.id, yargs.username)
+            .then((result) => {
+                console.log(result);
                 process.exit(0);
             })
             .catch(function (err) {
@@ -214,15 +298,15 @@ function author() {
         )
     );
     console.log(chalk.cyan.bold(jsond.version));
-    console.log('Aabo Technologies © 2017'.cyan.bold);
-    console.log("Server's division".cyan.bold)
+    console.log(chalk.bold.cyan('Aabo Technologies © 2017'));
+    console.log(chalk.bold.blue("Server's division"));
     console.log("\n");
-    console.log("Welcome to the".red.bold, "fast".rainbow, "transaction simulator".bold.red) // /** Displays the authors of the Program */
-    console.log(('Made by:').red.bold);
-    console.log(('--Andres Bustamante Diaz').zebra);
-    console.log(('--Enrique Navarro Torres-Arpi').america);
-    console.log(('--Fernando Martin Garcia Del Angel'.rainbow));
-    console.log(('--Hector Carlos Flores Reynoso').random);
+    console.log(chalk.bold.blue('Welcome to the transaction simulator'));
+    console.log(chalk.bold.red('Made by:'));
+    console.log(chalk.bold.green('--Andres Bustamante Diaz'));
+    console.log(chalk.bold.yellow('--Enrique Navarro Torres-Arpi'));
+    console.log(chalk.bold.magenta('--Fernando Martin Garcia Del Angel'));
+    console.log(chalk.bold.bgBlack.white('--Hector Carlos Flores Reynoso'));
     console.log("\n");
 }
 
@@ -319,11 +403,25 @@ function debugMenu() {
                     type: "input",
                     name: "end",
                     message: "Which is the rightmost or biggest wallet to retrieve?"
+                }, {
+                    type: "input",
+                    name: "username",
+                    message: "Issue the username"
                 }];
                 inquirer.prompt(questions).then(function (answers) {
-                    hyper.getWalletByRange(answers.start, answers.end)
-                        .then((wallets) => {
-                            console.log(wallets);
+                    hyper.getWalletByRange(answers.start, answers.end, answers.username)
+                        .then((result) => {
+                            let table = new Table({
+                                head: ['Address', 'Balance']
+                            });
+                            let arrayLength = result.length;
+                            for (let i = 0; i < arrayLength; i++) {
+                                let tableLine = [];
+                                tableLine.push(result[i].Record.address);
+                                tableLine.push(result[i].Record.balance);
+                                table.push(tableLine);
+                            }
+                            console.log(table.toString());
                             debugMenu();
                         })
                         .catch(function (err) {
@@ -342,9 +440,13 @@ function debugMenu() {
                     type: "input",
                     name: "balance",
                     message: "Input the initial balance"
+                }, {
+                    type: "input",
+                    name: "username",
+                    message: "Issue the username"
                 }];
                 inquirer.prompt(questions).then(function (answers) {
-                    hyper.walletRegistration(answers.id, answers.balance)
+                    hyper.walletRegistration(answers.id, answers.balance, answers.username)
                         .then(() => {
                             debugMenu();
                         })
@@ -366,10 +468,14 @@ function debugMenu() {
                     type: 'input',
                     name: 'money',
                     message: 'Input the amount of money to send'
+                }, {
+                    type: "input",
+                    name: "username",
+                    message: "Issue the username"
                 }];
 
                 inquirer.prompt(questions).then(function (answers) {
-                    hyper.transfer(answers.from, answers.to, answers.money)
+                    hyper.transfer(answers.from, answers.to, answers.money, answers.username)
                         .then(() => {
                             debugMenu();
                         })
@@ -441,9 +547,18 @@ function makeSchedule() {
         type: 'input',
         name: 'top',
         message: 'Top wallet to be chosen for the schedule',
+        default: ""
+    }, {
+        type: 'input',
+        name: 'trans',
+        message: "How many transactions would be made: "
+    }, {
+        type: "input",
+        name: "username",
+        message: "Issue the username"
     }];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.createSchedule(answers.top)
+        hyper.createSchedule(answers.top, answers.trans, answers.username)
             .then((result) => {
                 let table = new Table({
                     head: ['From', 'To', 'Funds']
@@ -476,9 +591,17 @@ function startTheCannon() {
         type: 'input',
         name: 'top',
         message: 'Top wallet to be chosen for the schedule'
+    }, {
+        type: 'input',
+        name: 'amount',
+        message: 'How many transactions will be made?'
+    }, {
+        type: "input",
+        name: "username",
+        message: "Issue the username"
     }];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.transactionCannon(answers.top)
+        hyper.transactionCannon(answers.top, answers.amount, answers.username)
             .then(() => {
                 testingMenu();
             })
@@ -500,10 +623,14 @@ function batchCreation(whereTo) {
         name: 'clientNumber',
         message: 'How many users are we going to create?',
         default: 1,
+    }, {
+        type: "input",
+        name: "username",
+        message: "Issue the username"
     }];
 
     inquirer.prompt(questions).then(function (answers) {
-        hyper.createWallets(answers.clientNumber)
+        hyper.createWallets(answers.clientNumber, answers.username)
             .then(() => {
                 if ('debug') {
                     debugMenu();
@@ -536,10 +663,14 @@ function makeTransaction() {
             type: 'input',
             name: 'funds',
             message: 'How much?'
+        }, {
+            type: "input",
+            name: "username",
+            message: "Issue the username"
         }
     ];
     inquirer.prompt(questions).then(function (answers) {
-        hyper.transfer(answers.from, answers.to, answers.funds)
+        hyper.transfer(answers.from, answers.to, answers.funds,answers.username)
             .then(() => {
                 debugMenu();
             })

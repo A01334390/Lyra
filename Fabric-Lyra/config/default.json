@@ -6,7 +6,6 @@
     "certificate": "http://localhost:7054",
     "mspid": "Org1MSP",
     "affiliation" : "org1.department1",
-    "user": "user1",
     "chaincodeId": "halley",
     "chainId": "mychannel"
   },

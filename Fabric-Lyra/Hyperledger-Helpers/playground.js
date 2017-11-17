@@ -1,6 +1,8 @@
 const bm = require('./blockchainManager');
 const mongo = require('../mongoManager');
 
+bm.getWalletHistory('f876b7c068a22a069ba4be77352a2ed99744f5b5');
+
 // bm.enrollUser('Rem');
 
 // bm.enrollAdmin();

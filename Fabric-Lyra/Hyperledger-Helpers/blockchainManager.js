@@ -65,10 +65,11 @@ class BlockchainManager {
      * @name envSetter
      * @author Aabo Technologies © 2017 - Server's team
      * @description This gets an user identity to sign transactions
+     * @param {String} username, the name of the user on this node
      * @returns {User} user, the signing user 
      */
 
-    envSetter() {
+    envSetter(user) {
         const METHOD = 'createKeyValueStore'
         return Fabric_Client.newDefaultKeyValueStore({
                 path: this.store_path
@@ -85,11 +86,11 @@ class BlockchainManager {
                 this.fabric_client.setCryptoSuite(this.crypto_suite);
 
                 // get the enrolled user from persistence, this user will sign all requests
-                return this.fabric_client.getUserContext(config.get('user'), true);
+                return this.fabric_client.getUserContext(user, true);
             })
             .then((user_from_store) => {
                 if (user_from_store && user_from_store.isEnrolled()) {
-                    console.log('Successfully loaded', config.get('user'), 'from persistence');
+                    console.log('Successfully loaded', user, 'from persistence');
                     return user_from_store;
                 } else {
                     throw new Error('Failed to get user1.... run registerUser.js');
@@ -431,20 +432,18 @@ class BlockchainManager {
      * @returns {Boolean} done, if the process has ended it'll return TRUE
      */
 
-    static transactionCannon(top) {
+    static transactionCannon(top, amount, username) {
         let start;
         let end;
-        let leng;
         let bm = new BlockchainManager();
         let uss;
         bm.init();
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 uss = user;
-                return this.createSchedule(top);
+                return this.createSchedule(top, amount, username);
             }).then((schedule) => {
                 let cannonBalls = [];
-                leng = schedule.length;
                 for (let i = 0; i < schedule.length; i++) {
                     let args = [];
                     args.push(schedule[i].from);
@@ -457,11 +456,61 @@ class BlockchainManager {
             })
             .then(() => {
                 end = now();
-                bm.profilingTime(start, end, leng, 'tx');
+                bm.profilingTime(start, end, amount, 'tx');
+                return this.getWalletByRange("", top, username);
+            })
+            .then((ledger) => {
+                return this.syncChecker(ledger);
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
             })
+    }
+
+    static syncChecker(ledger) {
+        let wallet;
+        return mongo.getAllAst()
+            .then((result) => {
+                wallet = result;
+                return mongo.getAllTx();
+            })
+            .then((transactions) => {
+                for (let i = 0; i < transactions.length; i++) {
+                    for (let x = 0; x < wallet.length; x++) {
+                        if (wallet[x].id == transactions[i].from) {
+                            wallet[x].balance = +wallet[x].balance - +transactions[i].funds;
+                        }
+
+                        if (wallet[x].id == transactions[i].to) {
+                            wallet[x].balance = +wallet[x].balance + +transactions[i].funds;
+                        }
+                    }
+                }
+            })
+            .then(() => {
+                let err = [];
+                for (let i = 0; i < ledger.length; i++) {
+                    for (let x = 0; x < wallet.length; x++) {
+                        if (ledger[i].Record.address == wallet[x].id && ledger[i].Record.balance != wallet[x].balance) {
+                            err.push(ledger[i].Record.address);
+                        }
+                    }
+                }
+
+                if (err.length != 0) {
+                    console.log(chalk.red.bold('The ledger is not synced'));
+                    console.log(chalk.yellow.bold('==== ADDRESSES NOT SYNCED ===='));
+                    for (let i = 0; i < err.length; i++) {
+                        console.log(err[i]);
+                    }
+                    console.log(chalk.yellow.bold('==== ADDRESSES NOT SYNCED ===='));
+                } else {
+                    console.log(chalk.green.bold('The ledger is synced'));
+                }
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            });
     }
 
     /**
@@ -473,28 +522,29 @@ class BlockchainManager {
      * @returns {JSON} schedule, a json list of transactions to be made 
      */
 
-    static createSchedule(top) {
+    static createSchedule(top, amount, username) {
         //Get the BlockchainManager object created
         let bm = new BlockchainManager();
         //Initialize the peers and channels
         bm.init();
         //Start the fun!
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 let fun = 'getWalletsByRange';
                 let args = [];
-                args.push('0');
+                args.push('');
                 args.push(top.toString());
                 return bm.queryFunction(fun, args, user);
             })
             .then((result) => {
                 let schedule = [];
-                for (let i = 0; i < (result.length / 2); i++) {
+                for (let i = 0; i < amount; i++) {
                     var tran = {
-                        from: result[2 * i].Key,
-                        to: result[(2 * i) + 1].Key,
+                        from: result[2 * (i%result.length/2)].Key,
+                        to: result[(2 * (i%result.length/2)) + 1].Key,
                         funds: Math.floor(Math.random() * (1000 - 10) + 10)
                     };
+                    mongo.saveTx(tran);
                     schedule.push(tran);
                 }
                 return schedule;
@@ -512,7 +562,7 @@ class BlockchainManager {
      * @return {Boolean} done, if the process has ended it'll return TRUE
      */
 
-    static createWallets(amount) {
+    static createWallets(amount, username) {
         let start;
         let end;
         //Get the BlockchainManager object created
@@ -520,7 +570,7 @@ class BlockchainManager {
         //Initialize the peers and channels
         bm.init();
         //Start the fun!
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 let all_promise = [];
                 let fun = 'initWallet';
@@ -553,13 +603,13 @@ class BlockchainManager {
      * @returns {JSON} wallet, the wallet's information
      */
 
-    static getWallet(id) {
+    static getWallet(id, username) {
         //Get a BlockchainManager object created
         let bm = new BlockchainManager();
         //Initialize the peers and channels
         bm.init();
         //Start the fun!
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 let args = [];
                 let fun = 'readWallet';
@@ -591,13 +641,13 @@ class BlockchainManager {
      * @returns {JSON} wallets, the wallets' information
      */
 
-    static getWalletByRange(start, end) {
+    static getWalletByRange(start, end, username) {
         // Get a BlockchainManager object created
         let bm = new BlockchainManager();
         // Initialize the peers and channels
         bm.init();
         // Start the fun!
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 let args = [];
                 let fun = 'getWalletsByRange';
@@ -606,17 +656,7 @@ class BlockchainManager {
                 return bm.queryFunction(fun, args, user);
             })
             .then((result) => {
-                let table = new Table({
-                    head: ['Address', 'Balance']
-                });
-                let arrayLength = result.length;
-                for (let i = 0; i < arrayLength; i++) {
-                    let tableLine = [];
-                    tableLine.push(result[i].Record.address);
-                    tableLine.push(result[i].Record.balance);
-                    table.push(tableLine);
-                }
-                return table.toString();
+                return result;
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
@@ -632,7 +672,7 @@ class BlockchainManager {
      * @param {Number} funds, the amount of money to be sent
      * @returns {Boolean} done, if the process has ended it'll return TRUE
      */
-    static transfer(from, to, funds) {
+    static transfer(from, to, funds, username) {
         let start;
         let end;
         //Get the BlockchainManager object created
@@ -640,7 +680,7 @@ class BlockchainManager {
         //Initialize the peers and channels
         bm.init();
         //Start the fun!
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 let all_promise = [];
                 let fun = 'transferFunds';
@@ -648,7 +688,12 @@ class BlockchainManager {
                 args.push(from);
                 args.push(to);
                 args.push(funds.toString());
-                mongo.saveTx(args);
+                var tran = {
+                    from: from,
+                    to: to,
+                    funds: funds
+                };
+                mongo.saveTx(tran);
                 start = now();
                 return bm.invokeFunction(fun, args, user);
             })
@@ -706,7 +751,7 @@ class BlockchainManager {
      * @returns {Boolean} done, if the process has ended it'll return TRUE
      */
 
-    static walletRegistration(id, balance) {
+    static walletRegistration(id, balance, username) {
         let start;
         let end;
         //Get the BlockchainManager object created
@@ -714,7 +759,7 @@ class BlockchainManager {
         //Initialize the peers and channels
         bm.init();
         //Start the fun!
-        return bm.envSetter()
+        return bm.envSetter(username)
             .then((user) => {
                 let fun = 'initWallet';
                 let args = [];
@@ -728,6 +773,31 @@ class BlockchainManager {
                 end = now();
                 bm.profilingTime(start, end, 1, 'acc');
                 return true;
+            })
+            .catch(function (err) {
+                console.log('An error occured: ', chalk.bold.red(err));
+            })
+    }
+    /**
+     * @name getWalletHistory
+     * @author Aabo Technologies © 2017 - Server's team
+     * @description Checks the wallet's history
+     * @param {String} id, the id of the wallet within the ledger
+     * @returns {Object} JSON Document, a json containing the histoy of a Wallet
+     */
+
+    static getWalletHistory(id, username) {
+        let bm = new BlockchainManager();
+        bm.init();
+        return bm.envSetter(username)
+            .then((user) => {
+                let fn = 'getHistoryForWallet';
+                let args = [];
+                args.push(id);
+                return bm.queryFunction(fn, args, user);
+            })
+            .then((result) => {
+                //console.log(result);
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
