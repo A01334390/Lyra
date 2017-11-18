@@ -8,6 +8,13 @@ var config = require('../config.json');
 var helper = require('./helper.js');
 var logger = helper.getLogger('Query');
 
+//    .aMMMb  dMP dMP dMMMMMP dMMMMb  dMP dMP 
+//   dMP"dMP dMP dMP dMP     dMP.dMP dMP.dMP  
+//  dMP.dMP dMP dMP dMMMP   dMMMMK"  VMMMMP   
+// dMP.MMP dMP.aMP dMP     dMP"AMF dA .dMP    
+// VMMP"MP VMMMP" dMMMMMP dMP dMP  VMMMP"     
+                                           
+
 var queryChaincode = function(peer, channelName, chaincodeName, args, fcn, username, org) {
 	var channel = helper.getChannelForOrg(org);
 	var client = helper.getClientForOrg(org);

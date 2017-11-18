@@ -1,5 +1,12 @@
 'use strict';
 
+//             _                 
+//   /\  /\___| |_ __   ___ _ __ 
+//  / /_/ / _ \ | '_ \ / _ \ '__|
+// / __  /  __/ | |_) |  __/ |   
+// \/ /_/ \___|_| .__/ \___|_|   
+//              |_|              
+
 var log4js = require('log4js');
 var logger = log4js.getLogger('Helper');
 
@@ -40,6 +47,13 @@ for (let key in ORGS) {
 	}
 }
 
+/**
+ * @description Sets up the peers for use in the application
+ * @param {*} channel , channel to create
+ * @param {*} org , the organization they belong
+ * @param {*} client , the client
+ */
+
 function setupPeers(channel, org, client) {
 	for (let key in ORGS[org].peers) {
 		let data = fs.readFileSync(path.join(__dirname, ORGS[org].peers[key]['tls_cacerts']));
@@ -56,6 +70,11 @@ function setupPeers(channel, org, client) {
 	}
 }
 
+/**
+ * @description creates a new orderer
+ * @param {*} client , the client
+ */
+
 function newOrderer(client) {
 	var caRootsPath = ORGS.orderer.tls_cacerts;
 	let data = fs.readFileSync(path.join(__dirname, caRootsPath));
@@ -65,6 +84,11 @@ function newOrderer(client) {
 		'ssl-target-name-override': ORGS.orderer['server-hostname']
 	});
 }
+
+/**
+ * @description Reads files from a filepath
+ * @param {String} dir , path
+ */
 
 function readAllFiles(dir) {
 	var files = fs.readdirSync(dir);
@@ -77,13 +101,30 @@ function readAllFiles(dir) {
 	return certs;
 }
 
+/**
+ * @description Gets the name of the organization
+ * @param {*} org , organization name
+ */
+
 function getOrgName(org) {
 	return ORGS[org].name;
 }
 
+/**
+ * @description Gets the keystore for the organization
+ * @param {*} org , name of the org
+ */
+
 function getKeyStoreForOrg(org) {
 	return hfc.getConfigSetting('keyValueStore') + '_' + org;
 }
+
+/**
+ * @description Deploys the topology
+ * @param {*} names , names
+ * @param {*} forPeers , if its for peers
+ * @param {*} userOrg , organization of the user
+ */
 
 function newRemotes(names, forPeers, userOrg) {
 	let client = getClientForOrg(userOrg);
@@ -117,9 +158,8 @@ function newRemotes(names, forPeers, userOrg) {
 	return targets;
 }
 
-//-------------------------------------//
-// APIs
-//-------------------------------------//
+/** Getters and Setters */
+
 var getChannelForOrg = function(org) {
 	return channels[org];
 };

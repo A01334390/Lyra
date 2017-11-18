@@ -87,9 +87,11 @@ class BlockchainManager {
      * @name transactionCannon
      * @author Aabo Technologies © 2017 - Server's team
      * @description Launches the 'transferFunds' method multiple times using promises
-     * @param {Number} transactions, number of Transactions
-     * @param {Number} top, this is the top wallet that could be chosen for transactions
-     * @returns {Boolean} done, if the process has ended it'll return TRUE
+     * @param {Array} peer, is an array of peers to execute the transaction
+     * @param {String} chaincodeName, is the name of the chaincode to target
+     * @param {String} channelName, is the name of the channel to target
+     * @param {String} username, is the username to sign the transaction
+     * @param {String} orgName, is the name of the organization
      */
 
     static transactionCannon(peer, chaincodeName, channelName, amount, username, orgName) {
@@ -121,6 +123,12 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+
+    /**
+     * @name syncLedger
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} ledger, an array of accounts taken from the ledger 
+     */
 
     static syncChecker(ledger) {
         let wallet;
@@ -170,11 +178,13 @@ class BlockchainManager {
 
     /**
      * @name createSchedule
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Creates a schedule for the transaction cannon
-     * @param {Number} top, this is the top wallet to be chosen for transactiions
-     * @param {Number} amount, this is the amount of transactions to be made
-     * @returns {JSON} schedule, a json list of transactions to be made 
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , an array of peers where to execute the transaction
+     * @param {String} chaincodeName , the name of the chaincode to invoke
+     * @param {String} channelName , the name of the channel to target
+     * @param {Number} amount , the amount of transactions to schedule
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
 
     static createSchedule(peer, chaincodeName, channelName, amount, username, orgName) {
@@ -200,10 +210,13 @@ class BlockchainManager {
 
     /**
      * @name createWallets
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Launches the 'createWallet' method multiple times using promises
-     * @param {Number} amount, number of wallets to create
-     * @return {Boolean} done, if the process has ended it'll return TRUE
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , an array of peers where to execute the transaction
+     * @param {String} chaincodeName , the name of the chaincode to invoke
+     * @param {String} channelName , the name of the channel to target
+     * @param {Number} amount , amount of wallets to create on the ledger
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
 
     static createWallets(peer, chaincodeName, channelName, amount, username, orgName) {
@@ -232,10 +245,13 @@ class BlockchainManager {
 
     /**
      * @name getWallet
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Reads a wallet from the ledger
-     * @param {String} id, the md5 hash that identifies a wallet
-     * @returns {JSON} wallet, the wallet's information
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , an array of peers where to execute the transaction
+     * @param {String} chaincodeName , the name of the chaincode to invoke
+     * @param {String} channelName , the name of the channel to target
+     * @param {String} id , the wallet address to target
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
 
     static getWallet(peer, chaincodeName, channelName, id, username, orgName) {
@@ -252,13 +268,15 @@ class BlockchainManager {
 
     /**
      * @name getWalletByRange
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Gets the information from several wallets on the ledger
-     * @param {String} start, the leftmost or smallest wallet on the ledger
-     * @param {String} end, the rightmost or biggest wallet on the ledger
-     * @returns {JSON} wallets, the wallets' information
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , an array of peers where to execute the transaction
+     * @param {String} chaincodeName , the name of the chaincode to invoke
+     * @param {String} channelName , the name of the channel to target
+     * @param {String} start , the lower bound to get addresses from
+     * @param {String} end , the upper bound to get addresses from
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
-
     static getWalletByRange(peer, chaincodeName, channelName, start, end, username, orgName) {
         var args = [];
         args.push(start);
@@ -274,12 +292,15 @@ class BlockchainManager {
 
     /**
      * @name transfer
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Transfers funds from one account to the other
-     * @param {String} from, the id of the wallet that's sending money
-     * @param {String} to, the id of the wallet that's receiving money
-     * @param {Number} funds, the amount of money to be sent
-     * @returns {Boolean} done, if the process has ended it'll return TRUE
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , an array of peers where to execute the transaction
+     * @param {String} chaincodeName , the name of the chaincode to invoke
+     * @param {String} channelName , the name of the channel to target
+     * @param {String} from , the address of the wallet that is sending money 
+     * @param {String} to , the address of the wallet that is receiving money
+     * @param {Number} balance , the amount of money that is being transfered
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
     static transfer(peer, chaincodeName, channelName, from, to, balance, username, orgName) {
         let start;
@@ -307,6 +328,13 @@ class BlockchainManager {
             })
     }
 
+    /**
+     * @name enrollUser
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
+
     static enrollUser(username, orgName) {
         return helper.getRegisteredUsers(username, orgName, true)
             .then((response) => {
@@ -316,6 +344,15 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+
+    /**
+     * @name createChannel
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {String} channelName , the name of the channel to enroll
+     * @param {String} channelConfigPath , the path of configuration
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static createChannel(channelName, channelConfigPath, username, orgName) {
         return channels.createChannel(channelName, channelConfigPath, username, orgName)
@@ -327,6 +364,15 @@ class BlockchainManager {
             });
     }
 
+    /**
+     * @name joinChannel
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {String} channelName , name of the channel to join
+     * @param {Array} peers , array of peers to join
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
+
     static joinChannel(channelName, peers, username, orgName) {
         return join.joinChannel(channelName, peers, username, orgName)
             .then((message) => {
@@ -336,6 +382,17 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             })
     }
+
+    /**
+     * @name installChaincode
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peers , array of peers to install a Chaincode
+     * @param {String} chaincodeName , name of the chaincode to install
+     * @param {Path} chaincodePath , file path
+     * @param {String} chaincodeVersion , version of the chaincode
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static installChaincode(peers, chaincodeName, chaincodePath, chaincodeVersion, username, orgName) {
         return install.installChaincode(peers, chaincodeName, chaincodePath, chaincodeVersion, username, orgName)
@@ -347,6 +404,18 @@ class BlockchainManager {
             });
     }
 
+    /**
+     * @name instantiateChaincode
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {String} channelName , name of the channel 
+     * @param {String} chaincodeName , name of the chaincode
+     * @param {String} chaincodeVersion , chaincode version
+     * @param {String} fcn , function to invoke
+     * @param {Array} args , arguments to pass 
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
+
     static instantiateChaincode(channelName, chaincodeName, chaincodeVersion, fcn, args, username, orgName) {
         return instantiate.instantiateChaincode(channelName, chaincodeName, chaincodeVersion, fcn, args, username, orgName)
             .then((message) => {
@@ -356,6 +425,17 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name invokeTransactions
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peers , array of peers to invoke the transaction
+     * @param {String} chaincodeName , name of the chaincode
+     * @param {String} channelName , name of the channel
+     * @param {String} fcn , function to invoke
+     * @param {Array} args , arguments to pass 
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static invokeTransactions(peers, chaincodeName, channelName, fcn, args, username, orgName) {
         return invoke.invokeChaincode(peers, channelName, chaincodeName, fcn, args, username, orgName)
@@ -366,6 +446,17 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name queryChaincode
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , array of peers to query
+     * @param {String} chaincodeName , name of the chaincode
+     * @param {String} channelName , name of the channel
+     * @param {String} fcn , function to query
+     * @param {Array} args , arguments
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static queryChaincode(peer, chaincodeName, channelName, fcn, args, username, orgName) {
         return query.queryChaincode(peer, channelName, chaincodeName, args, fcn, username, orgName)
@@ -376,6 +467,14 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name getBlockByBlockNumber
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , peers to query the block
+     * @param {String} blockId , Block id
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static getBlockByBlockNumber(peer, blockId, username, orgName) {
         return query.getBlockByNumber(peer, blockId, username, orgName)
@@ -386,6 +485,14 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name getTransactionByTransactionID
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , array of peers to get the transaction
+     * @param {String} txId , transaction ID
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target 
+     */
 
     static getTransactionByTransactionID(peer, txId, username, orgName) {
         return query.getTransactionByID(peer, txId, username, orgName)
@@ -396,6 +503,14 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name getBlockByHash
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , array of peers to query
+     * @param {String} hash , hash of the block 
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static getBlockByHash(peer, hash, username, orgName) {
         return query.getBlockByHash(peer, hash, username, orgName)
@@ -406,6 +521,13 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name getChannelInfo
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , array of peers to check
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static getChannelInfo(peer, username, orgName) {
         return query.getChainInfo(peer, username, orgName)
@@ -416,6 +538,14 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name getInstalledChaincodes
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , array of peers 
+     * @param {String} installType , type of installation
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static getInstalledChaincodes(peer, installType, username, orgName) {
         return query.getInstalledChaincodes(peer, installType, username, orgName)
@@ -426,6 +556,13 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+    /**
+     * @name getChannels
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer, peers to query 
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
+     */
 
     static getChannels(peer, username, orgName) {
         return query.getChannels(peer, username, orgName)
@@ -436,15 +573,18 @@ class BlockchainManager {
                 console.log('An error occured: ', chalk.bold.red(err));
             });
     }
+
     /**
      * @name walletRegistration
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Creates a single wallet
-     * @param {String} id, the id of the wallet within the ledger
-     * @param {Number} balance, the balance of the wallet
-     * @returns {Boolean} done, if the process has ended it'll return TRUE
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {*} peer , array of 
+     * @param {*} chaincodeName 
+     * @param {*} channelName 
+     * @param {*} id 
+     * @param {*} balance 
+     *  @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
-
     static walletRegistration(peer, chaincodeName, channelName, id, balance, username, orgName) {
         let start;
         let end;
@@ -466,10 +606,13 @@ class BlockchainManager {
     }
     /**
      * @name getWalletHistory
-     * @author Aabo Technologies © 2017 - Server's team
-     * @description Checks the wallet's history
-     * @param {String} id, the id of the wallet within the ledger
-     * @returns {Object} JSON Document, a json containing the histoy of a Wallet
+     * @author Aabo Technologies © 2017 - Server's division
+     * @param {Array} peer , array of peers to query
+     * @param {String} chaincodeName , name of the chaincode
+     * @param {String} channelName , name of the channel
+     * @param {String} id , the wallet's address
+     * @param {String} username , the user that will sign transactions
+     * @param {String} orgName , name of the organization to target
      */
 
     static getWalletHistory(peer, chaincodeName, channelName, id, username, orgName) {

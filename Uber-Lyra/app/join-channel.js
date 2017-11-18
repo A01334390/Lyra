@@ -2,6 +2,17 @@ var util = require('util');
 var path = require('path');
 var fs = require('fs');
 
+                                          
+//         88               88               
+//         88               ""               
+//         88                                
+//         88   ,adPPYba,   88  8b,dPPYba,   
+//         88  a8"     "8a  88  88P'   `"8a  
+//         88  8b       d8  88  88       88  
+// 88,   ,d88  "8a,   ,a8"  88  88       88  
+//  "Y8888P"    `"YbbdP"'   88  88       88  
+                                         
+
 var Peer = require('fabric-client/lib/Peer.js');
 var EventHub = require('fabric-client/lib/EventHub.js');
 var tx_id = null;
@@ -13,9 +24,7 @@ var logger = helper.getLogger('Join-Channel');
 var ORGS = helper.ORGS;
 var allEventhubs = [];
 
-//
-//Attempt to send a request to the orderer with the sendCreateChain method
-//
+
 var joinChannel = function(channelName, peers, username, org) {
 	// on process exit, always disconnect the event hub
 	var closeConnections = function(isSuccess) {
@@ -33,7 +42,6 @@ var joinChannel = function(channelName, peers, username, org) {
 			}
 		}
 	};
-	//logger.debug('\n============ Join Channel ============\n')
 	logger.info(util.format(
 		'Calling peers in organization "%s" to join the channel', org));
 
