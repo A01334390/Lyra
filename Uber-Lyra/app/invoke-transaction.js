@@ -28,7 +28,6 @@ var invokeChaincode = function(peerNames, channelName, chaincodeName, fcn, args,
 			chainId: channelName,
 			txId: tx_id
 		};
-		console.log(args);
 		if (targets)
 			request.targets = targets;
 

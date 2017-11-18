@@ -162,9 +162,9 @@ class MongoManager {
      * @returns {Promise} whose fullfilment means the asset has been persisted
      */
 
-    static saveAst(jsonDoc, idOwner) {
+    static saveAst(jsonDoc) {
         let mong = new MongoManager();
-        return mong.saveAsset(jsonDoc, idOwner);
+        return mong.saveAsset(jsonDoc);
     }
 
     /**
