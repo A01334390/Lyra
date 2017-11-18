@@ -791,10 +791,10 @@ class BlockchainManager {
         bm.init();
         return bm.envSetter(username)
             .then((user) => {
-                let fn = 'getHistoryForWallet';
+                let fn = 'getWalletHistory';
                 let args = [];
                 args.push(id);
-                return bm.queryFunction(fn, args, user);
+                return bm.queryFunction('getWalletHistory', args, user);
             })
             .then((result) => {
                 //console.log(result);

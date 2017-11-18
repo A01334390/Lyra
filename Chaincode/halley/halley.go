@@ -74,8 +74,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return t.readWallet(stub, args)
 	} else if function == "getWalletsByRange" {
 		return t.getWalletsByRange(stub, args)
-	} else if function == "getHistoryForWallet" {
-		return t.getHistoryForWallet(stub, args)
+	} else if function == "getWalletHistory" {
+		return t.getWalletHistory(stub, args)
 	}
 
 	// If nothing was invoked, launch an error
@@ -249,6 +249,13 @@ func (t *SimpleChaincode) transferFunds(stub shim.ChaincodeStubInterface, args [
 	return shim.Success(nil)
 }
 
+/*
+* getWalletsByRange
+* This method gets all wallets within a range
+* [Initial]	= This is the lower bound of the range
+* [Top]		= This is the top bound of the range
+ */
+
 func (t *SimpleChaincode) getWalletsByRange(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) < 2 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
@@ -293,12 +300,21 @@ func (t *SimpleChaincode) getWalletsByRange(stub shim.ChaincodeStubInterface, ar
 	return shim.Success(buffer.Bytes())
 }
 
-func (t *SimpleChaincode) getHistoryForWallet(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+/*
+* getWalletHistory
+* This method is the main driver for the application, it allows the transfer of balance between wallets
+* [ID]		= This is the ID of the wallet to check it's history
+ */
+
+func (t *SimpleChaincode) getWalletHistory(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+
 	if len(args) < 1 {
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
 	walletID := args[0]
+
+	fmt.Printf("- start getHistoryForMarble: %s\n", walletID)
 
 	resultsIterator, err := stub.GetHistoryForKey(walletID)
 	if err != nil {
@@ -326,9 +342,6 @@ func (t *SimpleChaincode) getHistoryForWallet(stub shim.ChaincodeStubInterface, 
 		buffer.WriteString("\"")
 
 		buffer.WriteString(", \"Value\":")
-		// if it was a delete operation on given key, then we need to set the
-		//corresponding value null. Else, we will write the response.Value
-		//as-is (as the Value itself a JSON wallet)
 		if response.IsDelete {
 			buffer.WriteString("null")
 		} else {
@@ -349,6 +362,8 @@ func (t *SimpleChaincode) getHistoryForWallet(stub shim.ChaincodeStubInterface, 
 		bArrayMemberAlreadyWritten = true
 	}
 	buffer.WriteString("]")
+
+	fmt.Printf("- getHistoryForWallet returning:\n%s\n", buffer.String())
 
 	return shim.Success(buffer.Bytes())
 }
