@@ -68,14 +68,15 @@ var yargs = require('yargs')
 		}
 	})
 	.command('join', 'Join a channel over the network', {
-		name: {
+		channel: {
 			description: 'Name of the channel to create',
 			require: true,
-			alias: 'c'
+			alias: 'ch'
 		},
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		username: {
@@ -93,6 +94,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -165,6 +167,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		blockId: {
@@ -187,6 +190,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		txId: {
@@ -209,6 +213,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		hash: {
@@ -248,6 +253,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		installType: {
@@ -270,6 +276,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		username: {
@@ -287,6 +294,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -320,6 +328,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -357,6 +366,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -389,6 +399,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -428,6 +439,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -445,11 +457,6 @@ var yargs = require('yargs')
 			require: true,
 			alias: 'i'
 		},
-		balance: {
-			description: 'Initial money balance of the wallet',
-			require: true,
-			alias: 'b'
-		},
 		username: {
 			description: 'Username of the user to sign transactions',
 			require: true,
@@ -465,6 +472,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -503,6 +511,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -515,12 +524,21 @@ var yargs = require('yargs')
 			require: true,
 			alias: 'ch'
 		},
-		id: {
-			description: 'Address of the wallet to query',
+		from: {
+			description: 'Address of the wallet to transfer funds',
 			require: true,
-			alias: 'i'
+			alias: 'f'
 		},
-
+		to: {
+			description: 'Address of the wallet to receive funds',
+			require: true,
+			alias: 't'
+		},
+		funds: {
+			description: 'Amount of money to send',
+			require: true,
+			alias: 'm'
+		},
 		username: {
 			description: 'Username of the user to sign transactions',
 			require: true,
@@ -536,6 +554,7 @@ var yargs = require('yargs')
 		peers: {
 			description: 'Addresses of the peers to join this channel',
 			require: true,
+			type: 'array',
 			alias: 'pe'
 		},
 		chaincode: {
@@ -552,11 +571,6 @@ var yargs = require('yargs')
 			description: 'Amount of transactions to simulate to the network',
 			require: true,
 			alias: 'a'
-		},
-		balance: {
-			description: 'Initial money balance of the wallet',
-			require: true,
-			alias: 'b'
 		},
 		username: {
 			description: 'Username of the user to sign transactions',
@@ -579,62 +593,252 @@ switch (yargs._[0]) {
 		author();
 		process.exit(0);
 		break;
-		console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 	case 'user':
+		console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.enrollUser(yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'channel':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.createChannel(yargs.name, yargs.path, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'join':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.joinChannel(yargs.channel, yargs.peers, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'install':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.installChaincode(yargs.peers, yargs.chaincode, yargs.path, yargs.version, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
+
 		break;
 
 	case 'instantiate':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.instantiateChaincode(yargs.channel, yargs.chaincode, yargs.version, yargs.method, yargs.args, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'block':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getBlockByBlockNumber(yargs.peer, yargs.blockId, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'transaction':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getTransactionByTransactionID(yargs.peers, yargs.txId, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'hash':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getBlockByHash(yargs.peers, yargs.hash, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'chinfo':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getChannelInfo(yargs.peers, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'instacodes':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getInstalledChaincodes(yargs.peers, yargs.installType, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'channels':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getChannels(yargs.peers, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'ballet':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.createWallets(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'wallet':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.walletRegistration(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.balance, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'gwallet':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getWallet(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'rwallet':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getWalletByRange(yargs.peers, yargs.chaincode, yargs.channel, yargs.start, yargs.end, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'history':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.getWalletHistory(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'cannon':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.transactionCannon(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'transfer':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.transfer(yargs.peers, yargs.chaincode, yargs.channel, yargs.from, yargs.to, yargs.funds, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	case 'schedule':
+	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
+		hyper.createSchedule(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
+			.then((message) => {
+				console.log(message);
+				process.exit(0);
+			})
+			.catch(function (err) {
+				console.log(err);
+				process.exit(1);
+			});
 		break;
 
 	default:
@@ -665,149 +869,3 @@ function author() {
 	console.log(chalk.bold.bgBlack.white('--Hector Carlos Flores Reynoso'));
 	console.log("\n");
 }
-
-//Enroll user
-
-// hyper.enrollUser('luna', 'org1')
-// 	.then((message) => {
-// 		console.log(message);
-// 		process.exit(0);
-// 	})
-// 	.catch(function (err) {
-// 		console.log(err);
-// 		process.exit(1);
-// 	});
-
-//CreateChannel
-
-// hyper.createChannel('mychannel','../artifacts/channel/mychannel.tx','luna','org1')
-// 	.then((message) => {
-// 		console.log(message);
-// 		process.exit(0);
-// 	})
-// 	.catch(function (err) {
-// 		console.log(err);
-// 		process.exit(1);
-// 	});
-
-//Join Channel Request
-
-// var peers = [];
-// peers.push('peer1');
-// peers.push('peer2');
-// hyper.joinChannel('mychannel',peers,'luna','org1')
-// 	.then((message) => {
-// 		console.log(message);
-// 		process.exit(0);
-// 	})
-// 	.catch(function (err) {
-// 		console.log(err);
-// 		process.exit(1);
-// 	});
-
-//Install chaincode
-
-var peers = [];
-peers.push('peer1');
-peers.push('peer2');
-
-// hyper.installChaincode(peers,'halley','github.com/halley/','v1','luna','org1')
-// 	.then((message) => {
-// 		console.log(message);
-// 		process.exit(0);
-// 	})
-// 	.catch(function (err) {
-// 		console.log(err);
-// 		process.exit(1);
-// 	});
-
-// Instantiate chaincode
-
-// hyper.instantiateChaincode('mychannel','halley','v1','Invoke',"\"args\":[\"\"]",'luna','org1')
-// 	.then((message) => {
-// 		console.log(message);
-// 		process.exit(0);
-// 	})
-// 	.catch(function (err) {
-// 		console.log(err);
-// 		process.exit(1);
-// 	});
-
-//Invoke request
-var req = [];
-req.push('D');
-req.push('E');
-req.push('50');
-// hyper.invokeTransactions(peers,'halley','mychannel','transferFunds',req,'luna','org1')
-// 	.then((message) => {
-// 		console.log(message);
-// 		process.exit(0);
-// 	})
-// 	.catch(function (err) {
-// 		console.log(err);
-// 		process.exit(1);
-// 	});
-
-//Query request
-// hyper.queryChaincode(peers,'halley','mychannel','getHistoryForWallet',"E",'luna','org1')
-// .then((message) => {
-// 			console.log(message);
-// 			process.exit(0);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 			process.exit(1);
-// 		});
-
-//Make Transfer
-// hyper.transfer(peers,'halley','mychannel','E','D','50','luna','org1')
-// .then((message) => {
-// 			console.log(message);
-// 			process.exit(0);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 			process.exit(1);
-// 		});
-
-//Get Wallets
-// hyper.getWalletByRange(peers,'halley','mychannel','','','luna','org1')
-// .then((message) => {
-// 			console.log(message);
-// 			process.exit(0);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 			process.exit(1);
-// 		});
-
-// hyper.getWallet(peers,'halley','mychannel','D','luna','org1')
-// .then((message) => {
-// 			console.log(message);
-// 			process.exit(0);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 			process.exit(1);
-// 		});
-
-//Make lots of wallets
-// hyper.createWallets(peers,'halley','mychannel',100,'luna','org1')
-// .then((message) => {
-// 			console.log(message);
-// 			process.exit(0);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 			process.exit(1);
-// 		});
-
-// hyper.createSchedule(peers,'halley','mychannel',5,'luna','org1')
-// .then((message) => {
-// 			console.log(message);
-// 			process.exit(0);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 			process.exit(1);
-// 		});
