@@ -490,11 +490,6 @@ var yargs = require('yargs')
 			require: true,
 			alias: 'a'
 		},
-		balance: {
-			description: 'Initial money balance of the wallet',
-			require: true,
-			alias: 'b'
-		},
 		username: {
 			description: 'Username of the user to sign transactions',
 			require: true,
@@ -593,7 +588,7 @@ switch (yargs._[0]) {
 		author();
 		process.exit(0);
 		break;
-	case 'user':
+	case 'user': //Done
 		console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.enrollUser(yargs.username, yargs.organization)
 			.then((message) => {
@@ -606,7 +601,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'channel':
+	case 'channel': //DONE
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.createChannel(yargs.name, yargs.path, yargs.username, yargs.organization)
 			.then((message) => {
@@ -619,7 +614,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'join':
+	case 'join': //DONE
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.joinChannel(yargs.channel, yargs.peers, yargs.username, yargs.organization)
 			.then((message) => {
@@ -632,7 +627,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'install':
+	case 'install': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.installChaincode(yargs.peers, yargs.chaincode, yargs.path, yargs.version, yargs.username, yargs.organization)
 			.then((message) => {
@@ -646,7 +641,7 @@ switch (yargs._[0]) {
 
 		break;
 
-	case 'instantiate':
+	case 'instantiate': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.instantiateChaincode(yargs.channel, yargs.chaincode, yargs.version, yargs.method, yargs.args, yargs.username, yargs.organization)
 			.then((message) => {
@@ -659,7 +654,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'block':
+	case 'block': 
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getBlockByBlockNumber(yargs.peer, yargs.blockId, yargs.username, yargs.organization)
 			.then((message) => {
@@ -698,7 +693,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'chinfo':
+	case 'chinfo': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getChannelInfo(yargs.peers, yargs.username, yargs.organization)
 			.then((message) => {
@@ -724,7 +719,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'channels':
+	case 'channels':  //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getChannels(yargs.peers, yargs.username, yargs.organization)
 			.then((message) => {
@@ -737,7 +732,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'ballet':
+	case 'ballet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.createWallets(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
 			.then((message) => {
@@ -750,7 +745,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'wallet':
+	case 'wallet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.walletRegistration(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.balance, yargs.username, yargs.organization)
 			.then((message) => {
@@ -763,7 +758,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'gwallet':
+	case 'gwallet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getWallet(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.username, yargs.organization)
 			.then((message) => {
@@ -776,7 +771,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'rwallet':
+	case 'rwallet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getWalletByRange(yargs.peers, yargs.chaincode, yargs.channel, yargs.start, yargs.end, yargs.username, yargs.organization)
 			.then((message) => {
@@ -789,7 +784,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'history':
+	case 'history': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getWalletHistory(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.username, yargs.organization)
 			.then((message) => {
@@ -802,11 +797,10 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'cannon':
+	case 'cannon': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.transactionCannon(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then(() => {
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -815,11 +809,10 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'transfer':
+	case 'transfer': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.transfer(yargs.peers, yargs.chaincode, yargs.channel, yargs.from, yargs.to, yargs.funds, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then(() => {
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -828,7 +821,7 @@ switch (yargs._[0]) {
 			});
 		break;
 
-	case 'schedule':
+	case 'schedule': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.createSchedule(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
 			.then((message) => {

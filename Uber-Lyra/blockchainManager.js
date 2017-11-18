@@ -146,7 +146,7 @@ class BlockchainManager {
                 let err = [];
                 for (let i = 0; i < ledger.length; i++) {
                     for (let x = 0; x < wallet.length; x++) {
-                        if (ledger[i].Record.address == wallet[x].id && ledger[i].Record.balance != wallet[x].balance) {
+                        if (ledger[i].Key == wallet[x].id && ledger[i].Record.balance != wallet[x].balance) {
                             err.push(ledger[i].Record.address);
                         }
                     }
@@ -475,7 +475,7 @@ class BlockchainManager {
     static getWalletHistory(peer, chaincodeName, channelName, id, username, orgName) {
         var args = [];
         args.push(id);
-        return this.queryChaincode(peer, chaincodeName, channelName, 'getWalletHistory', id, username, orgName)
+        return this.queryChaincode(peer, chaincodeName, channelName, 'getHistoryForWallet', id, username, orgName)
             .then((result) => {
                 console.log(result);
             })
