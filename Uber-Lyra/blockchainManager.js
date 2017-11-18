@@ -477,7 +477,7 @@ class BlockchainManager {
         args.push(id);
         return this.queryChaincode(peer, chaincodeName, channelName, 'getHistoryForWallet', id, username, orgName)
             .then((result) => {
-                console.log(result);
+                return result;
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));

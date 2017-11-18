@@ -588,11 +588,13 @@ switch (yargs._[0]) {
 		author();
 		process.exit(0);
 		break;
-	case 'user': //Done
+	case 'user': //Done /  Try node app user -u luna -o org1
 		console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.enrollUser(yargs.username, yargs.organization)
 			.then((message) => {
-				console.log(message);
+				console.log('Success:',chalk.green.bold(message.success));
+				console.log('Password:',chalk.yellow.bold(message.secret));
+				console.log('Message:',chalk.blue.bold(message.message));
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -605,7 +607,8 @@ switch (yargs._[0]) {
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.createChannel(yargs.name, yargs.path, yargs.username, yargs.organization)
 			.then((message) => {
-				console.log(message);
+				console.log('Success:',chalk.green.bold(message.success));
+				console.log('Message:',chalk.blue.bold(message.message));
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -618,7 +621,8 @@ switch (yargs._[0]) {
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.joinChannel(yargs.channel, yargs.peers, yargs.username, yargs.organization)
 			.then((message) => {
-				console.log(message);
+				console.log('Success:',chalk.green.bold(message.success));
+				console.log('Message:',chalk.blue.bold(message.message));
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -631,7 +635,7 @@ switch (yargs._[0]) {
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.installChaincode(yargs.peers, yargs.chaincode, yargs.path, yargs.version, yargs.username, yargs.organization)
 			.then((message) => {
-				console.log(message);
+				console.log(chalk.green.bold('Chaincode was installed successfully!'));
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -645,7 +649,7 @@ switch (yargs._[0]) {
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.instantiateChaincode(yargs.channel, yargs.chaincode, yargs.version, yargs.method, yargs.args, yargs.username, yargs.organization)
 			.then((message) => {
-				console.log(message);
+				console.log(chalk.green.bold('Chaincode was instantiated8 successfully!'));
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -735,8 +739,7 @@ switch (yargs._[0]) {
 	case 'ballet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.createWallets(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then(() => {
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -748,8 +751,7 @@ switch (yargs._[0]) {
 	case 'wallet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.walletRegistration(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.balance, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then(() => {
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -761,8 +763,15 @@ switch (yargs._[0]) {
 	case 'gwallet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getWallet(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then((result) => {
+				let table = new Table({
+                    head: ['Address', 'Balance']
+                });
+                    let tableLine = [];
+                    tableLine.push(result.address);
+                    tableLine.push(result.balance);
+                    table.push(tableLine);
+                console.log(table.toString());
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -774,8 +783,18 @@ switch (yargs._[0]) {
 	case 'rwallet': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getWalletByRange(yargs.peers, yargs.chaincode, yargs.channel, yargs.start, yargs.end, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then((result) => {
+				let table = new Table({
+                    head: ['Address', 'Balance']
+                });
+                let arrayLength = result.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    let tableLine = [];
+                    tableLine.push(result[i].Record.address);
+                    tableLine.push(result[i].Record.balance);
+                    table.push(tableLine);
+                }
+                console.log(table.toString());
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -788,7 +807,18 @@ switch (yargs._[0]) {
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.getWalletHistory(yargs.peers, yargs.chaincode, yargs.channel, yargs.id, yargs.username, yargs.organization)
 			.then((message) => {
-				console.log(message);
+				let table = new Table({
+                    head: ['TxID', 'Address', 'Funds','Timestamp']
+                });
+                for (let i = 0; i < message.length ; i++) {
+                    let tableLine = [];
+                    tableLine.push(message[i].TxId);
+                    tableLine.push(message[i].Value.address);
+					tableLine.push(message[i].Value.balance);
+					tableLine.push(message[i].Timestamp);
+                    table.push(tableLine);
+                }
+                console.log(table.toString());
 				process.exit(0);
 			})
 			.catch(function (err) {
@@ -824,8 +854,19 @@ switch (yargs._[0]) {
 	case 'schedule': //Done
 	console.log(chalk.bold.cyan('Lyra CLI App'), chalk.bold.green('Made by Aabo Technologies © 2017'));
 		hyper.createSchedule(yargs.peers, yargs.chaincode, yargs.channel, yargs.amount, yargs.username, yargs.organization)
-			.then((message) => {
-				console.log(message);
+			.then((schedule) => {
+				let table = new Table({
+                    head: ['From', 'To', 'Funds']
+                });
+                let arrayLength = schedule.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    let tableLine = [];
+                    tableLine.push(schedule[i].from);
+                    tableLine.push(schedule[i].to);
+                    tableLine.push(schedule[i].funds);
+                    table.push(tableLine);
+                }
+                console.log(table.toString());
 				process.exit(0);
 			})
 			.catch(function (err) {
