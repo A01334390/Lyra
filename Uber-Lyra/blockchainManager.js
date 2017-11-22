@@ -109,17 +109,18 @@ class BlockchainManager {
                     cannonBalls.push(this.invokeTransactions(peer, chaincodeName, chaincodeName, 'transferFunds', args, username, orgName));
                 }
                 start = now();
-                // Promise.resolve([])
-                // .then(all => cannonBalls[0].then(Array.prototype.concat.bind(all)))
-                return Promise.all(cannonBalls)
+
+                var chain;
+                return Promise.resolve([])
+                    .then(all => cannonBalls[0].then(Array.prototype.concat.bind(all)))
             })
             .then(() => {
                 end = now();
                 this.profilingTime(start, end, amount, 'tx');
-                return this.getWalletByRange(peer, chaincodeName, channelName, start, end, username, orgName);
+               // return this.getWalletByRange(peer, chaincodeName, channelName, start, end, username, orgName);
             })
             .then((ledger) => {
-                return this.syncChecker(ledger);
+                //return this.syncChecker(ledger);
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
@@ -235,9 +236,9 @@ class BlockchainManager {
         }
         //Launch the accounts
         start = now();
-        Promise.resolve([])
-        // .then(all => all_promise[0].then(Array.prototype.concat.bind(all)))
-        return Promise.all(all_promise)
+        
+        return Promise.resolve([])
+         .then(all => all_promise[0].then(Array.prototype.concat.bind(all)))
             .then(() => {
                 end = now();
                 this.profilingTime(start, end, amount, 'acc');
