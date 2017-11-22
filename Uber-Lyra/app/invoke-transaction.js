@@ -93,7 +93,7 @@ var invokeChaincode = function(peerNames, channelName, chaincodeName, fcn, args,
 					eh.registerTxEvent(transactionID, (tx, code) => {
 						clearTimeout(handle);
 						eh.unregisterTxEvent(transactionID);
-						eh.disconnect();
+						//eh.disconnect();
 
 						if (code !== 'VALID') {
 							logger.error(
