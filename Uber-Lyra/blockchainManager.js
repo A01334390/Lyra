@@ -109,7 +109,8 @@ class BlockchainManager {
                     cannonBalls.push(this.invokeTransactions(peer, chaincodeName, chaincodeName, 'transferFunds', args, username, orgName));
                 }
                 start = now();
-                return Promise.all(cannonBalls);
+                return Promise.resolve([])
+                .then(all => cannonBalls[0].then(Array.prototype.concat.bind(all)))
             })
             .then(() => {
                 end = now();
@@ -233,7 +234,8 @@ class BlockchainManager {
         }
         //Launch the accounts
         start = now();
-        return Promise.all(all_promise)
+        return Promise.resolve([])
+        .then(all => all_promise[0].then(Array.prototype.concat.bind(all)))
             .then(() => {
                 end = now();
                 this.profilingTime(start, end, amount, 'acc');
