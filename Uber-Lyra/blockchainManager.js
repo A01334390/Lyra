@@ -110,9 +110,7 @@ class BlockchainManager {
                 }
                 start = now();
 
-                var chain;
-                return Promise.resolve([])
-                    .then(all => cannonBalls[0].then(Array.prototype.concat.bind(all)))
+                return Promise.all(cannonBalls);
             })
             .then(() => {
                 end = now();
@@ -236,9 +234,7 @@ class BlockchainManager {
         }
         //Launch the accounts
         start = now();
-        
-        return Promise.resolve([])
-         .then(all => all_promise[0].then(Array.prototype.concat.bind(all)))
+        return Promise.all(all_promise)
             .then(() => {
                 end = now();
                 this.profilingTime(start, end, amount, 'acc');
