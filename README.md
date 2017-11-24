@@ -5,6 +5,7 @@ A Tecnologico de Monterrey's Blockchain Project built for performance
 Lyra has become two different projects, one of them is a POC built on Hyperledger Composer to show management how the application would be developed. While the other is built to work directly with the ledger. 
 * [**Composer-Lyra**](Composer-Lyra) - DEMO Version of Lyra
 * [**Fabric-Lyra**](Fabric-Lyra) - The real deal
+* [**Uber-Lyra**](Uber-Lyra) - The v2.0
 
 ## Versioning
 
