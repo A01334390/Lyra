@@ -109,16 +109,15 @@ class BlockchainManager {
                     cannonBalls.push(this.invokeTransactions(peer, chaincodeName, chaincodeName, 'transferFunds', args, username, orgName));
                 }
                 start = now();
-
                 return Promise.all(cannonBalls);
             })
             .then(() => {
                 end = now();
                 this.profilingTime(start, end, amount, 'tx');
-               // return this.getWalletByRange(peer, chaincodeName, channelName, start, end, username, orgName);
+                return this.getWalletByRange(peer, chaincodeName, channelName, '', '', username, orgName);
             })
             .then((ledger) => {
-                //return this.syncChecker(ledger);
+                return this.syncChecker(ledger);
             })
             .catch(function (err) {
                 console.log('An error occured: ', chalk.bold.red(err));
@@ -195,8 +194,8 @@ class BlockchainManager {
                 let schedule = [];
                 for (let i = 0; i < amount; i++) {
                     var tran = {
-                        from: result[2 * (i % result.length / 2)].Key,
-                        to: result[(2 * (i % result.length / 2)) + 1].Key,
+                        from: result[2 * (i)].Key,
+                        to: result[(2 * (i)) + 1].Key,
                         funds: Math.floor(Math.random() * (1000 - 10) + 10)
                     };
                     mongo.saveTx(tran);
@@ -309,7 +308,7 @@ class BlockchainManager {
         var args = [];
         args.push(from);
         args.push(to);
-        args.push(balance);
+        args.push(balance.toString());
         var tran = {
             from: from,
             to: to,
