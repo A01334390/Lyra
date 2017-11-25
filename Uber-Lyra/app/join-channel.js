@@ -26,7 +26,6 @@ var allEventhubs = [];
 
 
 var joinChannel = function(channelName, peers, username, org) {
-	// on process exit, always disconnect the event hub
 	var closeConnections = function(isSuccess) {
 		if (isSuccess) {
 			logger.debug('\n============ Join Channel is SUCCESS ============\n');
@@ -37,7 +36,6 @@ var joinChannel = function(channelName, peers, username, org) {
 		for (var key in allEventhubs) {
 			var eventhub = allEventhubs[key];
 			if (eventhub && eventhub.isconnected()) {
-				//logger.debug('Disconnecting the event hub');
 				eventhub.disconnect();
 			}
 		}
@@ -78,10 +76,7 @@ var joinChannel = function(channelName, peers, username, org) {
 				let handle = setTimeout(reject, parseInt(config.eventWaitTime));
 				eh.registerBlockEvent((block) => {
 					clearTimeout(handle);
-					// in real-world situations, a peer may have more than one channels so
-					// we must check that this block came from the channel we asked the peer to join
 					if (block.data.data.length === 1) {
-						// Config block must only contain one transaction
 						var channel_header = block.data.data[0].payload.header.channel_header;
 						if (channel_header.channel_id === channelName) {
 							resolve();

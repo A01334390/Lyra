@@ -96,11 +96,11 @@ var invokeChaincode = function(peerNames, channelName, chaincodeName, fcn, args,
 
 						if (code !== 'VALID') {
 							logger.error(
-								'The balance transfer transaction was invalid, code = ' + code);
+								'Transder was invalid, code = ' + code);
 							reject();
 						} else {
 							logger.info(
-								'The balance transfer transaction has been committed on peer ' +
+								'Transfer was commited ' +
 								eh._ep._endpoint.addr);
 							resolve();
 						}
@@ -111,7 +111,7 @@ var invokeChaincode = function(peerNames, channelName, chaincodeName, fcn, args,
 			var sendPromise = channel.sendTransaction(request);
 			return Promise.all([sendPromise].concat(eventPromises)).then((results) => {
 				logger.debug(' event promise all complete and testing complete');
-				return results[0]; // the first returned value is from the 'sendPromise' which is from the 'sendTransaction()' call
+				return results[0]; 
 			}).catch((err) => {
 				logger.error(
 					'Failed to send transaction and get notifications within the timeout period.'

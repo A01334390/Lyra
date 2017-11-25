@@ -21,7 +21,6 @@ var queryChaincode = function(peer, channelName, chaincodeName, args, fcn, usern
 	var target = buildTarget(peer, org);
 	return helper.getRegisteredUsers(username, org).then((user) => {
 		tx_id = client.newTransactionID();
-		// send query
 		var request = {
 			chaincodeId: chaincodeName,
 			txId: tx_id,
@@ -66,9 +65,8 @@ var getBlockByNumber = function(peer, blockNumber, username, org) {
 			err.stack : err;
 	}).then((response_payloads) => {
 		if (response_payloads) {
-			//logger.debug(response_payloads);
 			logger.debug(response_payloads);
-			return response_payloads; //response_payloads.data.data[0].buffer;
+			return response_payloads; 
 		} else {
 			logger.error('response_payloads is null');
 			return 'response_payloads is null';
@@ -151,11 +149,9 @@ var getChainInfo = function(peer, username, org) {
 			err.stack : err;
 	}).then((blockchainInfo) => {
 		if (blockchainInfo) {
-			// FIXME: Save this for testing 'getBlockByHash'  ?
 			logger.debug('===========================================');
 			logger.debug(blockchainInfo.currentBlockHash);
 			logger.debug('===========================================');
-			//logger.debug(blockchainInfo);
 			return blockchainInfo;
 		} else {
 			logger.error('response_payloads is null');
@@ -222,7 +218,6 @@ var getChannels = function(peer, username, org) {
 	var client = helper.getClientForOrg(org);
 
 	return helper.getRegisteredUsers(username, org).then((member) => {
-		//channel.setPrimaryPeer(targets[0]);
 		return client.queryChannels(target);
 	}, (err) => {
 		logger.info('Failed to get submitter "' + username + '"');

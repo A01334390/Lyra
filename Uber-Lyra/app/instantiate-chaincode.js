@@ -27,16 +27,12 @@ var instantiateChaincode = function(channelName, chaincodeName, chaincodeVersion
 	var client = helper.getClientForOrg(org);
 
 	return helper.getOrgAdmin(org).then((user) => {
-		// read the config block from the orderer for the channel
-		// and initialize the verify MSPs based on the participating
-		// organizations
 		return channel.initialize();
 	}, (err) => {
 		logger.error('Failed to enroll user \'' + username + '\'. ' + err);
 		throw new Error('Failed to enroll user \'' + username + '\'. ' + err);
 	}).then((success) => {
 		tx_id = client.newTransactionID();
-		// send proposal to endorser
 		var request = {
 			chaincodeId: chaincodeName,
 			chaincodeVersion: chaincodeVersion,
@@ -76,9 +72,6 @@ var instantiateChaincode = function(channelName, chaincodeName, chaincodeVersion
 				proposalResponses: proposalResponses,
 				proposal: proposal
 			};
-			// set the transaction listener and set a timeout of 30sec
-			// if the transaction did not get committed within the timeout period,
-			// fail the test
 			var deployId = tx_id.getTransactionID();
 
 			eh = client.newEventHub();
